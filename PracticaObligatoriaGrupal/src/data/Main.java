@@ -5,6 +5,8 @@
  */
 package data;
 
+import java.io.IOException;
+
 /**
  *
  * @author Phoenix
@@ -14,8 +16,11 @@ public class Main {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public static void main(String[] args) throws IOException {
+        Mundial f1= new Mundial();
+        Circuito monaco= new Circuito();
+        f1.cargarDatosCircuito();
+        f1.modificar();
     }
     
 }
