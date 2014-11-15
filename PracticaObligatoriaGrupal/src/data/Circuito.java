@@ -19,6 +19,7 @@ public class Circuito {
     private ArrayList <Curva> listaCurvas;
     private ArrayList <Recta> listaRectas;
     Scanner teclado = new Scanner(System.in);
+    
     public Circuito(String nombre, String patrocinador,int rectas,int curvas,
            double precio,int aforo,ArrayList listaCurvas,ArrayList listaRectas){
         this.setNombre(nombre);
@@ -38,7 +39,7 @@ public class Circuito {
      }
     }
     
-     public void añadirResctas(){
+     public void añadirRectas(){
     int r=this.rectas;
     int l;//tengo q poner un scan  para iniciar la l por teclado
     l=teclado.nextInt();
