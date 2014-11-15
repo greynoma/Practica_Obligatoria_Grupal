@@ -5,13 +5,93 @@
  */
 package data;
 
+ import java.util.ArrayList;
+   
 /**
  *
- * @author sergio
+ * @author victor
  */
 public class Circuito {
+    private String nombre,patrocinador;
+    private double precio;
+    private int rectas,curvas,aforo;
+    private ArrayList <Curva> listaCurvas;
+    private ArrayList <Recta> listaRectas;
     
+    public Circuito(String nombre, String patrocinador,int rectas,int curvas,
+           double precio,int aforo,ArrayList listaCurvas,ArrayList listaRectas){
+        this.setNombre(nombre);
+        this.setPatrocinador(patrocinador);
+        this.setRectas(rectas);
+        this.setCurvas(curvas);
+        this.setPrecio(precio);
+        this.listaCurvas = new ArrayList ();
+        
+    }
+    public void añadir(){
+    int c=this.curvas;
+    int l;//tengo q poner un scan  para iniciar la l por teclado
+     for (int i=0; i == c ;i++){
+      listaCurvas.add(new Curva(l));   
+     }
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+     public int getAforo() {
+        return aforo;
+    }
+
+    public void setAforo(int nombre) {
+        this.aforo = aforo;
+    }
     
+    public String getPatrocinador() {
+        return patrocinador;
+    }
+
+    public void setPatrocinador(String patrocinador) {
+        this.patrocinador = patrocinador;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public int getRectas() {
+        return rectas;
+    }
+
+    public void setRectas(int rectas) {
+        this.rectas = rectas;
+        if (this.rectas < 0){
+        this.rectas = 0;
+        }
+    }
+    public int getCurvas() {
+        return curvas;
+    }
+
+    public void setCurvas(int curvas) {
+        this.curvas = curvas;
+        if (this.curvas < 0){
+        this.curvas = 0;
+        }
+    }
+  
+            
     
 }
