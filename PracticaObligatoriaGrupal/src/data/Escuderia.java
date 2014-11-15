@@ -33,6 +33,26 @@ public class Escuderia {
         this.presupuesto=presupuesto;
     }
 
+    public void ficharPiloto(){}
+    public void comprobarLimite(){}
+    public void descartarPiloto(){}
+    public void iniciarEntrenamiento(){}
+    public void realizarPago(){}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /////////////////////////////////////////////////////////////////////
     public String getDueño() {
         return dueño;
     }
