@@ -6,6 +6,7 @@
 package data;
 
  import java.util.ArrayList;
+import java.util.Scanner;
    
 /**
  *
@@ -17,7 +18,7 @@ public class Circuito {
     private int rectas,curvas,aforo;
     private ArrayList <Curva> listaCurvas;
     private ArrayList <Recta> listaRectas;
-    
+    Scanner teclado = new Scanner(System.in);
     public Circuito(String nombre, String patrocinador,int rectas,int curvas,
            double precio,int aforo,ArrayList listaCurvas,ArrayList listaRectas){
         this.setNombre(nombre);
@@ -28,14 +29,23 @@ public class Circuito {
         this.listaCurvas = new ArrayList ();
         
     }
-    public void añadir(){
+    public void añadirCurvas(){
     int c=this.curvas;
     int l;//tengo q poner un scan  para iniciar la l por teclado
+    l=teclado.nextInt();
      for (int i=0; i == c ;i++){
       listaCurvas.add(new Curva(l));   
      }
     }
     
+     public void añadirResctas(){
+    int r=this.rectas;
+    int l;//tengo q poner un scan  para iniciar la l por teclado
+    l=teclado.nextInt();
+     for (int i=0; i == r ;i++){
+      listaCurvas.add(new Curva(l));   
+     }
+    }
     ////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
