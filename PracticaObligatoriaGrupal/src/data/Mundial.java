@@ -22,7 +22,7 @@ public class Mundial {
    private boolean comienzo;
    private DatosCircuito[] dcir= new DatosCircuito[5];
    private ArrayList<DatosCircuito> datcir =new ArrayList <DatosCircuito> ();
-   private Scanner opcion;
+   
    
    
 
@@ -31,7 +31,7 @@ public class Mundial {
    }
    public void darAlta(Escuderia a){
    }
-    public void darAlta(Circuito a){
+   public void darAlta(){
         
     }
    public void cargarDatosCircuito() throws IOException{
@@ -125,7 +125,6 @@ public class Mundial {
                casilla++;
            }
            JOptionPane.showMessageDialog(null, mostrar);
-           ArrayList<DatosCircuito> datcir =new ArrayList <DatosCircuito> (Arrays.asList(dcir));
    }   
     
        
@@ -143,12 +142,15 @@ public class Mundial {
    public void modificar(Escuderia a){
    }*/
    
-    public void modificar(Circuito a)throws IOException{
+    public void modificar()throws IOException{
+        Scanner opcion = new Scanner (System.in);
         String respuesta;
         System.out.println ("Desea modificar algun rasgo de algun  circuito? Y/N"); // Preguntamos 
         
         respuesta = opcion.next(); 
-            while (respuesta.equals("s") || respuesta.equals("S")){
+        boolean ejecutar= false;
+        while ((respuesta.equals("s") || respuesta.equals("S")) & (ejecutar==false)){
+                
                 Double valor;
                 int tramo;
                 Double canon;
@@ -156,10 +158,11 @@ public class Mundial {
                 String nomcir;
                 int circuito;
                 String campo;
+        
                 System.out.println ("Que circuito desea modificar? 0/1/2/3/4");
                 circuito=opcion.nextInt();
                 if (dcir[circuito] ==null){break;}
-                while (circuito==0 | circuito==1 | circuito==2 | circuito==3 |circuito==4){
+                while ((circuito==0 | circuito==1 | circuito==2 | circuito==3 |circuito==4)  & (ejecutar==false)){
                     int i=circuito;
                     System.out.println("Actualmente el circuito "+i+" tiene estas caracteristicas:");
                     System.out.println("Circuito["+i+"]");
@@ -171,73 +174,98 @@ public class Mundial {
 
                     System.out.println ("Que campo desea modificar? N/P/€/R/C");
                     campo=opcion.next();
-                    while (campo.equals("N")){
+                    while (campo.equals("N") | campo.equals("n")& (ejecutar==false)){
                         System.out.println("Como quieres que se llame el circuito "+i+"?");
                         nomcir=opcion.next();
                         dcir[i].setNombre(nomcir);
+                        break;
                     }
-                    while (campo.equals("P")){
+                    while (campo.equals("P") | campo.equals("p")& (ejecutar==false)){
                         System.out.println("Cual es el nuevo patrocinador del circuito "+i+"?");
                         patrocinador=opcion.next();
                         dcir[i].setPatrocinador(patrocinador);
+                        break;
                     }
-                    while (campo.equals("€")){
+                    while (campo.equals("€")& (ejecutar==false)){
                         System.out.println("Cual es el nuevo canon del circuito "+i+"?");
                         canon=opcion.nextDouble();
                         dcir[i].setPrecio(canon);
+                        break;
                     }
-                    while (campo.equals("R")){
+                    while (campo.equals("R") | campo.equals("r")  & (ejecutar==false)){
                         System.out.println("Que recta desea modificar del circuito "+i+"? 0/1/2/3");
                         tramo=opcion.nextInt();
-                        while (tramo==0){
+                        switch (tramo){
+                        case 0:
                             System.out.println("¿Que valor quiere que tenga la recta "+tramo+"?");
                             valor=opcion.nextDouble();
                             dcir[i].setRecta0(valor);
-                        }   
-                        while (tramo==1){
+                            break;
+                           
+                        case 1:
                             System.out.println("¿Que valor quiere que tenga la recta "+tramo+"?");
                             valor=opcion.nextDouble();
                             dcir[i].setRecta1(valor);
-                        }   
-                        while (tramo==2){
+                            break;
+                           
+                        case 2:
                             System.out.println("¿Que valor quiere que tenga la recta "+tramo+"?");
                             valor=opcion.nextDouble();
                             dcir[i].setRecta2(valor);
-                        }   
-                        while (tramo==3){
+                            break;
+                           
+                        case 3:
                             System.out.println("¿Que valor quiere que tenga la recta "+tramo+"?");
                             valor=opcion.nextDouble();
                             dcir[i].setRecta3(valor);
-                        }   
+                            break;
+                           
                     }
-                    while (campo.equals("C")){
+                        break;
+                    }
+                    while (campo.equals("C") | campo.equals("c") & (ejecutar==false)){
                         System.out.println("Que curva desea modificar del circuito "+i+"? 0/1/2/3");
                         tramo=opcion.nextInt();
-                        while (tramo==0){
+                        switch (tramo){
+                        case 0:
                             System.out.println("¿Que valor quiere que tenga la curva "+tramo+"?");
                             valor=opcion.nextDouble();
-                            dcir[i].setCurva0(valor);
-                        }   
-                        while (tramo==1){
+                            dcir[i].setRecta0(valor);
+                            break;
+                           
+                        case 1:
                             System.out.println("¿Que valor quiere que tenga la curva "+tramo+"?");
                             valor=opcion.nextDouble();
-                            dcir[i].setCurva1(valor);
-                        }   
-                        while (tramo==2){
+                            dcir[i].setRecta1(valor);
+                            break;
+                           
+                        case 2:
                             System.out.println("¿Que valor quiere que tenga la curva "+tramo+"?");
                             valor=opcion.nextDouble();
-                            dcir[i].setCurva2(valor);
-                        }   
-                        while (tramo==3){
+                            dcir[i].setRecta2(valor);
+                            break;
+                           
+                        case 3:
                             System.out.println("¿Que valor quiere que tenga la curva "+tramo+"?");
                             valor=opcion.nextDouble();
-                            dcir[i].setCurva3(valor);
-                        }    
+                            dcir[i].setRecta3(valor);
+                            break;
+                           
                     }
-                }
-
-            }
+                    }
+                    System.out.println("Desea hacer mas cambios?:");
+                    cambios=opcion.next();    
+                    if (cambios.equals("S") | cambios.equals("s")){
+                        ejecutar=false;
+                    }
+                    else {
+                        ejecutar=true;
         }
+                    }   
+                    
+                    
+            }
 
     
+}
 }
