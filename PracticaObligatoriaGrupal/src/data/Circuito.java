@@ -19,6 +19,7 @@ public class Circuito {
     private ArrayList <Curva> listaCurvas;
     private ArrayList <Recta> listaRectas;
     Scanner teclado = new Scanner(System.in);
+    private int posicion[] = new int[10];
     
     public Circuito(String nombre, String patrocinador,int rectas,int curvas,
            double precio,int aforo,ArrayList listaCurvas,ArrayList listaRectas){
@@ -47,6 +48,10 @@ public class Circuito {
       listaCurvas.add(new Curva(l));   
      }
     }
+     
+     public void pagar (){
+         escuderia.posicion[1]=
+     }
     ////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
