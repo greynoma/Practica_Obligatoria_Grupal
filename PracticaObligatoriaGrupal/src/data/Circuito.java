@@ -19,7 +19,7 @@ public class Circuito {
     private ArrayList <Curva> listaCurvas;
     private ArrayList <Recta> listaRectas;
     Scanner teclado = new Scanner(System.in);
-    private int posicion[] = new int[10];
+    private Piloto posicion[] = new Piloto[10];
     
     public Circuito(String nombre, String patrocinador,int rectas,int curvas,
            double precio,int aforo,ArrayList listaCurvas,ArrayList listaRectas){
@@ -50,7 +50,13 @@ public class Circuito {
     }
      
      public void pagar (){
-         escuderia.posicion[1]=
+       // tengo que cojer la escuderia del piloto y sumarler al presupuesto el premio
+         posicion[0].getEscuderia().setPresupuesto(posicion[0].getEscuderia().getPresupuesto()+100000);
+         posicion[1].getEscuderia().setPresupuesto(posicion[1].getEscuderia().getPresupuesto()+75000);
+         posicion[2].getEscuderia().setPresupuesto(posicion[2].getEscuderia().getPresupuesto()+50000);
+         posicion[3].getEscuderia().setPresupuesto(posicion[3].getEscuderia().getPresupuesto()+25000);
+         posicion[4].getEscuderia().setPresupuesto(posicion[4].getEscuderia().getPresupuesto()+15000);
+         posicion[5].getEscuderia().setPresupuesto(posicion[5].getEscuderia().getPresupuesto()+10000);
      }
     ////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////

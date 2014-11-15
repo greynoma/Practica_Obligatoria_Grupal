@@ -12,11 +12,41 @@ package data;
 public class Piloto {
  private String  nombre , apellido;
  private int edad ,puntos;
- private String escuderia;
+ private Escuderia escuderia;
  private boolean tipo; 
  private double  altura, peso,reflejos, agresividad, paciencia, valentia, valor, sueldo;
 
-   public Piloto(String nombre, String apellido,int edad,String escuderia,int altura,int peso,
+   public Piloto(Piloto p){
+       this.setAgresividad(p.agresividad);
+     this.setAltura(p.altura);
+     this.setApellido(p.apellido);
+     this.setEdad(p.edad);
+     this.setEscuderia(p.escuderia);
+     this.setNombre(p.nombre);
+     this.setPaciencia(p.paciencia);
+     this.setPeso(p.peso);
+     this.setReflejos(p.reflejos);
+     this.setValentia(p.valentia);
+     this.calcular();
+       
+       
+   }
+   public Piloto(String nombre, String apellido,int edad,Escuderia escuderia,int altura,int peso,
+           double reflejos,double agresividad,double paciencia,double valentia){
+     this.setAgresividad(agresividad);
+     this.setAltura(altura);
+     this.setApellido(apellido);
+     this.setEdad(edad);
+     this.setEscuderia(escuderia);
+     this.setNombre(nombre);
+     this.setPaciencia(paciencia);
+     this.setPeso(peso);
+     this.setReflejos(reflejos);
+     this.setValentia(valentia);
+     this.calcular();
+       
+   }
+   public Piloto(String nombre, String apellido,int edad,int altura,int peso,
            double reflejos,double agresividad,double paciencia,double valentia){
      this.setAgresividad(agresividad);
      this.setAltura(altura);
@@ -48,7 +78,7 @@ public class Piloto {
    public double participarcarrera(){ //coje el valor del piloto para sumarlo al cohe en el metodo carrera
     return this.getValor();
 }
-   public void contrato(String contratante){ //ficha por un escuderia
+   public void contrato(Escuderia contratante){ //ficha por un escuderia
      this.setEscuderia(contratante);
    }
    public void despido(){ //despedido por la scuderia
@@ -106,7 +136,7 @@ public class Piloto {
         return peso;
     }
 
-    public void setPeso(int peso) {
+    public void setPeso(double peso) {
         this.peso = peso;
     }
 
@@ -188,11 +218,11 @@ public class Piloto {
         this.puntos = puntos;
     }
 
-    public String getEscuderia() {
+    public Escuderia getEscuderia() {
         return escuderia;
     }
 
-    public void setEscuderia(String escuderia) {
+    public void setEscuderia(Escuderia escuderia) {
         this.escuderia = escuderia;
     }
 
