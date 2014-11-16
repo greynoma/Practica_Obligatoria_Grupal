@@ -14,12 +14,13 @@ import java.util.Scanner;
  */
 public class Circuito {
     private String nombre,patrocinador;
-    private double precio;
-    private int rectas,curvas,aforo;
+    private double precio,tiempoCoche,tiempoPiloto;
+    private int rectas,curvas,aforo,lCurva,lRecta;
     private ArrayList <Curva> listaCurvas;
     private ArrayList <Recta> listaRectas;
     Scanner teclado = new Scanner(System.in);
     private Piloto posicion[] = new Piloto[10];
+    private Piloto participante[] = new Piloto[25];
     
     public Circuito(String nombre, String patrocinador,int rectas,int curvas,
            double precio,int aforo,ArrayList listaCurvas,ArrayList listaRectas){
@@ -57,6 +58,29 @@ public class Circuito {
          posicion[3].getEscuderia().setPresupuesto(posicion[3].getEscuderia().getPresupuesto()+25000);
          posicion[4].getEscuderia().setPresupuesto(posicion[4].getEscuderia().getPresupuesto()+15000);
          posicion[5].getEscuderia().setPresupuesto(posicion[5].getEscuderia().getPresupuesto()+10000);
+     }
+     public void puntos(){
+         posicion[0].setPuntos(posicion[0].getPuntos()+25);
+         posicion[1].setPuntos(posicion[0].getPuntos()+18);
+         posicion[2].setPuntos(posicion[0].getPuntos()+15);
+         posicion[3].setPuntos(posicion[0].getPuntos()+12);
+         posicion[4].setPuntos(posicion[0].getPuntos()+10);
+         posicion[5].setPuntos(posicion[0].getPuntos()+8);
+         posicion[6].setPuntos(posicion[0].getPuntos()+6);
+         posicion[7].setPuntos(posicion[0].getPuntos()+4);
+         posicion[8].setPuntos(posicion[0].getPuntos()+2);
+         posicion[9].setPuntos(posicion[0].getPuntos()+1);
+     }
+     public void tiempos(Piloto p){
+         for (int i=0; i == this.curvas ;i++){
+             lCurva=+listaCurvas.get(i).getL(); //arry list tienes que usar .get(i) para cojer el objeto
+         }
+         for (int i=0; i == this.curvas ;i++){
+             lRecta=+listaRectas.get(i).getL(); //arry list tienes que usar .get(i) para cojer el objeto
+         }
+         for (int i=0; i == 25 ;i++){
+             participante[i].setTiempo(((lRecta/participante[i].getCoche().getVelMaxRecta())+(lCurva/participante[i].getCoche().getVelMaxCurva()))-( participante[i].getValor()*0.1));
+         } //ahora ahy que ordenar los tiempos para la clasificacion
      }
     ////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
@@ -113,7 +137,7 @@ public class Circuito {
         this.curvas = 0;
         }
     }
-  
+
             
     
 }

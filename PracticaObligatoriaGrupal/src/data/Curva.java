@@ -9,7 +9,7 @@ package data;
  *
  * @author victor
  */
- public class Curva {
+  public class Curva {
    private int l;
 
     public Curva(int l) {
@@ -26,3 +26,5 @@ package data;
     }
    
  }
+    
+

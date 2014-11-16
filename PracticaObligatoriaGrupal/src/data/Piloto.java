@@ -13,8 +13,9 @@ public class Piloto {
  private String  nombre , apellido;
  private int edad ,puntos;
  private Escuderia escuderia;
+ private Coche coche;
  private boolean tipo; 
- private double  altura, peso,reflejos, agresividad, paciencia, valentia, valor, sueldo;
+ private double  tiempo,altura, peso,reflejos, agresividad, paciencia, valentia, valor, sueldo;
 
    public Piloto(Piloto p){
        this.setAgresividad(p.agresividad);
@@ -78,6 +79,9 @@ public class Piloto {
    public double participarcarrera(){ //coje el valor del piloto para sumarlo al cohe en el metodo carrera
     return this.getValor();
 }
+   public void Conducir(Coche coche){ //asigna un coche a un piloto
+       this.setCoche(coche);
+   }
    public void contrato(Escuderia contratante){ //ficha por un escuderia
      this.setEscuderia(contratante);
    }
@@ -110,6 +114,14 @@ public class Piloto {
 
     public String getApellido() {
         return apellido;
+    }
+
+    public Coche getCoche() {
+        return coche;
+    }
+
+    public void setCoche(Coche coche) {
+        this.coche = coche;
     }
 
     public void setApellido(String apellido) {
@@ -232,6 +244,14 @@ public class Piloto {
 
     public void setTipo(boolean tipo) {
         this.tipo = tipo;
+    }
+
+    public double getTiempo() {
+        return tiempo;
+    }
+
+    public void setTiempo(double tiempo) {
+        this.tiempo = tiempo;
     }
  
  
