@@ -5,13 +5,15 @@
  */
 package data;
 
+import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author David Sánchez Dueñas
  */
-public class Escuderia {
+public class Escuderia implements Serializable{
     private String dueño, nombre, pais;
     private int añoFundacion, puntosMundial;
     private double presupuesto;
@@ -58,38 +60,59 @@ public class Escuderia {
         this.presupuesto=e.getPresupuesto();
     }
     
-    public void ficharPiloto(){}
-    public void comprobarLimite(){}
+    /**
+    *Ficha un piloto para la escuderia
+    * 
+     * @param archivo: Archivo donde buscar el piloto
+     * @param nombrePiloto: Nombre del piloto a fichar
+    */
+    public void ficharPiloto(File archivo, String nombrePiloto){
+        
+        //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
+        //2º Obtener el arrayList
+        
+    
+            
+            //3º Buscar al piloto y añadirlo como hice con los coches (Comprobar que existe el piloto y que hay hueco)
+            //4º Eliminar piloto del ArrayList
+            //5º Sobreescribir archivo guardando el nuevo ArrayList sin piloto
+            //?º
+            //Profits! :)
+
+    }
+    public void comprobarLimite(){}//Es demasiado facil, creo que no hace falta ni usarlo
     public void descartarPiloto(){}
     public void iniciarEntrenamiento(){}
     public void realizarPago(){}
     public void iniciarMundial(){}
     public void pagarSueldo(){}
-    public void comprobarDinero(){}
+    public boolean comprobarDinero(double deudas){//Quiza es un metodo demasiado sencillo
+        return this.presupuesto>deudas;
+    }
     
     
     
     
     /**
-    *Crea un coche a partir de datos y lo introduce en el array coches de la escuderia
+    *Crea un coche a partir de datos y lo introduce en el array de coches de la escuderia
     * 
     */
     public void crearCoche(String modelo, double neumaticos, double potencia, double aerodinamica){
         boolean insertado=false;
-        for (int i = 0; i < this.coches.length; i++) {
-            if (this.coches[i]==null & !insertado) {
-            this.coches[i]=new Coche(modelo, neumaticos, potencia, aerodinamica);
+        for (int i = 0; i < this.coches.length; i++) {  //for que recorre las dos posiciones del array
+            if (this.coches[i]==null & !insertado) {    //si esta vacio y no se ha insertado...
+            this.coches[i]=new Coche(modelo, neumaticos, potencia, aerodinamica);//lo insertas
             System.out.println("Hay actualmente "+(i+1)+" vehiculo/s en la escuderia");
             insertado=true;
             } 
         }
-        if(!insertado){
+        if(!insertado){ //si despues de comprobar el array no se ha insertado, es que estaba lleno
             System.out.println("Se ha alcanzado el numero maximo de coches para esta escuderia: "+this.coches.length+", vehiculo no insertado");
         }
     }
     
     /**
-    *Crea un coche a partir de otro coche existente y lo introduce en el array coches de la escuderia
+    *Crea un coche a partir de otro coche existente y lo introduce en el array de coches de la escuderia
     * 
     */
     public void crearCoche(Coche c){

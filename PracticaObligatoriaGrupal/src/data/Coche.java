@@ -5,11 +5,13 @@
  */
 package data;
 
+import java.io.Serializable;
+
 /**
  *
  * @author David Sánchez Dueñas
  */
-public class Coche {
+public class Coche implements Serializable{
     private String modelo;
 
     private double neumaticos,potencia,aerodinamica; 
@@ -28,7 +30,6 @@ public class Coche {
     
     public double getVelMaxRecta() {
         return(this.aerodinamica*30)+(this.potencia*20);
-        
     }
 
     public double getVelMaxCurva() {
