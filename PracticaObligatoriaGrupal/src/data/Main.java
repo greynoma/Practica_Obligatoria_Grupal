@@ -21,6 +21,12 @@ public class Main {
         Circuito monaco= new Circuito();
         f1.cargarDatosCircuito();
         f1.modificar();
+        
+        /*Escuderia mercedes= new Escuderia("Tom Morello", "Mercedes", "Tegucigalpa", 1985, 0, 10000.5, null);
+        mercedes.crearCoche("M-100", 3, 2, 1);
+        mercedes.crearCoche("M-105", 3, 2, 1);
+        mercedes.crearCoche("M-205", 3, 2, 1);
+        */   
     }
     
 }
