@@ -14,9 +14,9 @@ import java.io.Serializable;
 public class Piloto implements Serializable {   //victor, he puesto que sea serializable la clase piloto para poderla guardar en el archivo(David)
  private String  nombre , apellido;
  private int edad ,puntos;
- private transient Escuderia escuderia;         //aqui he puesto transient para que al guardarlo en el archivo, como no tiene escuderia (es un piloto libre) se borre la informacion automaticamente(David)
+ private Escuderia escuderia;         
  private Coche coche;
- private transient boolean tipo;                //aqui he puesto transient para que al guardarlo en el archivo, se borre la informacion automaticamente(David)
+ private boolean tipo;                
  private double  tiempo,altura, peso,reflejos, agresividad, paciencia, valentia, valor, sueldo;
 
    public Piloto(Piloto p){
