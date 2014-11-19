@@ -52,6 +52,7 @@ public class Escuderia implements Serializable{
     /**
      * Permite clonar una escuderia a partir de otra ya existente
      * 
+     * @param e: escuderia que se desea clonar
      */
     public Escuderia(Escuderia e) {
         this.añoFundacion=e.getAñoFundacion();
@@ -71,6 +72,7 @@ public class Escuderia implements Serializable{
     * 
      * @param archivo: Ubicacion del archivo donde buscar el piloto ejem: /tmp/pilotos.bin
      * @param nombrePiloto: Nombre del piloto a fichar
+     * @param apellidoPiloto: Apellido del piloto a fichar
     */
     public void ficharPiloto(String archivo, String nombrePiloto, String apellidoPiloto){
         ArrayList<Piloto> pilotos = new ArrayList();
@@ -119,6 +121,7 @@ public class Escuderia implements Serializable{
                             if (this.pilotoOficial[x]==null & !insertado) {    //si esta vacio y no se ha insertado...
                                 this.pilotoOficial[x]=pilotos.get(i);//lo insertas
                                 this.pilotoOficial[x].setTipo(true);//le haces piloto oficial
+                                this.pilotoOficial[x].setEscuderia(this);//le ligas a esta escuderia
                                 System.out.println("Hay actualmente "+(x+1)+" piloto/s oficial/es en la escuderia");
                                 insertado=true;
 
@@ -135,6 +138,7 @@ public class Escuderia implements Serializable{
                             if (this.pilotoProbador[x]==null & !insertado) {    //si esta vacio y no se ha insertado...
                                 this.pilotoProbador[x]=pilotos.get(i);//lo insertas
                                 this.pilotoOficial[x].setTipo(false);//le haces piloto probador
+                                this.pilotoOficial[x].setEscuderia(this);//le ligas a esta escuderia
                                 System.out.println("Hay actualmente "+(x+1)+" piloto/s probador/es en la escuderia");
                                 insertado=true;
 
@@ -175,12 +179,16 @@ public class Escuderia implements Serializable{
             
 
     }
-    public void comprobarLimite(){}//Es demasiado facil, no hace falta ni usarlo
     public void descartarPiloto(){}
+    public void pagarSueldo(){}
     public void iniciarEntrenamiento(){}
     public void realizarPago(){}
     public void iniciarMundial(){}
-    public void pagarSueldo(){}
+    
+    
+    public void comprobarLimite(){System.out.println("no lo he implementado porque no se necesita BORRAR");}//Es demasiado facil, no hace falta ni usarlo
+    
+    
     
     /**
      *comprueba rapidamente si las deudas exceden el dinero de la escuderia, me parece un metodo demasiado sencillo...
@@ -190,10 +198,7 @@ public class Escuderia implements Serializable{
     public boolean comprobarDinero(double deudas){//Quiza es un metodo demasiado sencillo
         return this.presupuesto>deudas;
     }
-    
-    
-    
-    
+
     /**
     *Crea un coche a partir de datos y lo introduce en el array de coches de la escuderia
     * 
@@ -215,6 +220,7 @@ public class Escuderia implements Serializable{
     /**
     *Crea un coche a partir de otro coche existente y lo introduce en el array de coches de la escuderia
     * 
+     * @param c: coche a clonar dentro de la escuderia
     */
     public void crearCoche(Coche c){
         boolean insertado=false;
@@ -229,20 +235,7 @@ public class Escuderia implements Serializable{
             System.out.println("Se ha alcanzado el numero maximo de coches para esta escuderia: "+this.coches.length+", vehiculo no insertado");
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     /////////////SETERS Y GETERS/////////////////////////////////////////
     public String getDueño() {
         return dueño;
