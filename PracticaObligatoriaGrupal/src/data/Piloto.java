@@ -5,16 +5,18 @@
  */
 package data;
 
+import java.io.Serializable;
+
 /**
  *
  * @author victor m martinezs severiano
  */
-public class Piloto {
+public class Piloto implements Serializable {   //victor, he puesto que sea serializable la clase piloto para poderla guardar en el archivo(David)
  private String  nombre , apellido;
  private int edad ,puntos;
- private Escuderia escuderia;
+ private transient Escuderia escuderia;         //aqui he puesto transient para que al guardarlo en el archivo, como no tiene escuderia (es un piloto libre) se borre la informacion automaticamente(David)
  private Coche coche;
- private boolean tipo; 
+ private transient boolean tipo;                //aqui he puesto transient para que al guardarlo en el archivo, se borre la informacion automaticamente(David)
  private double  tiempo,altura, peso,reflejos, agresividad, paciencia, valentia, valor, sueldo;
 
    public Piloto(Piloto p){

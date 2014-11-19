@@ -6,8 +6,14 @@
 package data;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -63,29 +69,124 @@ public class Escuderia implements Serializable{
     /**
     *Ficha un piloto para la escuderia
     * 
-     * @param archivo: Archivo donde buscar el piloto
+     * @param archivo: Ubicacion del archivo donde buscar el piloto ejem: /tmp/pilotos.bin
      * @param nombrePiloto: Nombre del piloto a fichar
     */
-    public void ficharPiloto(File archivo, String nombrePiloto){
+    public void ficharPiloto(String archivo, String nombrePiloto, String apellidoPiloto){
+        ArrayList<Piloto> pilotos = new ArrayList();
+        File comprobarFichero = new File(archivo);
+        int seleccion=0;
+        Scanner escaner = new Scanner (System.in);
         
         //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
-        //2º Obtener el arrayList
-        
-    
+        if (comprobarFichero.exists()) {
+            try{
+                FileInputStream fileIn = new FileInputStream(archivo);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                
+                //2º Obtener el arrayList
+                pilotos = (ArrayList<Piloto>) in.readObject();
+
+                //por alguna extraña razon no me deja cerrar los Stream en el finally
+                in.close();
+                fileIn.close();
+            }
+            catch(IOException i){
+                System.out.println("Se ha detectado un error: ");
+                i.printStackTrace();
+            }
+            catch(ClassNotFoundException c){
+                System.out.println("No se ha encontrado lo que buscaba");
+                c.printStackTrace();
+            }
+            finally{//aqui deberia cerrar los Stream pero no me deja
+            }
             
-            //3º Buscar al piloto y añadirlo como hice con los coches (Comprobar que existe el piloto y que hay hueco)
-            //4º Eliminar piloto del ArrayList
-            //5º Sobreescribir archivo guardando el nuevo ArrayList sin piloto
-            //?º
-            //Profits! :)
+            //3º Buscar al piloto y comprueba si se quiere guardar como probador u oficial,
+            for (int i = 0; i < pilotos.size(); i++) {
+                if (pilotos.get(i).getNombre().equals(nombrePiloto) && pilotos.get(i).getApellido().equals(apellidoPiloto)) {
+                    System.out.print("Seleccione una opcion, el piloto "+nombrePiloto+" "+apellidoPiloto+" sera:");
+                    while(seleccion!=1 | seleccion!=2){
+                        System.out.println(" probador(1), oficial(2)");
+                        seleccion = escaner.nextInt();
+                        System.out.println("");
+                    }
+
+                    //4ºdespues añadirlo como hice con los coches (Comprobar que existe el piloto y que hay hueco)
+                    boolean insertado=false;
+                    if (seleccion==2) {
+                        for (int x = 0; x < this.pilotoOficial.length; x++) {  //for que recorre las dos posiciones del array
+                            if (this.pilotoOficial[x]==null & !insertado) {    //si esta vacio y no se ha insertado...
+                                this.pilotoOficial[x]=pilotos.get(i);//lo insertas
+                                this.pilotoOficial[x].setTipo(true);//le haces piloto oficial
+                                System.out.println("Hay actualmente "+(x+1)+" piloto/s oficial/es en la escuderia");
+                                insertado=true;
+
+                                //4º Eliminar piloto del ArrayList
+                                pilotos.remove(i);
+                        } 
+                        }
+                        if(!insertado){ //si despues de comprobar el array no se ha insertado, es que estaba lleno
+                            System.out.println("Se ha alcanzado el numero maximo de pilotos oficiales para esta escuderia: "+this.pilotoOficial.length+", piloto no insertado");
+                        }
+                    }
+                    else if(seleccion==1){
+                        for (int x = 0; x < this.pilotoProbador.length; x++) {  //for que recorre las dos posiciones del array
+                            if (this.pilotoProbador[x]==null & !insertado) {    //si esta vacio y no se ha insertado...
+                                this.pilotoProbador[x]=pilotos.get(i);//lo insertas
+                                this.pilotoOficial[x].setTipo(false);//le haces piloto probador
+                                System.out.println("Hay actualmente "+(x+1)+" piloto/s probador/es en la escuderia");
+                                insertado=true;
+
+                                //4º Eliminar piloto del ArrayList
+                                pilotos.remove(i);
+                        } 
+                        }
+                        if(!insertado){ //si despues de comprobar el array no se ha insertado, es que estaba lleno
+                            System.out.println("Se ha alcanzado el numero maximo de pilotos probadores para esta escuderia: "+this.pilotoProbador.length+", piloto no insertado");
+                        }
+                    }
+                    i=pilotos.size()-1;
+                }
+                else{
+                    System.out.println("El piloto "+nombrePiloto+" "+apellidoPiloto+" no se ha encontrado");
+                }
+
+            }
+                
+                //5º Sobreescribir archivo guardando el nuevo ArrayList sin piloto
+                try{
+                    FileOutputStream fileOut = new FileOutputStream(archivo);
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    out.writeObject(pilotos);
+                    out.close();
+                    fileOut.close();
+                    System.out.printf("El array de pilotos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
+                }
+                catch(IOException i){
+                    System.out.println("Se ha detectado un error: ");
+                    i.printStackTrace();
+                }
+
+        }
+        else{
+            System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
+        }
+            
 
     }
-    public void comprobarLimite(){}//Es demasiado facil, creo que no hace falta ni usarlo
+    public void comprobarLimite(){}//Es demasiado facil, no hace falta ni usarlo
     public void descartarPiloto(){}
     public void iniciarEntrenamiento(){}
     public void realizarPago(){}
     public void iniciarMundial(){}
     public void pagarSueldo(){}
+    
+    /**
+     *comprueba rapidamente si las deudas exceden el dinero de la escuderia, me parece un metodo demasiado sencillo...
+     * @param deudas: lo que tiene que pagar la escuderia, admite decimales
+     * @return: devuelve true si puede pagarlo o false en caso contrario
+     */
     public boolean comprobarDinero(double deudas){//Quiza es un metodo demasiado sencillo
         return this.presupuesto>deudas;
     }
