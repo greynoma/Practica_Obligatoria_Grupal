@@ -31,11 +31,13 @@ public class Piloto implements Serializable {   //victor, he puesto que sea seri
      this.setReflejos(p.reflejos);
      this.setValentia(p.valentia);
      this.calcular();
+     this.setTipo(false);
        
        
    }
-   public Piloto(String nombre, String apellido,int edad,Escuderia escuderia,int altura,int peso,
-           double reflejos,double agresividad,double paciencia,double valentia){
+   public Piloto(String nombre, String apellido,int edad,Escuderia escuderia,
+           double altura,double peso,double reflejos,double agresividad,
+           double paciencia,double valentia){
      this.setAgresividad(agresividad);
      this.setAltura(altura);
      this.setApellido(apellido);
@@ -47,9 +49,10 @@ public class Piloto implements Serializable {   //victor, he puesto que sea seri
      this.setReflejos(reflejos);
      this.setValentia(valentia);
      this.calcular();
+     this.setTipo(false);
        
    }
-   public Piloto(String nombre, String apellido,int edad,int altura,int peso,
+   public Piloto(String nombre, String apellido,int edad,double altura,double peso,
            double reflejos,double agresividad,double paciencia,double valentia){
      this.setAgresividad(agresividad);
      this.setAltura(altura);
@@ -78,9 +81,6 @@ public class Piloto implements Serializable {   //victor, he puesto que sea seri
        this.setValentia(this.getValentia()+ 0.05); 
        this.calcular();
    }
-   public double participarcarrera(){ //coje el valor del piloto para sumarlo al cohe en el metodo carrera
-    return this.getValor();
-}
    public void Conducir(Coche coche){ //asigna un coche a un piloto
        this.setCoche(coche);
    }
