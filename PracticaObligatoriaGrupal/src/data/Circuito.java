@@ -16,7 +16,7 @@ public class Circuito {
     private String nombre,patrocinador;
     private double precio,tiempoCoche,tiempoPiloto;
     private int rectas,curvas,aforo,lCurva,lRecta;
-    private ArrayList <Curva> listaCurvas;
+    private ArrayList <Curva> listaCurvas; //si lo pones ArrayList <int> ¿funcionara?
     private ArrayList <Recta> listaRectas;
     Scanner teclado = new Scanner(System.in);
     private Piloto posicion[] = new Piloto[10];
@@ -46,7 +46,7 @@ public class Circuito {
     int l;//tengo q poner un scan  para iniciar la l por teclado
     l=teclado.nextInt();
      for (int i=0; i == r ;i++){
-      listaCurvas.add(new Curva(l));   
+      listaRectas.add(new Recta(l));   
      }
     }
      
@@ -71,7 +71,7 @@ public class Circuito {
          posicion[8].setPuntos(posicion[0].getPuntos()+2);
          posicion[9].setPuntos(posicion[0].getPuntos()+1);
      }
-     public void tiempos(Piloto p){
+     public void tiempos(){
          for (int i=0; i == this.curvas ;i++){
              lCurva=+listaCurvas.get(i).getL(); //arry list tienes que usar .get(i) para cojer el objeto
          }

@@ -12,7 +12,9 @@ package data;
 public class Recta {
    private int l;
    
-
+   public Recta (int l){
+           this.setL(l);
+   }
     public int getL() {
         return l;
     }
