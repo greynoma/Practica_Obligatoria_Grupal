@@ -238,7 +238,7 @@ public class Escuderia implements Serializable{
         }
     }
     
-    public void iniciarEntrenamiento(Circuito circuito){
+    public void iniciarEntrenamiento(Piloto piloto, Coche coche, Circuito circuito){
     /*piloto.mejorar
     cochemejorar
     precio de ciruito*/
