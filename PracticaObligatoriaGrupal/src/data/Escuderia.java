@@ -238,6 +238,14 @@ public class Escuderia implements Serializable{
         }
     }
     
+    /**
+     *Lanza una carrera individual, mejora las estadisticas del piloto y del vehiculo y por otro lado paga el precio del circuito
+     * el entrenamiento no se realiza si no hay presupuesto para pagarlo
+     * 
+     * @param piloto: que se quiere entrenar
+     * @param coche: vehiculo que se quiere utilizar (no se usa el por defecto del piloto)
+     * @param circuito: circuito donde se quiere entrenar (influira en el precio del entrenamiento)
+     */
     public void iniciarEntrenamiento(Piloto piloto, Coche coche, Circuito circuito){
     /*piloto.mejorar
     cochemejorar
