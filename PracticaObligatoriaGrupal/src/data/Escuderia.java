@@ -30,7 +30,7 @@ public class Escuderia implements Serializable{
     
     /**
      * Crea una escuderia a partir de los parametros especificados, 
-     * NO RELLENA EL ARRAY COCHE NI LOS ARRAY DE PILOTOS, deben ser rellenados manualmente
+     * NO RELLENA EL ARRAY COCHE NI LOS ARRAY DE PILOTOS, deben ser rellenados manualmente despues
      * @param dueño: propietario de la escuderia
      * @param nombre: nombre de la escuderia
      * @param pais: ubicacion de la sede de la escuderia
@@ -122,7 +122,7 @@ public class Escuderia implements Serializable{
                                 this.pilotoOficial[x]=pilotos.get(i);//lo insertas
                                 this.pilotoOficial[x].setTipo(true);//le haces piloto oficial
                                 if (comprobarDinero(this.pilotoOficial[x].calcularsueldo())) {//compruebo que puedo pagarle
-                                    this.pagarSueldo(this.pilotoOficial[x].calcularsueldo());
+                                    this.pagarSueldo(this.pilotoOficial[x].calcularsueldo());//le pago, que sino no creo que quiera trabajar
                                     this.pilotoOficial[x].setEscuderia(this);//le ligas a esta escuderia
                                     System.out.println("Hay actualmente "+(x+1)+" piloto/s oficial/es en la escuderia");
                                     insertado=true;
@@ -145,10 +145,10 @@ public class Escuderia implements Serializable{
                         for (int x = 0; x < this.pilotoProbador.length; x++) {  //for que recorre las dos posiciones del array
                             if (this.pilotoProbador[x]==null & !insertado) {    //si esta vacio y no se ha insertado...
                                 this.pilotoProbador[x]=pilotos.get(i);//lo insertas
-                                this.pilotoOficial[x].setTipo(false);//le haces piloto probador
-                                if (comprobarDinero(this.pilotoOficial[x].calcularsueldo())) {//compruebo que puedo pagarle
-                                    this.pagarSueldo(this.pilotoOficial[x].calcularsueldo());
-                                    this.pilotoOficial[x].setEscuderia(this);//le ligas a esta escuderia
+                                this.pilotoProbador[x].setTipo(false);//le haces piloto probador
+                                if (comprobarDinero(this.pilotoProbador[x].calcularsueldo())) {//compruebo que puedo pagarle
+                                    this.pagarSueldo(this.pilotoProbador[x].calcularsueldo());//le pago, que sino no creo que quiera trabajar
+                                    this.pilotoProbador[x].setEscuderia(this);//le ligas a esta escuderia
                                     System.out.println("Hay actualmente "+(x+1)+" piloto/s probador/es en la escuderia");
                                     insertado=true;
 
@@ -156,7 +156,7 @@ public class Escuderia implements Serializable{
                                     pilotos.remove(i);
                                 }
                                 else{
-                                    this.pilotoOficial[x]=null;
+                                    this.pilotoProbador[x]=null;
                                     System.out.println("No dispones de capital para contratar al piloto");
                                 }
                         } 
@@ -195,7 +195,13 @@ public class Escuderia implements Serializable{
 
     }
     public void descartarPiloto(){}
-    public void pagarSueldo(){}
+    /**
+     *Por simplificar, simplemente paga el sueldo, es imperante comprobar si se dispone de dinero antes de realizar el pago
+     * @param pago: dinero que se debe descontar del capital de la escuderia
+     */
+    private void pagarSueldo(double pago) {
+         this.presupuesto-=pago;
+    }
     public void iniciarEntrenamiento(){}
     public void realizarPago(){}
     public void iniciarMundial(){}
