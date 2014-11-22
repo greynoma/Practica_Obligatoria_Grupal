@@ -18,9 +18,10 @@ public class Circuito {
     private int rectas,curvas,aforo,lCurva,lRecta;
     private ArrayList <Curva> listaCurvas; //si lo pones ArrayList <int> ¿funcionara?
     private ArrayList <Recta> listaRectas;
+    private ArrayList <Piloto> participante;
     Scanner teclado = new Scanner(System.in);
     private Piloto posicion[] = new Piloto[10];
-    private Piloto participante[] = new Piloto[25];
+    
     
     public Circuito(String nombre, String patrocinador,int rectas,int curvas,
            double precio,int aforo,ArrayList listaCurvas,ArrayList listaRectas){
@@ -36,7 +37,7 @@ public class Circuito {
     int c=this.curvas;
     int l;//tengo q poner un scan  para iniciar la l por teclado
     l=teclado.nextInt();
-     for (int i=0; i == c ;i++){
+     for (int i=0; i <= c ;i++){
       listaCurvas.add(new Curva(l));   
      }
     }
@@ -45,7 +46,7 @@ public class Circuito {
     int r=this.rectas;
     int l;//tengo q poner un scan  para iniciar la l por teclado
     l=teclado.nextInt();
-     for (int i=0; i == r ;i++){
+     for (int i=0; i <= r ;i++){
       listaRectas.add(new Recta(l));   
      }
     }
@@ -72,14 +73,14 @@ public class Circuito {
          posicion[9].setPuntos(posicion[0].getPuntos()+1);
      }
      public void tiempos(){
-         for (int i=0; i == this.curvas ;i++){
+         for (int i=0; i <= this.curvas ;i++){
              lCurva=+listaCurvas.get(i).getL(); //arry list tienes que usar .get(i) para cojer el objeto
          }
-         for (int i=0; i == this.curvas ;i++){
+         for (int i=0; i <= this.curvas ;i++){
              lRecta=+listaRectas.get(i).getL(); //arry list tienes que usar .get(i) para cojer el objeto
          }
-         for (int i=0; i == 25 ;i++){
-             participante[i].setTiempo(((lRecta/participante[i].getCoche().getVelMaxRecta())+(lCurva/participante[i].getCoche().getVelMaxCurva()))-( participante[i].getValor()*0.1));
+         for (int i=0;i<=participante.size(); i++){
+             participante.get(i).setTiempo(((lRecta/participante.get(i).getCoche().getVelMaxRecta())+(lCurva/participante.get(i).getCoche().getVelMaxCurva()))-( participante.get(i).getValor()*0.1));
          } //ahora ahy que ordenar los tiempos para la clasificacion
      }
     ////////////////////////////////////////////////////////////////////////////

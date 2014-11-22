@@ -65,6 +65,7 @@ public class Piloto implements Serializable {   //victor, he puesto que sea seri
      this.setReflejos(reflejos);
      this.setValentia(valentia);
      this.calcular();
+     this.setTipo(false);
        
    }
    public void mejorar() { /* coje una caracteristica le suma un valor y la devuelve*/
@@ -85,21 +86,24 @@ public class Piloto implements Serializable {   //victor, he puesto que sea seri
        this.setCoche(coche);
    }
    public void contrato(Escuderia contratante){ //ficha por un escuderia
-     this.setEscuderia(contratante);
+       this.setEscuderia(contratante);
    }
    public void despido(){ //despedido por la scuderia
        this.setEscuderia(null);
+       this.setTipo(false);
    }
    public void calcular(){ //metodo para modificar el valor de un piloto sumando todas los aributos
     this.setValor(this.getAgresividad()+ this.getPaciencia()+ this.getReflejos()+this.getValentia());
    }
-   public void calcularsueldo (){ //calcula el sueldo segun sea sustituto o no/
+   public double calcularsueldo (){ //calcula el sueldo segun sea sustituto o no/
      double x = this.valor;
      x=x*50;
       if (this.isTipo()) { //añade peligrosidad
           x+=50;  
+       return this.getSueldo();   
       }
       this.setSueldo(x); //modifica el sueldo
+      return this.getSueldo();
    }   
    
    
