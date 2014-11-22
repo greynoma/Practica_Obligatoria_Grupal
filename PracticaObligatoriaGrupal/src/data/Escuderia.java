@@ -121,8 +121,7 @@ public class Escuderia implements Serializable{
                             if (this.pilotoOficial[x]==null & !insertado) {    //si esta vacio y no se ha insertado...
                                 this.pilotoOficial[x]=pilotos.get(i);//lo insertas
                                 this.pilotoOficial[x].setTipo(true);//le haces piloto oficial
-                                if (comprobarDinero(this.pilotoOficial[x].calcularsueldo())) {//compruebo que puedo pagarle
-                                    this.pagarSueldo(this.pilotoOficial[x].calcularsueldo());//le pago, que sino no creo que quiera trabajar
+                                if (this.pagarSueldo(this.pilotoOficial[x].calcularsueldo())) {//compruebo que puedo pagarle
                                     this.pilotoOficial[x].setEscuderia(this);//le ligas a esta escuderia
                                     System.out.println("Hay actualmente "+(x+1)+" piloto/s oficial/es en la escuderia");
                                     insertado=true;
@@ -146,8 +145,7 @@ public class Escuderia implements Serializable{
                             if (this.pilotoProbador[x]==null & !insertado) {    //si esta vacio y no se ha insertado...
                                 this.pilotoProbador[x]=pilotos.get(i);//lo insertas
                                 this.pilotoProbador[x].setTipo(false);//le haces piloto probador
-                                if (comprobarDinero(this.pilotoProbador[x].calcularsueldo())) {//compruebo que puedo pagarle
-                                    this.pagarSueldo(this.pilotoProbador[x].calcularsueldo());//le pago, que sino no creo que quiera trabajar
+                                if (this.pagarSueldo(this.pilotoProbador[x].calcularsueldo())) {//compruebo que puedo pagarle y le pago
                                     this.pilotoProbador[x].setEscuderia(this);//le ligas a esta escuderia
                                     System.out.println("Hay actualmente "+(x+1)+" piloto/s probador/es en la escuderia");
                                     insertado=true;
@@ -196,23 +194,26 @@ public class Escuderia implements Serializable{
     }
     public void descartarPiloto(){}
     /**
-     *Por simplificar, simplemente paga el sueldo, es imperante comprobar si se dispone de dinero antes de realizar el pago
+     *Paga el sueldo despues de comprobar que hay suficiente dinero para pagar, si no se puede, devuelve false y si se puede, true
      * @param pago: dinero que se debe descontar del capital de la escuderia
      */
-    private void pagarSueldo(double pago) {
-         this.presupuesto-=pago;
+    private boolean pagarSueldo(double pago) {
+        if (this.comprobarDinero(pago)) {
+            this.presupuesto-=pago;
+            return true;
+        }
+        else{
+            System.out.println("no se puede pagar, no hay suficiente dinero");
+            return false;
+        }
     }
     public void iniciarEntrenamiento(){}
     public void realizarPago(){}
     public void iniciarMundial(){}
     
     
-    public void comprobarLimite(){System.out.println("no lo he implementado porque no se necesita BORRAR");}//Es demasiado facil, no hace falta ni usarlo
-    
-    
-    
     /**
-     *comprueba rapidamente si las deudas exceden el dinero de la escuderia, me parece un metodo demasiado sencillo...
+     *comprueba rapidamente si las deudas exceden el dinero de la escuderia
      * @param deudas: lo que tiene que pagar la escuderia, admite decimales
      * @return: devuelve true si puede pagarlo o false en caso contrario
      */
