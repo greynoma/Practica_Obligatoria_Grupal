@@ -121,12 +121,20 @@ public class Escuderia implements Serializable{
                             if (this.pilotoOficial[x]==null & !insertado) {    //si esta vacio y no se ha insertado...
                                 this.pilotoOficial[x]=pilotos.get(i);//lo insertas
                                 this.pilotoOficial[x].setTipo(true);//le haces piloto oficial
-                                this.pilotoOficial[x].setEscuderia(this);//le ligas a esta escuderia
-                                System.out.println("Hay actualmente "+(x+1)+" piloto/s oficial/es en la escuderia");
-                                insertado=true;
+                                if (comprobarDinero(this.pilotoOficial[x].calcularsueldo())) {//compruebo que puedo pagarle
+                                    this.pagarSueldo(this.pilotoOficial[x].calcularsueldo());
+                                    this.pilotoOficial[x].setEscuderia(this);//le ligas a esta escuderia
+                                    System.out.println("Hay actualmente "+(x+1)+" piloto/s oficial/es en la escuderia");
+                                    insertado=true;
 
-                                //4º Eliminar piloto del ArrayList
-                                pilotos.remove(i);
+                                    //4º Eliminar piloto del ArrayList
+                                    pilotos.remove(i);
+                                }
+                                else{
+                                    this.pilotoOficial[x]=null;
+                                    System.out.println("No dispones de capital para contratar al piloto");
+                                }
+                                
                         } 
                         }
                         if(!insertado){ //si despues de comprobar el array no se ha insertado, es que estaba lleno
@@ -138,12 +146,19 @@ public class Escuderia implements Serializable{
                             if (this.pilotoProbador[x]==null & !insertado) {    //si esta vacio y no se ha insertado...
                                 this.pilotoProbador[x]=pilotos.get(i);//lo insertas
                                 this.pilotoOficial[x].setTipo(false);//le haces piloto probador
-                                this.pilotoOficial[x].setEscuderia(this);//le ligas a esta escuderia
-                                System.out.println("Hay actualmente "+(x+1)+" piloto/s probador/es en la escuderia");
-                                insertado=true;
+                                if (comprobarDinero(this.pilotoOficial[x].calcularsueldo())) {//compruebo que puedo pagarle
+                                    this.pagarSueldo(this.pilotoOficial[x].calcularsueldo());
+                                    this.pilotoOficial[x].setEscuderia(this);//le ligas a esta escuderia
+                                    System.out.println("Hay actualmente "+(x+1)+" piloto/s probador/es en la escuderia");
+                                    insertado=true;
 
-                                //4º Eliminar piloto del ArrayList
-                                pilotos.remove(i);
+                                    //4º Eliminar piloto del ArrayList
+                                    pilotos.remove(i);
+                                }
+                                else{
+                                    this.pilotoOficial[x]=null;
+                                    System.out.println("No dispones de capital para contratar al piloto");
+                                }
                         } 
                         }
                         if(!insertado){ //si despues de comprobar el array no se ha insertado, es que estaba lleno
@@ -195,7 +210,7 @@ public class Escuderia implements Serializable{
      * @param deudas: lo que tiene que pagar la escuderia, admite decimales
      * @return: devuelve true si puede pagarlo o false en caso contrario
      */
-    public boolean comprobarDinero(double deudas){//Quiza es un metodo demasiado sencillo
+    public boolean comprobarDinero(double deudas){
         return this.presupuesto>deudas;
     }
 
