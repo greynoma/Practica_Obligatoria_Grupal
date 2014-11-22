@@ -121,7 +121,7 @@ public class Escuderia implements Serializable{
                             if (this.pilotoOficial[x]==null & !insertado) {    //si esta vacio y no se ha insertado...
                                 this.pilotoOficial[x]=pilotos.get(i);//lo insertas
                                 this.pilotoOficial[x].setTipo(true);//le haces piloto oficial
-                                if (this.pagarSueldo(this.pilotoOficial[x].calcularsueldo())) {//compruebo que puedo pagarle
+                                if (this.realizarPago(this.pilotoOficial[x].calcularsueldo())) {//compruebo que puedo pagarle
                                     this.pilotoOficial[x].setEscuderia(this);//le ligas a esta escuderia
                                     System.out.println("Hay actualmente "+(x+1)+" piloto/s oficial/es en la escuderia");
                                     insertado=true;
@@ -145,7 +145,7 @@ public class Escuderia implements Serializable{
                             if (this.pilotoProbador[x]==null & !insertado) {    //si esta vacio y no se ha insertado...
                                 this.pilotoProbador[x]=pilotos.get(i);//lo insertas
                                 this.pilotoProbador[x].setTipo(false);//le haces piloto probador
-                                if (this.pagarSueldo(this.pilotoProbador[x].calcularsueldo())) {//compruebo que puedo pagarle y le pago
+                                if (this.realizarPago(this.pilotoProbador[x].calcularsueldo())) {//compruebo que puedo pagarle y le pago
                                     this.pilotoProbador[x].setEscuderia(this);//le ligas a esta escuderia
                                     System.out.println("Hay actualmente "+(x+1)+" piloto/s probador/es en la escuderia");
                                     insertado=true;
@@ -194,10 +194,10 @@ public class Escuderia implements Serializable{
     }
     public void descartarPiloto(){}
     /**
-     *Paga el sueldo despues de comprobar que hay suficiente dinero para pagar, si no se puede, devuelve false y si se puede, true
+     *Paga a cualquier entidad despues de comprobar que hay suficiente dinero para pagar, si no se puede pagar, devuelve false y si se puede, true
      * @param pago: dinero que se debe descontar del capital de la escuderia
      */
-    private boolean pagarSueldo(double pago) {
+    private boolean realizarPago(double pago) {
         if (this.comprobarDinero(pago)) {
             this.presupuesto-=pago;
             return true;
@@ -207,10 +207,42 @@ public class Escuderia implements Serializable{
             return false;
         }
     }
-    public void iniciarEntrenamiento(){}
-    public void realizarPago(){}
-    public void iniciarMundial(){}
     
+    /**
+     *Es el antiguo comenzarMundial, asigna a cada piloto oficial un vehiculo con el que correr
+     * 
+     */
+    public void asignarVehiculos(){
+        int seleccion=0;
+
+        for (int i = 0; i < this.pilotoOficial.length; i++) {
+            if (this.pilotoOficial[i]!=null) {
+                System.out.println("Que coche desea asignar al piloto: "+this.pilotoOficial[i].getNombre()+" "+this.pilotoOficial[i].getApellido()+"?");
+                while (seleccion<1 | seleccion>2) {
+                    for (int j = 0; j < this.coches.length; j++) {
+                        System.out.println((j+1)+" - "+this.coches[j].getModelo());
+                    }
+                    System.out.println("0 - ninguno");
+                    seleccion=Integer.parseInt(new Scanner(System.in).toString());
+                }
+                    switch (seleccion) {
+                        case 0:  this.pilotoOficial[i].setCoche(null);
+                                 break;
+                        case 1:  this.pilotoOficial[i].setCoche(this.coches[0]);
+                                 break;
+                        case 2:  this.pilotoOficial[i].setCoche(this.coches[1]);
+                                 break;
+                    }
+                System.out.println("Coche asignado con exito");
+            }
+        }
+    }
+    
+    public void iniciarEntrenamiento(Circuito circuito){
+    /*piloto.mejorar
+    cochemejorar
+    precio de ciruito*/
+    }
     
     /**
      *comprueba rapidamente si las deudas exceden el dinero de la escuderia
@@ -224,6 +256,10 @@ public class Escuderia implements Serializable{
     /**
     *Crea un coche a partir de datos y lo introduce en el array de coches de la escuderia
     * 
+     * @param modelo: nombre del vehiculo
+     * @param neumaticos: valor del 1-5
+     * @param potencia: valor del 1-5
+     * @param aerodinamica: valor del 1-5
     */
     public void crearCoche(String modelo, double neumaticos, double potencia, double aerodinamica){
         boolean insertado=false;

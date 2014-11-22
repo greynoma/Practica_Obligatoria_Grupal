@@ -36,7 +36,9 @@ public class Coche implements Serializable{
         return(this.aerodinamica*10)+(this.potencia*10)+(this.neumaticos*10);
     }
 
+    public void mejorar(){
     
+    }
     
     
     
