@@ -21,7 +21,7 @@ public class Coche implements Serializable{
      * a partir de escuderia, de forma que cuando se cree quede ligado a esta.
      * 
      */
-    Coche(String modelo, double neumaticos, double potencia, double aerodinamica) {
+    public Coche(String modelo, double neumaticos, double potencia, double aerodinamica) {
         this.modelo=modelo;
         this.neumaticos=neumaticos;
         this.potencia=potencia;

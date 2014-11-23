@@ -28,6 +28,7 @@ public class Escuderia implements Serializable{
     private Piloto[] pilotoProbador= new Piloto[2];
     private Coche[] coches=new Coche[2];
     
+    ////////////////////////CONSTRUCTORES//////////////////////////////////////////////////////////////////////////////////////////
     /**
      * Crea una escuderia a partir de los parametros especificados, 
      * NO RELLENA EL ARRAY COCHE NI LOS ARRAY DE PILOTOS, deben ser rellenados manualmente despues
@@ -67,6 +68,8 @@ public class Escuderia implements Serializable{
         this.presupuesto=e.getPresupuesto();
     }
     
+    
+    ////////////////////////METODOS//////////////////////////////////////////////////////////////////////////////////////////
     /**
     *Ficha un piloto para la escuderia
     * 
@@ -167,7 +170,6 @@ public class Escuderia implements Serializable{
                 else{
                     System.out.println("El piloto "+nombrePiloto+" "+apellidoPiloto+" no se ha encontrado");
                 }
-
             }
                 
             //5º Sobreescribir archivo guardando el nuevo ArrayList sin piloto
