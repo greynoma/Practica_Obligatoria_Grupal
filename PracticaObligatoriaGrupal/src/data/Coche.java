@@ -37,7 +37,10 @@ public class Coche implements Serializable{
     }
 
     public void mejorar(){
-    
+        this.aerodinamica+=0.1;
+        this.modelo+=0.1;
+        this.neumaticos+=0.1;
+        this.potencia+=0.1;
     }
     
     
