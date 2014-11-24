@@ -35,8 +35,7 @@ public class Mundial {
    public void darAlta(String archivo, Piloto p){  
        ArrayList<Piloto> pilotos = new ArrayList();
         File comprobarFichero = new File(archivo);
-        int seleccion=0;
-        Scanner escaner = new Scanner (System.in);
+
         
         //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
         if (comprobarFichero.exists()) {
@@ -85,8 +84,7 @@ public class Mundial {
    public void darBaja(String archivo, Piloto p){  
         ArrayList<Piloto> pilotos = new ArrayList();
         File comprobarFichero = new File(archivo);
-        int seleccion=0;
-        Scanner escaner = new Scanner (System.in);
+
         
         //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
         if (comprobarFichero.exists()) {
@@ -135,8 +133,7 @@ public class Mundial {
    public void modificar(String archivo, Piloto p){  
        ArrayList<Piloto> pilotos = new ArrayList();
         File comprobarFichero = new File(archivo);
-        int seleccion=0;
-        Scanner escaner = new Scanner (System.in);
+
         
         //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
         if (comprobarFichero.exists()) {
@@ -209,8 +206,7 @@ public class Mundial {
    public void darAlta(String archivo, Escuderia p){
         ArrayList<Escuderia> escuderias = new ArrayList();
         File comprobarFichero = new File(archivo);
-        int seleccion=0;
-        Scanner escaner = new Scanner (System.in);
+
         
         //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
         if (comprobarFichero.exists()) {
@@ -259,8 +255,7 @@ public class Mundial {
    public void darBaja(String archivo, Escuderia p){
         ArrayList<Escuderia> escuderias = new ArrayList();
         File comprobarFichero = new File(archivo);
-        int seleccion=0;
-        Scanner escaner = new Scanner (System.in);
+
         
         //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
         if (comprobarFichero.exists()) {
@@ -309,8 +304,6 @@ public class Mundial {
    public void modificar(String archivo, Escuderia p){
        ArrayList<Escuderia> escuderias = new ArrayList();
         File comprobarFichero = new File(archivo);
-        int seleccion=0;
-        Scanner escaner = new Scanner (System.in);
         
         //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
         if (comprobarFichero.exists()) {
