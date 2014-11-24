@@ -27,7 +27,8 @@ public class Main {
         int aforo;
         ArrayList <Circuito> liscur= new ArrayList<Circuito>();
         ArrayList <Circuito> lisrec= new ArrayList<Circuito>();
-        
+        liscur=null;
+        lisrec=null;
         String nomescu;
         String dueno;
         String pais;
