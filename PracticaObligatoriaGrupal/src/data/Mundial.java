@@ -5,9 +5,14 @@
  */
 package data;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,245 +32,490 @@ public class Mundial {
    
 
    
-   public void darAlta(Piloto a){  
-   }
-   public void darAlta(Escuderia a){
-   }
-   public void darAlta(){
+   public void darAlta(String archivo, Piloto p){  
+       ArrayList<Piloto> pilotos = new ArrayList();
+        File comprobarFichero = new File(archivo);
+        int seleccion=0;
+        Scanner escaner = new Scanner (System.in);
         
-    }
-   public void cargarDatosCircuito() throws IOException{
-        FileReader lectorArchivo;
-        JFileChooser browser;
-        browser= new JFileChooser();
-        int resultadoBrowser;
-        resultadoBrowser= browser.showOpenDialog(null);
-        if( resultadoBrowser != JFileChooser.APPROVE_OPTION){
-            JOptionPane.showMessageDialog(null, "No se ha seleccionado nada");
-            return;
-        }
-           try{
-               lectorArchivo=new FileReader(browser.getSelectedFile());
-           }catch(FileNotFoundException err){
-               JOptionPane.showMessageDialog(null, "Archivo no encontrado" + err.getMessage());
-               return;
-           }
-           BufferedReader textoArchivo;
-           textoArchivo= new BufferedReader(lectorArchivo);
-           int casilla;
-           casilla=0;
-           String lineaTexto;
-           while (casilla  < dcir.length){
-
-               try{
-                   lineaTexto= textoArchivo.readLine();
-               }catch(IOException err){
-                   JOptionPane.showMessageDialog(null, err.getMessage());
-                return;
-               }
-
-               if (lineaTexto==null){
-                   break;
-               }
-               String [] valores;
-               valores = lineaTexto.split(";");
-               String [] recurv;
-               recurv = lineaTexto.split("!");
-               int precio= Integer.parseInt(valores[2]);
-               double recta0= Double.parseDouble(recurv[1]);
-               double recta1= Double.parseDouble(recurv[2]);
-               double recta2= Double.parseDouble(recurv[3]);
-               double recta3= Double.parseDouble(recurv[4]);
-               double curva0= Double.parseDouble(recurv[5]);
-               double curva1= Double.parseDouble(recurv[6]);
-               double curva2= Double.parseDouble(recurv[7]);
-               double curva3= Double.parseDouble(recurv[8]);
-
-
-               dcir[casilla]= new DatosCircuito ();
-               dcir[casilla].setNombre(valores[0]);
-               dcir[casilla].setPatrocinador(valores[1]);
-               dcir[casilla].setPrecio(precio);
-               dcir[casilla].setRecta0(recta0);
-               dcir[casilla].setRecta1(recta1);
-               dcir[casilla].setRecta2(recta2);
-               dcir[casilla].setRecta3(recta3);
-               dcir[casilla].setCurva0(curva0);
-               dcir[casilla].setCurva1(curva1);
-               dcir[casilla].setCurva2(curva2);
-               dcir[casilla].setCurva3(curva3);
-
-               casilla++;
-
-           }
-
-           try{
-                   lineaTexto= textoArchivo.readLine();
-               }catch(IOException err){
-                   JOptionPane.showMessageDialog(null, err.getMessage());
-                return;
-               }
-           if (lineaTexto !=null){
-               JOptionPane.showMessageDialog(null, "No hay espacio para cargar todos los circuitos");
-           }
-
-           String mostrar;
-           mostrar= "";
-
-           casilla=0;
-           while(casilla < dcir.length){
-               if (dcir[casilla] !=null){
-
-               mostrar= mostrar +" Circuito["+casilla+"]- "+" Nombre: "+ dcir[casilla].getNombre()+"\n"
-                                +" Patrocinador: "+dcir[casilla].getPatrocinador()+"\n"
-                                +" Precio: "+dcir[casilla].getPrecio()+"\n"
-                                +" Rectas: "+dcir[casilla].getRecta0()+","+dcir[casilla].getRecta1()+","+dcir[casilla].getRecta2()+","+dcir[casilla].getRecta3()+"\n"
-                                +" Curvas: "+dcir[casilla].getCurva0()+","+dcir[casilla].getCurva1()+","+dcir[casilla].getCurva2()+","+dcir[casilla].getCurva3()+"\n\n";
-               } 
-               casilla++;
-           }
-           JOptionPane.showMessageDialog(null, mostrar);
-   }   
-    
-       
-       
-    
-   
-   /*public void darBaja(Piloto a){  
-   }
-   public void darBaja(Escuderia a){
-   }
-   public void darBaja(Circuito a){
-   }
-   public void modificar(Piloto a){  
-   }
-   public void modificar(Escuderia a){
-   }*/
-   
-    public void modificar()throws IOException{
-        Scanner opcion = new Scanner (System.in);
-        String respuesta;
-        System.out.println ("Desea modificar algun rasgo de algun  circuito? Y/N"); // Preguntamos 
-        
-        respuesta = opcion.next(); 
-        boolean ejecutar= false;
-        while ((respuesta.equals("s") || respuesta.equals("S")) & (ejecutar==false)){
+        //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
+        if (comprobarFichero.exists()) {
+            try{
+                FileInputStream fileIn = new FileInputStream(archivo);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
                 
-                Double valor;
-                int tramo;
-                Double canon;
-                String patrocinador;
-                String nomcir;
-                int circuito;
-                String campo;
-        
-                System.out.println ("Que circuito desea modificar? 0/1/2/3/4");
-                circuito=opcion.nextInt();
-                if (dcir[circuito] ==null){break;}
-                while ((circuito==0 | circuito==1 | circuito==2 | circuito==3 |circuito==4)  & (ejecutar==false)){
-                    int i=circuito;
-                    System.out.println("Actualmente el circuito "+i+" tiene estas caracteristicas:");
-                    System.out.println("Circuito["+i+"]");
-                    System.out.println("Nombre: "+dcir[i].getNombre()+"\n"+
-                                      "Patrocinador: "+dcir[i].getPatrocinador()+"\n"+
-                                      "Precio: "+dcir[i].getPrecio()+"\n"+
-                                      "Rectas: "+dcir[i].getRecta0()+","+dcir[i].getRecta1()+","+dcir[i].getRecta2()+","+dcir[i].getRecta3()+"\n"+
-                                      "Curvas: "+dcir[i].getCurva0()+","+dcir[i].getCurva1()+","+dcir[i].getCurva2()+","+dcir[i].getCurva3()+"\n\n");
+                //2º Obtener el arrayList
+                pilotos = (ArrayList<Piloto>) in.readObject();
 
-                    System.out.println ("Que campo desea modificar? N/P/€/R/C");
-                    campo=opcion.next();
-                    while (campo.equals("N") | campo.equals("n")& (ejecutar==false)){
-                        System.out.println("Como quieres que se llame el circuito "+i+"?");
-                        nomcir=opcion.next();
-                        dcir[i].setNombre(nomcir);
-                        break;
-                    }
-                    while (campo.equals("P") | campo.equals("p")& (ejecutar==false)){
-                        System.out.println("Cual es el nuevo patrocinador del circuito "+i+"?");
-                        patrocinador=opcion.next();
-                        dcir[i].setPatrocinador(patrocinador);
-                        break;
-                    }
-                    while (campo.equals("€")& (ejecutar==false)){
-                        System.out.println("Cual es el nuevo canon del circuito "+i+"?");
-                        canon=opcion.nextDouble();
-                        dcir[i].setPrecio(canon);
-                        break;
-                    }
-                    while (campo.equals("R") | campo.equals("r")  & (ejecutar==false)){
-                        System.out.println("Que recta desea modificar del circuito "+i+"? 0/1/2/3");
-                        tramo=opcion.nextInt();
-                        switch (tramo){
-                        case 0:
-                            System.out.println("¿Que valor quiere que tenga la recta "+tramo+"?");
-                            valor=opcion.nextDouble();
-                            dcir[i].setRecta0(valor);
-                            break;
-                           
-                        case 1:
-                            System.out.println("¿Que valor quiere que tenga la recta "+tramo+"?");
-                            valor=opcion.nextDouble();
-                            dcir[i].setRecta1(valor);
-                            break;
-                           
-                        case 2:
-                            System.out.println("¿Que valor quiere que tenga la recta "+tramo+"?");
-                            valor=opcion.nextDouble();
-                            dcir[i].setRecta2(valor);
-                            break;
-                           
-                        case 3:
-                            System.out.println("¿Que valor quiere que tenga la recta "+tramo+"?");
-                            valor=opcion.nextDouble();
-                            dcir[i].setRecta3(valor);
-                            break;
-                           
-                    }
-                        break;
-                    }
-                    while (campo.equals("C") | campo.equals("c") & (ejecutar==false)){
-                        System.out.println("Que curva desea modificar del circuito "+i+"? 0/1/2/3");
-                        tramo=opcion.nextInt();
-                        switch (tramo){
-                        case 0:
-                            System.out.println("¿Que valor quiere que tenga la curva "+tramo+"?");
-                            valor=opcion.nextDouble();
-                            dcir[i].setRecta0(valor);
-                            break;
-                           
-                        case 1:
-                            System.out.println("¿Que valor quiere que tenga la curva "+tramo+"?");
-                            valor=opcion.nextDouble();
-                            dcir[i].setRecta1(valor);
-                            break;
-                           
-                        case 2:
-                            System.out.println("¿Que valor quiere que tenga la curva "+tramo+"?");
-                            valor=opcion.nextDouble();
-                            dcir[i].setRecta2(valor);
-                            break;
-                           
-                        case 3:
-                            System.out.println("¿Que valor quiere que tenga la curva "+tramo+"?");
-                            valor=opcion.nextDouble();
-                            dcir[i].setRecta3(valor);
-                            break;
-                           
-                    }
-                    }
-                    System.out.println("Desea hacer mas cambios?:");
-                    cambios=opcion.next();    
-                    if (cambios.equals("S") | cambios.equals("s")){
-                        ejecutar=false;
-                    }
-                    else {
-                        ejecutar=true;
-        }
-                    }   
-                    
-                    
+                //por alguna extraña razon no me deja cerrar los Stream en el finally
+                in.close();
+                fileIn.close();
             }
+            catch(IOException i){
+                System.out.println("Se ha detectado un error: ");
+                i.printStackTrace();
+            }
+            catch(ClassNotFoundException c){
+                System.out.println("No se ha encontrado lo que buscaba");
+                c.printStackTrace();
+            }
+            finally{//aqui deberia cerrar los Stream pero no me deja
+            }
+            
+            pilotos.add(p);
+            try{
+                    FileOutputStream fileOut = new FileOutputStream(archivo);
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    out.writeObject(pilotos);
+                    out.close();
+                    fileOut.close();
+                    System.out.printf("El array de pilotos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
+                }
+                catch(IOException i){
+                    System.out.println("Se ha detectado un error: ");
+                    i.printStackTrace();
+                }
 
+        }
+        else{
+            System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
+        }
+   }
+   
+   public void darBaja(String archivo, Piloto p){  
+        ArrayList<Piloto> pilotos = new ArrayList();
+        File comprobarFichero = new File(archivo);
+        int seleccion=0;
+        Scanner escaner = new Scanner (System.in);
+        
+        //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
+        if (comprobarFichero.exists()) {
+            try{
+                FileInputStream fileIn = new FileInputStream(archivo);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                
+                //2º Obtener el arrayList
+                pilotos = (ArrayList<Piloto>) in.readObject();
+
+                //por alguna extraña razon no me deja cerrar los Stream en el finally
+                in.close();
+                fileIn.close();
+            }
+            catch(IOException i){
+                System.out.println("Se ha detectado un error: ");
+                i.printStackTrace();
+            }
+            catch(ClassNotFoundException c){
+                System.out.println("No se ha encontrado lo que buscaba");
+                c.printStackTrace();
+            }
+            finally{//aqui deberia cerrar los Stream pero no me deja
+            }
+            
+            pilotos.remove(p);
+            try{
+                    FileOutputStream fileOut = new FileOutputStream(archivo);
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    out.writeObject(pilotos);
+                    out.close();
+                    fileOut.close();
+                    System.out.printf("El array de pilotos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
+                }
+                catch(IOException i){
+                    System.out.println("Se ha detectado un error: ");
+                    i.printStackTrace();
+                }
+
+        }
+        else{
+            System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
+        }
+   }
+   
+   public void modificar(String archivo, Piloto p){  
+       ArrayList<Piloto> pilotos = new ArrayList();
+        File comprobarFichero = new File(archivo);
+        int seleccion=0;
+        Scanner escaner = new Scanner (System.in);
+        
+        //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
+        if (comprobarFichero.exists()) {
+            try{
+                FileInputStream fileIn = new FileInputStream(archivo);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                
+                //2º Obtener el arrayList
+                pilotos = (ArrayList<Piloto>) in.readObject();
+
+                //por alguna extraña razon no me deja cerrar los Stream en el finally
+                in.close();
+                fileIn.close();
+            }
+            catch(IOException i){
+                System.out.println("Se ha detectado un error: ");
+                i.printStackTrace();
+            }
+            catch(ClassNotFoundException c){
+                System.out.println("No se ha encontrado lo que buscaba");
+                c.printStackTrace();
+            }
+            finally{//aqui deberia cerrar los Stream pero no me deja
+            }
+            if (p.getEscuderia()==null){
+            pilotos.get(pilotos.indexOf(p)).setNombre(p.getNombre());
+            pilotos.get(pilotos.indexOf(p)).setApellido(p.getApellido());
+            pilotos.get(pilotos.indexOf(p)).setEdad(p.getEdad());
+            pilotos.get(pilotos.indexOf(p)).setAltura(p.getAltura());
+            pilotos.get(pilotos.indexOf(p)).setPeso(p.getPeso());
+            pilotos.get(pilotos.indexOf(p)).setReflejos(p.getReflejos());
+            pilotos.get(pilotos.indexOf(p)).setAgresividad(p.getAgresividad());
+            pilotos.get(pilotos.indexOf(p)).setPaciencia(p.getPaciencia());
+            pilotos.get(pilotos.indexOf(p)).setValentia(p.getValentia());
+            }
+            else{
+            pilotos.get(pilotos.indexOf(p)).setNombre(p.getNombre());
+            pilotos.get(pilotos.indexOf(p)).setApellido(p.getApellido());
+            pilotos.get(pilotos.indexOf(p)).setEdad(p.getEdad());
+            pilotos.get(pilotos.indexOf(p)).setEscuderia(p.getEscuderia());
+            pilotos.get(pilotos.indexOf(p)).setAltura(p.getAltura());
+            pilotos.get(pilotos.indexOf(p)).setPeso(p.getPeso());
+            pilotos.get(pilotos.indexOf(p)).setReflejos(p.getReflejos());
+            pilotos.get(pilotos.indexOf(p)).setAgresividad(p.getAgresividad());
+            pilotos.get(pilotos.indexOf(p)).setPaciencia(p.getPaciencia());
+            pilotos.get(pilotos.indexOf(p)).setValentia(p.getValentia());
+            
+            
+            }
+            try{
+                    FileOutputStream fileOut = new FileOutputStream(archivo);
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    out.writeObject(pilotos);
+                    out.close();
+                    fileOut.close();
+                    System.out.printf("El array de pilotos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
+                }
+                catch(IOException i){
+                    System.out.println("Se ha detectado un error: ");
+                    i.printStackTrace();
+                }
+
+        }
+        else{
+            System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
+        }
+   
+   }
+   
+   public void darAlta(String archivo, Escuderia p){
+        ArrayList<Escuderia> escuderias = new ArrayList();
+        File comprobarFichero = new File(archivo);
+        int seleccion=0;
+        Scanner escaner = new Scanner (System.in);
+        
+        //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
+        if (comprobarFichero.exists()) {
+            try{
+                FileInputStream fileIn = new FileInputStream(archivo);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                
+                //2º Obtener el arrayList
+                escuderias = (ArrayList<Escuderia>) in.readObject();
+
+                //por alguna extraña razon no me deja cerrar los Stream en el finally
+                in.close();
+                fileIn.close();
+            }
+            catch(IOException i){
+                System.out.println("Se ha detectado un error: ");
+                i.printStackTrace();
+            }
+            catch(ClassNotFoundException c){
+                System.out.println("No se ha encontrado lo que buscaba");
+                c.printStackTrace();
+            }
+            finally{//aqui deberia cerrar los Stream pero no me deja
+            }
+            
+            escuderias.add(p);
+            try{
+                    FileOutputStream fileOut = new FileOutputStream(archivo);
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    out.writeObject(escuderias);
+                    out.close();
+                    fileOut.close();
+                    System.out.printf("El array de escuderias ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
+                }
+                catch(IOException i){
+                    System.out.println("Se ha detectado un error: ");
+                    i.printStackTrace();
+                }
+
+        }
+        else{
+            System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
+        }
+   }
+   
+   public void darBaja(String archivo, Escuderia p){
+        ArrayList<Escuderia> escuderias = new ArrayList();
+        File comprobarFichero = new File(archivo);
+        int seleccion=0;
+        Scanner escaner = new Scanner (System.in);
+        
+        //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
+        if (comprobarFichero.exists()) {
+            try{
+                FileInputStream fileIn = new FileInputStream(archivo);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                
+                //2º Obtener el arrayList
+                escuderias = (ArrayList<Escuderia>) in.readObject();
+
+                //por alguna extraña razon no me deja cerrar los Stream en el finally
+                in.close();
+                fileIn.close();
+            }
+            catch(IOException i){
+                System.out.println("Se ha detectado un error: ");
+                i.printStackTrace();
+            }
+            catch(ClassNotFoundException c){
+                System.out.println("No se ha encontrado lo que buscaba");
+                c.printStackTrace();
+            }
+            finally{//aqui deberia cerrar los Stream pero no me deja
+            }
+            
+            escuderias.remove(p);
+            try{
+                    FileOutputStream fileOut = new FileOutputStream(archivo);
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    out.writeObject(escuderias);
+                    out.close();
+                    fileOut.close();
+                    System.out.printf("El array de escuderias ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
+                }
+                catch(IOException i){
+                    System.out.println("Se ha detectado un error: ");
+                    i.printStackTrace();
+                }
+
+        }
+        else{
+            System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
+        }
+   }
+   
+   public void modificar(String archivo, Escuderia p){
+       ArrayList<Escuderia> escuderias = new ArrayList();
+        File comprobarFichero = new File(archivo);
+        int seleccion=0;
+        Scanner escaner = new Scanner (System.in);
+        
+        //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
+        if (comprobarFichero.exists()) {
+            try{
+                FileInputStream fileIn = new FileInputStream(archivo);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                
+                //2º Obtener el arrayList
+                escuderias = (ArrayList<Escuderia>) in.readObject();
+
+                //por alguna extraña razon no me deja cerrar los Stream en el finally
+                in.close();
+                fileIn.close();
+            }
+            catch(IOException i){
+                System.out.println("Se ha detectado un error: ");
+                i.printStackTrace();
+            }
+            catch(ClassNotFoundException c){
+                System.out.println("No se ha encontrado lo que buscaba");
+                c.printStackTrace();
+            }
+            finally{//aqui deberia cerrar los Stream pero no me deja
+            }
+            
+            escuderias.get(escuderias.indexOf(p)).setDueño(p.getDueño());
+            escuderias.get(escuderias.indexOf(p)).setNombre(p.getNombre());
+            escuderias.get(escuderias.indexOf(p)).setPais(p.getPais());
+            escuderias.get(escuderias.indexOf(p)).setAñoFundacion(p.getAñoFundacion());
+            escuderias.get(escuderias.indexOf(p)).setPuntosMundial(p.getPuntosMundial());
+            escuderias.get(escuderias.indexOf(p)).setPresupuesto(p.getPresupuesto());
+            escuderias.get(escuderias.indexOf(p)).setDirectivos(p.getDirectivos());
+            try{
+                    FileOutputStream fileOut = new FileOutputStream(archivo);
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    out.writeObject(escuderias);
+                    out.close();
+                    fileOut.close();
+                    System.out.printf("El array de escuderias ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
+                }
+                catch(IOException i){
+                    System.out.println("Se ha detectado un error: ");
+                    i.printStackTrace();
+                }
+
+        }
+        else{
+            System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
+        }
+   
+   }
+   
+   public void darAlta(String archivo, Circuito p){
+        ArrayList <Circuito> circuitos= new ArrayList<Circuito>();
+        File comprobarFichero = new File(archivo);
+        
+        //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
+        if (comprobarFichero.exists()) {
+            try{
+                FileInputStream fileIn = new FileInputStream(archivo);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                
+                circuitos = (ArrayList<Circuito>) in.readObject();
+
+
+                in.close();
+                fileIn.close();
+            }
+            catch(IOException i){
+                System.out.println("Se ha detectado un error: ");
+                i.printStackTrace();
+            }
+            catch(ClassNotFoundException c){
+                System.out.println("No se ha encontrado lo que buscaba");
+                c.printStackTrace();
+            }
+            finally{//aqui deberia cerrar los Stream pero no me deja
+            }
+            
+            circuitos.add(p);
+            
+            try{
+                    FileOutputStream fileOut = new FileOutputStream(archivo);
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    out.writeObject(circuitos);
+                    out.close();
+                    fileOut.close();
+                    System.out.printf("El array de circuitos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getAbsolutePath()+")");
+                }
+                catch(IOException i){
+                    System.out.println("Se ha detectado un error: ");
+                    i.printStackTrace();
+                }
+
+        }
+        else{
+            System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
+        }
+   }
+   
+   public void darBaja(String archivo, Circuito p){
+        ArrayList <Circuito> circuitos= new ArrayList<Circuito>();
+        File comprobarFichero = new File(archivo);
+        
+        //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
+        if (comprobarFichero.exists()) {
+            try{
+                FileInputStream fileIn = new FileInputStream(archivo);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                
+                circuitos = (ArrayList<Circuito>) in.readObject();
+
+
+                in.close();
+                fileIn.close();
+            }
+            catch(IOException i){
+                System.out.println("Se ha detectado un error: ");
+                i.printStackTrace();
+            }
+            catch(ClassNotFoundException c){
+                System.out.println("No se ha encontrado lo que buscaba");
+                c.printStackTrace();
+            }
+            finally{//aqui deberia cerrar los Stream pero no me deja
+            }
+            
+            circuitos.remove(p);
+            
+            try{
+                    FileOutputStream fileOut = new FileOutputStream(archivo);
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    out.writeObject(circuitos);
+                    out.close();
+                    fileOut.close();
+                    System.out.printf("El array de circuitos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getAbsolutePath()+")");
+                }
+                catch(IOException i){
+                    System.out.println("Se ha detectado un error: ");
+                    i.printStackTrace();
+                }
+
+        }
+        else{
+            System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
+        }
+   }
+   
+
+    public void modificar(String archivo, Circuito p){
+        ArrayList <Circuito> circuitos= new ArrayList<Circuito>();
+        File comprobarFichero = new File(archivo);
+        
+        //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
+        if (comprobarFichero.exists()) {
+            try{
+                FileInputStream fileIn = new FileInputStream(archivo);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                
+                circuitos = (ArrayList<Circuito>) in.readObject();
+
+
+                in.close();
+                fileIn.close();
+            }
+            catch(IOException i){
+                System.out.println("Se ha detectado un error: ");
+                i.printStackTrace();
+            }
+            catch(ClassNotFoundException c){
+                System.out.println("No se ha encontrado lo que buscaba");
+                c.printStackTrace();
+            }
+            finally{//aqui deberia cerrar los Stream pero no me deja
+            }
+            
+            circuitos.get(circuitos.indexOf(p)).setNombre(p.getNombre());
+            circuitos.get(circuitos.indexOf(p)).setPatrocinador(p.getPatrocinador());
+            circuitos.get(circuitos.indexOf(p)).setPrecio(p.getPrecio());
+            circuitos.get(circuitos.indexOf(p)).setPatrocinador(p.getPatrocinador());
+            circuitos.get(circuitos.indexOf(p)).setRectas(p.getRectas());
+            circuitos.get(circuitos.indexOf(p)).setCurvas(p.getCurvas());
+            circuitos.get(circuitos.indexOf(p)).setAforo(p.getAforo());
+            circuitos.get(circuitos.indexOf(p)).añadirCurvas();
+            circuitos.get(circuitos.indexOf(p)).añadirRectas();
+            
+            try{
+                    FileOutputStream fileOut = new FileOutputStream(archivo);
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    out.writeObject(circuitos);
+                    out.close();
+                    fileOut.close();
+                    System.out.printf("El array de circuitos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getAbsolutePath()+")");
+                }
+                catch(IOException i){
+                    System.out.println("Se ha detectado un error: ");
+                    i.printStackTrace();
+                }
+
+        }
+        else{
+            System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
+        }
+   }
     
-}
-}
+    }
+       
+
