@@ -508,7 +508,10 @@ public class Mundial {
             System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
         }
    }
-    
+   public void comenzarMundial(){   
+   }
+   public void darSalida(){
+   }
     }
        
 
