@@ -27,13 +27,15 @@ public class Main {
         int aforo;
         ArrayList <Circuito> liscur= new ArrayList<Circuito>();
         ArrayList <Circuito> lisrec= new ArrayList<Circuito>();
-        liscur=null;
-        lisrec=null;
+        double tramorecta,tramocurva;
+        
         String nomescu;
         String dueno;
         String pais;
         int fundacion;
         int pmun;
+        int numdirectivos;
+        String nomdirectivos;
         double presupuesto;
         ArrayList <String> directivos= new ArrayList <String>();
         
@@ -45,6 +47,8 @@ public class Main {
         String apellidoce;
         int edadse;
         int edadce;
+        int numerodirectivos;
+        String nombredirectivos;
         double alturase;
         double alturace;
         double pesose;
@@ -76,6 +80,17 @@ public class Main {
             System.out.print("Escoja el nº de curvas del circuito "+ i+": ");     curvas=mundial.nextInt();   System.out.println("");
             System.out.print("Escoja el precio del circuito "+ i+": ");     precio=mundial.nextDouble();     System.out.println("");
             System.out.print("Escoja el aforo del circuito "+ i+": ");     aforo=mundial.nextInt();       System.out.println("");
+            for ( int u=0; u < rectas; u++){
+                System.out.print("Introduzca un valor para la recta "+u+" del circuito "+i+" : ");
+                tramorecta= mundial.nextDouble();
+                lisrec.get(u).setRectas(tramorecta);
+            }
+            for ( int u=0; u< curvas; u++){
+                System.out.print("Introduzca un valor para la curva "+u+" del circuito "+i+" : ");
+                tramocurva= mundial.nextDouble();
+                liscur.get(u).setCurvas(tramocurva);
+            }
+            
             f1.darAlta("datosCircuito.dat", new Circuito (nomcir,patro,rectas,curvas,precio,aforo,liscur,lisrec));
         }
         System.out.println("Ahora debe de inscribir el numero de escuderias que desea. Dicho numero es...");    numescu= mundial.nextInt();
@@ -86,6 +101,11 @@ public class Main {
             System.out.print("Escoja la fecha de fundacion de la escuderia "+ i+": ");     fundacion=mundial.nextInt();   System.out.println("");
             System.out.print("Escoja la cantidad de puntos del mundial que posee la escuderia "+ i+": ");     pmun=mundial.nextInt();     System.out.println("");
             System.out.print("Escoja el presupuesto de la escuderia"+ i+": ");     presupuesto=mundial.nextDouble();       System.out.println("");
+            System.out.print("Cuantos directivos tiene la escuderia?:");    numdirectivos=mundial.nextInt();    System.out.println("");
+            for (int u=0; u< numdirectivos; u++){
+                System.out.print("Nombre del directivo "+u+" :");   nomdirectivos=mundial.next();   System.out.println("");
+                directivos.add(nomdirectivos);
+            }
             f1.darAlta("/datosEscuderia.dat", new Escuderia(dueno,nomescu,pais,fundacion,pmun,presupuesto,directivos));
         }
         System.out.println("Por último debe de inscribir el numero de pilotos que desea.Recuerde que puede elegir que el piloto desde un inicio pertenezcaa una escuderia.");
@@ -113,6 +133,11 @@ public class Main {
             System.out.print("Escoja la fecha de fundacion de la escuderia a la que pertenece el piloto "+ i+": ");     fundacionescuderia=mundial.nextInt();   System.out.println("");
             System.out.print("Escoja la cantidad de puntos del mundial que posee la escuderia del piloto "+ i+": ");     pmunescuderia=mundial.nextInt();     System.out.println("");
             System.out.print("Escoja el presupuesto de la escuderia a la que pertence el piloto "+ i+": ");     presupuestoescuderia=mundial.nextDouble();       System.out.println("");
+            System.out.print("Cuantos directivos tiene la escuderia?:");    numerodirectivos=mundial.nextInt();    System.out.println("");
+            for (int u=0; u< numerodirectivos; u++){
+                System.out.print("Nombre del directivo "+u+" :");   nombredirectivos=mundial.next();   System.out.println("");
+                directivos.add(nombredirectivos);
+            }
             System.out.print("Escoja la altura del piloto "+i+" :"); alturace=mundial.nextDouble();    System.out.println("");
             System.out.print("Escoja el peso del piloto "+i+" :");   pesoce=mundial.nextDouble();      System.out.println("");
             System.out.print("Escoja los reflejos del piloto "+i+" (Recuerde: Los valores van de 1 a 5)");   reflejosce= mundial.nextDouble();   System.out.println("");
