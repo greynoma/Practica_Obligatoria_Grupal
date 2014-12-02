@@ -19,6 +19,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args){
+        Escuderia escuderia= new Escuderia();
         Scanner mundial= new Scanner(System.in);
         String nomcir,patro;
         int rectas,curvas;
@@ -61,7 +62,7 @@ public class Main {
         double valentiace;
         double pacienciase;
         double pacienciace;
-        Escuderia escuderia;
+     
         
         String nombreescuderia;
         String duenoescuderia;
@@ -80,18 +81,9 @@ public class Main {
             System.out.print("Escoja el nº de curvas del circuito "+ i+": ");     curvas=mundial.nextInt();   System.out.println("");
             System.out.print("Escoja el precio del circuito "+ i+": ");     precio=mundial.nextDouble();     System.out.println("");
             System.out.print("Escoja el aforo del circuito "+ i+": ");     aforo=mundial.nextInt();       System.out.println("");
-            for ( int u=0; u < rectas; u++){
-                System.out.print("Introduzca un valor para la recta "+u+" del circuito "+i+" : ");
-                tramorecta= mundial.nextDouble();
-                lisrec.get(u).setRectas(tramorecta);
-            }
-            for ( int u=0; u< curvas; u++){
-                System.out.print("Introduzca un valor para la curva "+u+" del circuito "+i+" : ");
-                tramocurva= mundial.nextDouble();
-                liscur.get(u).setCurvas(tramocurva);
-            }
+
             
-            f1.darAlta("datosCircuito.dat", new Circuito (nomcir,patro,rectas,curvas,precio,aforo,liscur,lisrec));
+            f1.darAlta("datosCircuito.dat", new Circuito (nomcir,patro,rectas,curvas,precio,aforo));
         }
         System.out.println("Ahora debe de inscribir el numero de escuderias que desea. Dicho numero es...");    numescu= mundial.nextInt();
         for (int i=0; i<numescu; i++){
@@ -146,6 +138,35 @@ public class Main {
             System.out.print("Escoja la valentia del piloto "+i+" (Recuerde: Los valores van de 1 a 5)");   valentiace=mundial.nextDouble();      System.out.println("");
             f1.darAlta("/datosEscuderia.dat", new Escuderia(duenoescuderia,nombreescuderia,paisescuderia,fundacionescuderia,pmunescuderia,presupuestoescuderia,directivosescuderia));
             f1.darAlta("/datosPiloto.dat", new Piloto(nompilce,apellidoce,edadce,new Escuderia(duenoescuderia,nombreescuderia,paisescuderia,fundacionescuderia,pmunescuderia,presupuestoescuderia,directivosescuderia),alturace,pesoce,reflejosce,agresividadce,pacienciace,valentiace));
+        }
+        String respuesta;
+        String opcion;
+        int opcionescuderia;
+        System.out.print("Los datos ya se han cargado.Desea hacer alguna modificacion? S/N"); respuesta=mundial.next(); System.out.println("");
+        if (respuesta.equals("s") | respuesta.equals("S")){
+            System.out.println("Que desea cambiar? E/P/C"); opcion=mundial.next();  System.out.println("");
+            if (opcion.equals("e") | opcion.equals("E")){
+                System.out.println("Ha elegido hacer cambios en Escuderia.Que desea hacer? 1.-Dar de Alta/ 2.-Dar de Baja/ 3.-Modificar datos");    opcionescuderia= mundial.nextInt();    System.out.println("");
+                switch (opcionescuderia){
+                    case 1:     System.out.println("Cuantas ecuderias va a dar de alta?");    numescu= mundial.nextInt();
+                                for (int i=0; i<numescu; i++){
+                                    System.out.print("Escoja el dueno de la escuderia "+ i+": ");     dueno=mundial.next();    System.out.println("");
+                                    System.out.print("Escoja el nombre de la escuderia "+ i+": ");     nomescu=mundial.next();   System.out.println("");
+                                    System.out.print("Escoja la nacionalidad de la escuderia "+ i+": ");     pais=mundial.next();   System.out.println("");
+                                    System.out.print("Escoja la fecha de fundacion de la escuderia "+ i+": ");     fundacion=mundial.nextInt();   System.out.println("");
+                                    System.out.print("Escoja la cantidad de puntos del mundial que posee la escuderia "+ i+": ");     pmun=mundial.nextInt();     System.out.println("");
+                                    System.out.print("Escoja el presupuesto de la escuderia"+ i+": ");     presupuesto=mundial.nextDouble();       System.out.println("");
+                                    System.out.print("Cuantos directivos tiene la escuderia?:");    numdirectivos=mundial.nextInt();    System.out.println("");
+                                for (int u=0; u< numdirectivos; u++){
+                                    System.out.print("Nombre del directivo "+u+" :");   nomdirectivos=mundial.next();   System.out.println("");
+                                    directivos.add(nomdirectivos);
+                                }
+                                f1.darAlta("/datosEscuderia.dat", new Escuderia(dueno,nomescu,pais,fundacion,pmun,presupuesto,directivos));
+                            }
+                    case 2:     System.out.print("Introduzca el nombre de la escuderia que desea borrar: "); nomescu=mundial.next();    System.out.println("");
+                                f1.darBaja("/datosEscuderia.dat", null)
+                }
+            }
         }
         //Escuderia mercedes= new Escuderia("Tom Morello", "Mercedes", "Tegucigalpa", 1985, 0, 10000.5, null);
         //mercedes.crearCoche("M-100", 3, 2, 1);

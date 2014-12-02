@@ -4,21 +4,15 @@
  * and open the template in the editor.
  */
 package data;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import java.util.Scanner;
+
 
 
 public class Mundial {
@@ -81,7 +75,7 @@ public class Mundial {
         }
    }
    
-   public void darBaja(String archivo, Piloto p){  
+   public void darBaja(String archivo, String nombrePiloto, String apellidoPiloto){  
         ArrayList<Piloto> pilotos = new ArrayList();
         File comprobarFichero = new File(archivo);
 
@@ -110,7 +104,13 @@ public class Mundial {
             finally{//aqui deberia cerrar los Stream pero no me deja
             }
             
-            pilotos.remove(p);
+            for (int i=0; i<pilotos.size(); i++){
+                if (nombrePiloto==pilotos.get(i).getNombre() && apellidoPiloto==pilotos.get(i).getApellido()){
+                    pilotos.remove(pilotos.get(i));
+                }    
+                }
+            
+            
             try{
                     FileOutputStream fileOut = new FileOutputStream(archivo);
                     ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -130,7 +130,7 @@ public class Mundial {
         }
    }
    
-   public void modificar(String archivo, Piloto p){  
+   public void modificar(String archivo, String nombrePiloto, String apellidoPiloto){  
        ArrayList<Piloto> pilotos = new ArrayList();
         File comprobarFichero = new File(archivo);
 
@@ -158,31 +158,14 @@ public class Mundial {
             }
             finally{//aqui deberia cerrar los Stream pero no me deja
             }
-            if (p.getEscuderia()==null){
-            pilotos.get(pilotos.indexOf(p)).setNombre(p.getNombre());
-            pilotos.get(pilotos.indexOf(p)).setApellido(p.getApellido());
-            pilotos.get(pilotos.indexOf(p)).setEdad(p.getEdad());
-            pilotos.get(pilotos.indexOf(p)).setAltura(p.getAltura());
-            pilotos.get(pilotos.indexOf(p)).setPeso(p.getPeso());
-            pilotos.get(pilotos.indexOf(p)).setReflejos(p.getReflejos());
-            pilotos.get(pilotos.indexOf(p)).setAgresividad(p.getAgresividad());
-            pilotos.get(pilotos.indexOf(p)).setPaciencia(p.getPaciencia());
-            pilotos.get(pilotos.indexOf(p)).setValentia(p.getValentia());
-            }
-            else{
-            pilotos.get(pilotos.indexOf(p)).setNombre(p.getNombre());
-            pilotos.get(pilotos.indexOf(p)).setApellido(p.getApellido());
-            pilotos.get(pilotos.indexOf(p)).setEdad(p.getEdad());
-            pilotos.get(pilotos.indexOf(p)).setEscuderia(p.getEscuderia());
-            pilotos.get(pilotos.indexOf(p)).setAltura(p.getAltura());
-            pilotos.get(pilotos.indexOf(p)).setPeso(p.getPeso());
-            pilotos.get(pilotos.indexOf(p)).setReflejos(p.getReflejos());
-            pilotos.get(pilotos.indexOf(p)).setAgresividad(p.getAgresividad());
-            pilotos.get(pilotos.indexOf(p)).setPaciencia(p.getPaciencia());
-            pilotos.get(pilotos.indexOf(p)).setValentia(p.getValentia());
+            for (int i=0; i<pilotos.size(); i++){
+                if (nombrePiloto==pilotos.get(i).getNombre() && apellidoPiloto==pilotos.get(i).getApellido()){
+
+                }    
+                }
             
             
-            }
+            
             try{
                     FileOutputStream fileOut = new FileOutputStream(archivo);
                     ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -196,8 +179,8 @@ public class Mundial {
                     i.printStackTrace();
                 }
 
-        }
-        else{
+        
+        }else{
             System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
         }
    
@@ -252,7 +235,7 @@ public class Mundial {
         }
    }
    
-   public void darBaja(String archivo, Escuderia p){
+   public void darBaja(String archivo, String nombreEscuderia){
         ArrayList<Escuderia> escuderias = new ArrayList();
         File comprobarFichero = new File(archivo);
 
@@ -281,7 +264,13 @@ public class Mundial {
             finally{//aqui deberia cerrar los Stream pero no me deja
             }
             
-            escuderias.remove(p);
+            for (int i=0; i<escuderias.size(); i++){
+                if (nombreEscuderia==escuderias.get(i).getNombre()){
+                    escuderias.remove(escuderias.get(i));
+                }    
+                }
+            
+
             try{
                     FileOutputStream fileOut = new FileOutputStream(archivo);
                     ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -301,7 +290,7 @@ public class Mundial {
         }
    }
    
-   public void modificar(String archivo, Escuderia p){
+   public void modificar(String archivo, String nombreEscuderia){ //case para recorrer piltoos
        ArrayList<Escuderia> escuderias = new ArrayList();
         File comprobarFichero = new File(archivo);
         
@@ -329,13 +318,11 @@ public class Mundial {
             finally{//aqui deberia cerrar los Stream pero no me deja
             }
             
-            escuderias.get(escuderias.indexOf(p)).setDueño(p.getDueño());
-            escuderias.get(escuderias.indexOf(p)).setNombre(p.getNombre());
-            escuderias.get(escuderias.indexOf(p)).setPais(p.getPais());
-            escuderias.get(escuderias.indexOf(p)).setAñoFundacion(p.getAñoFundacion());
-            escuderias.get(escuderias.indexOf(p)).setPuntosMundial(p.getPuntosMundial());
-            escuderias.get(escuderias.indexOf(p)).setPresupuesto(p.getPresupuesto());
-            escuderias.get(escuderias.indexOf(p)).setDirectivos(p.getDirectivos());
+            for (int i=0; i<escuderias.size(); i++){
+                if (nombreEscuderia==escuderias.get(i).getNombre()){
+
+                }    
+                }
             try{
                     FileOutputStream fileOut = new FileOutputStream(archivo);
                     ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -404,7 +391,7 @@ public class Mundial {
         }
    }
    
-   public void darBaja(String archivo, Circuito p){
+   public void darBaja(String archivo, String){
         ArrayList <Circuito> circuitos= new ArrayList<Circuito>();
         File comprobarFichero = new File(archivo);
         
@@ -453,9 +440,10 @@ public class Mundial {
    }
    
 
-    public void modificar(String archivo, Circuito p){
+    public void modificar(String archivo, Circuito p){ // case para modifiicar
         ArrayList <Circuito> circuitos= new ArrayList<Circuito>();
         File comprobarFichero = new File(archivo);
+        Scanner escaner= new Scanner (System.in);
         
         //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
         if (comprobarFichero.exists()) {
@@ -480,13 +468,20 @@ public class Mundial {
             finally{//aqui deberia cerrar los Stream pero no me deja
             }
             
-            circuitos.get(circuitos.indexOf(p)).setNombre(p.getNombre());
-            circuitos.get(circuitos.indexOf(p)).setPatrocinador(p.getPatrocinador());
-            circuitos.get(circuitos.indexOf(p)).setPrecio(p.getPrecio());
-            circuitos.get(circuitos.indexOf(p)).setPatrocinador(p.getPatrocinador());
-            circuitos.get(circuitos.indexOf(p)).setRectas(p.getRectas());
-            circuitos.get(circuitos.indexOf(p)).setCurvas(p.getCurvas());
-            circuitos.get(circuitos.indexOf(p)).setAforo(p.getAforo());
+            String nombre;
+            String patrocinador;
+            Double precio;
+            Double rectas;
+            Double curvas;
+            int aforo;
+            System.out.println("Que desea modificar?\n");
+            System.out.print("1.-Nombre/2.-Patrocinador/3.-Precio/4.-Rectas/5.-Curvas/6.-Aforo/7.-");
+            circuitos.get(circuitos.indexOf(p)).setNombre(());
+            circuitos.get(circuitos.indexOf(p)).setPatrocinador();
+            circuitos.get(circuitos.indexOf(p)).setPrecio();
+            circuitos.get(circuitos.indexOf(p)).setRectas();
+            circuitos.get(circuitos.indexOf(p)).setCurvas();
+            circuitos.get(circuitos.indexOf(p)).setAforo();
             circuitos.get(circuitos.indexOf(p)).añadirCurvas();
             circuitos.get(circuitos.indexOf(p)).añadirRectas();
             
