@@ -21,6 +21,7 @@ public class Mundial {
    private boolean comienzo;
    private DatosCircuito[] dcir= new DatosCircuito[5];
    private ArrayList<DatosCircuito> datcir =new ArrayList <DatosCircuito> ();
+   private Scanner escaner= new Scanner (System.in);
    
    
    
@@ -160,7 +161,101 @@ public class Mundial {
             }
             for (int i=0; i<pilotos.size(); i++){
                 if (nombrePiloto==pilotos.get(i).getNombre() && apellidoPiloto==pilotos.get(i).getApellido()){
-
+                    if ( pilotos.get(i).getEscuderia()!=null){
+                    System.out.println("¿Que desea modificar?");
+                    System.out.println("1.-Nombre/2.-Apellido/3.-Edad/4.-Escuderia/5.-Altura/6.-Peso/7.-Reflejos/8.-Agresividad/9.-Paciencia/10.-Valentia");
+                    int respuesta = escaner.nextInt();
+                    String nuevovalor;
+                    int valor;
+                    double valornuevo;
+                    switch ( respuesta){
+                        case 1: System.out.print("Introduzca el nuevo nombre: ");
+                                nuevovalor= escaner.next(); System.out.println("");
+                                pilotos.get(i).setNombre(nuevovalor);
+                                break;
+                        case 2: System.out.println("Introduzca el nuevo apellido: ");
+                                nuevovalor= escaner.next(); System.out.println("");
+                                pilotos.get(i).setApellido(nuevovalor);
+                                break;
+                        case 3: System.out.println("Introduzca la nueva edad: ");
+                                valor= escaner.nextInt();   System.out.println("");
+                                pilotos.get(i).setEdad(valor);
+                                break;
+                        case 4: System.out.println("Introduzca la nueva escuderia: ");
+                                ///////////////////////////////////////////////////
+                                ///////////////////////////////////////////////////
+                        case 5: System.out.println("Introduzca la nueva altura: ");
+                                valornuevo=escaner.nextDouble();    System.out.println("");
+                                pilotos.get(i).setAltura(valornuevo);
+                                break;
+                        case 6: System.out.println("Introduzca el nuevo peso: ");
+                                valornuevo=escaner.nextDouble();    System.out.println("");
+                                pilotos.get(i).setPeso(valornuevo);
+                                break;
+                        case 7: System.out.println("Introduzca los nuevos reflejos: ");
+                                valornuevo=escaner.nextDouble();    System.out.println("");
+                                pilotos.get(i).setReflejos(valornuevo);
+                                break;
+                        case 8: System.out.println("Introduzca la nueva agresividad: ");
+                                valornuevo=escaner.nextDouble();    System.out.println("");
+                                pilotos.get(i).setAgresividad(valornuevo);
+                                break;
+                        case 9: System.out.println("Introduzca la nueva paciencia: ");
+                                valornuevo=escaner.nextDouble();    System.out.println("");
+                                pilotos.get(i).setPaciencia(valornuevo);
+                                break;
+                        case 10:    System.out.println("Introduzca la nueva valentía: ");
+                                    valornuevo=escaner.nextDouble();    System.out.println("");
+                                    pilotos.get(i).setValentia(valornuevo);
+                                    break;
+                    }
+                    }
+                    else {
+                        System.out.println("¿Que desea modificar?");
+                        System.out.println("1.-Nombre/2.-Apellido/3.-Edad/4.-Altura/5.-Peso/6.-Reflejos/7.-Agresividad/8.-Paciencia/9.-Valentia");
+                        int respuesta = escaner.nextInt();
+                        String nuevovalor;
+                        int valor;
+                        double valornuevo;
+                        switch ( respuesta){
+                            case 1: System.out.print("Introduzca el nuevo nombre: ");
+                                    nuevovalor= escaner.next(); System.out.println("");
+                                    pilotos.get(i).setNombre(nuevovalor);
+                                    break;
+                            case 2: System.out.println("Introduzca el nuevo apellido: ");
+                                    nuevovalor= escaner.next(); System.out.println("");
+                                    pilotos.get(i).setApellido(nuevovalor);
+                                    break;
+                            case 3: System.out.println("Introduzca la nueva edad: ");
+                                    valor= escaner.nextInt();   System.out.println("");
+                                    pilotos.get(i).setEdad(valor);
+                                    break;
+                            case 4: System.out.println("Introduzca la nueva altura: ");
+                                    valornuevo=escaner.nextDouble();    System.out.println("");
+                                    pilotos.get(i).setAltura(valornuevo);
+                                    break;
+                            case 5: System.out.println("Introduzca el nuevo peso: ");
+                                    valornuevo=escaner.nextDouble();    System.out.println("");
+                                    pilotos.get(i).setPeso(valornuevo);
+                                    break;
+                            case 6: System.out.println("Introduzca los nuevos reflejos: ");
+                                    valornuevo=escaner.nextDouble();    System.out.println("");
+                                    pilotos.get(i).setReflejos(valornuevo);
+                                    break;
+                            case 7: System.out.println("Introduzca la nueva agresividad: ");
+                                    valornuevo=escaner.nextDouble();    System.out.println("");
+                                    pilotos.get(i).setAgresividad(valornuevo);
+                                    break;
+                            case 8: System.out.println("Introduzca la nueva paciencia: ");
+                                    valornuevo=escaner.nextDouble();    System.out.println("");
+                                    pilotos.get(i).setPaciencia(valornuevo);
+                                    break;
+                            case 9:    System.out.println("Introduzca la nueva valentía: ");
+                                        valornuevo=escaner.nextDouble();    System.out.println("");
+                                        pilotos.get(i).setValentia(valornuevo);
+                                        break;
+                    }
+                    }
                 }    
                 }
             
@@ -318,9 +413,59 @@ public class Mundial {
             finally{//aqui deberia cerrar los Stream pero no me deja
             }
             
+            System.out.println("Que desea modificar?");
+            System.out.println("1.-Dueño/2.-Nombre/3.-País/4.-AñoFundacion/5.-PuntosMundial/6.-Presupuesto/7.-Directivos");
+            int respuesta;
+            respuesta=escaner.nextInt();
+            String nuevovalor;
+            int valor;
+            double valornuevo;
+            ArrayList <String> nuevoDirectivo= new ArrayList <String>();
             for (int i=0; i<escuderias.size(); i++){
                 if (nombreEscuderia==escuderias.get(i).getNombre()){
+                    switch (respuesta){ 
+                        case 1: System.out.print("Cómo quieres que se llame el dueño de la esuderia?");
+                                nuevovalor= escaner.next();
+                                escuderias.get(i).setDueño(nuevovalor);
+                                break;
+                        case 2: System.out.print("Cómo quieres que se llame la escuderia?");
+                                nuevovalor= escaner.next();
+                                escuderias.get(i).setNombre(nuevovalor);
+                                break;
+                        case 3: System.out.print("Qué nacionalidad tiene la escuderia?");
+                                nuevovalor= escaner.next();
+                                escuderias.get(i).setPais(nuevovalor);
+                                break;
+                        case 4: System.out.print("En qué año se fundó la escudería?");
+                                valor= escaner.nextInt();
+                                escuderias.get(i).setAñoFundacion(valor);
+                                break;
+                        case 5: System.out.print("Cuántas puntos tiene la escuderia?");
+                                valor= escaner.nextInt();
+                                escuderias.get(i).setPuntosMundial(valor);
+                                break;
+                        case 6: System.out.print("Cuánto presupuesto tiene la escuderia?");
+                                valornuevo= escaner.nextDouble();
+                                escuderias.get(i).setPresupuesto(valornuevo);
+                                break;
+                        case 7: System.out.print("Actualmente la escuderia tiene estos directivos?");
+                                for (int o=0; o < escuderias.get(i).getDirectivos().size(); o++){
+                                    System.out.println("Directivo ["+o+"]: "+escuderias.get(o).getDirectivos());
+                                }
+                                System.out.println("");
+                                System.out.print("¿Qué directivo desea modificar?");
+                                respuesta= escaner.nextInt();   System.out.println("");
+                                for (int o=0; o < escuderias.get(i).getDirectivos().size(); o++)
+                                    if (respuesta<= escuderias.get(o).getDirectivos().size()){
+                                        System.out.print("Introduzca el nombre que desea: ");
+                                        nuevovalor= escaner.next(); System.out.println("");
+                                        nuevoDirectivo.add(nuevovalor);
+                                        escuderias.get(i).setDirectivos(nuevoDirectivo);
+                                }
 
+                                break;
+                    }
+                    
                 }    
                 }
             try{
@@ -391,7 +536,7 @@ public class Mundial {
         }
    }
    
-   public void darBaja(String archivo, String){
+   public void darBajaCir(String archivo, String nombreCircuito){
         ArrayList <Circuito> circuitos= new ArrayList<Circuito>();
         File comprobarFichero = new File(archivo);
         
@@ -418,7 +563,11 @@ public class Mundial {
             finally{//aqui deberia cerrar los Stream pero no me deja
             }
             
-            circuitos.remove(p);
+            for (int i=0; i<circuitos.size(); i++){
+                if (nombreCircuito==circuitos.get(i).getNombre()){
+                    circuitos.remove(circuitos.get(i));
+                }    
+                }
             
             try{
                     FileOutputStream fileOut = new FileOutputStream(archivo);
@@ -440,10 +589,10 @@ public class Mundial {
    }
    
 
-    public void modificar(String archivo, Circuito p){ // case para modifiicar
+    public void modificarCir(String archivo, String nombreCircuito){ // case para modifiicar
         ArrayList <Circuito> circuitos= new ArrayList<Circuito>();
         File comprobarFichero = new File(archivo);
-        Scanner escaner= new Scanner (System.in);
+
         
         //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
         if (comprobarFichero.exists()) {
@@ -468,22 +617,44 @@ public class Mundial {
             finally{//aqui deberia cerrar los Stream pero no me deja
             }
             
-            String nombre;
-            String patrocinador;
-            Double precio;
-            Double rectas;
-            Double curvas;
-            int aforo;
-            System.out.println("Que desea modificar?\n");
-            System.out.print("1.-Nombre/2.-Patrocinador/3.-Precio/4.-Rectas/5.-Curvas/6.-Aforo/7.-");
-            circuitos.get(circuitos.indexOf(p)).setNombre(());
-            circuitos.get(circuitos.indexOf(p)).setPatrocinador();
-            circuitos.get(circuitos.indexOf(p)).setPrecio();
-            circuitos.get(circuitos.indexOf(p)).setRectas();
-            circuitos.get(circuitos.indexOf(p)).setCurvas();
-            circuitos.get(circuitos.indexOf(p)).setAforo();
-            circuitos.get(circuitos.indexOf(p)).añadirCurvas();
-            circuitos.get(circuitos.indexOf(p)).añadirRectas();
+
+            System.out.println("Que desea modificar?");
+            System.out.println("1.-Nombre/2.-Patrocinador/3.-Precio/4.-Rectas/5.-Curvas/6.-Aforo");
+            int respuesta;
+            respuesta= escaner.nextInt();
+            String nuevovalor;
+            int valor;
+            
+            for (int i=0; i<circuitos.size(); i++){
+                if (nombreCircuito==circuitos.get(i).getNombre()){
+                    switch (respuesta){ 
+                        case 1: System.out.print("Cómo quieres que se llame el circuito?");
+                                nuevovalor= escaner.next();
+                                circuitos.get(i).setNombre(nuevovalor);
+                                break;
+                        case 2: System.out.print("Cómo quieres que se llame el patrocinador?");
+                                nuevovalor= escaner.next();
+                                circuitos.get(i).setPatrocinador(nuevovalor);
+                                break;
+                        case 3: System.out.print("Cuánto quieres que cueste el circuito?");
+                                valor= escaner.nextInt();
+                                circuitos.get(i).setPrecio(valor);
+                                break;
+                        case 4: System.out.print("Cuántas rectas quieres que tenga el circuito?");
+                                valor= escaner.nextInt();
+                                circuitos.get(i).setRectas(valor);
+                                break;
+                        case 5: System.out.print("Cuántas curvas quieres que tenga el circuito?");
+                                valor= escaner.nextInt();
+                                circuitos.get(i).setCurvas(valor);
+                                break;
+                        case 6: System.out.print("Cuánto aforo quieres que tenga el circuito?");
+                                valor= escaner.nextInt();
+                                circuitos.get(i).setAforo(valor);
+                                break;
+                    }
+                }
+            }       
             
             try{
                     FileOutputStream fileOut = new FileOutputStream(archivo);
@@ -504,6 +675,12 @@ public class Mundial {
         }
    }
    public void comenzarMundial(){   
+       ArrayList <Circuito> participantes= new ArrayList <Circuito>();
+       
+       for (int i=0; i < participantes.size(); i++){
+               participantes.
+   
+       }
    }
    public void darSalida(){
    }
