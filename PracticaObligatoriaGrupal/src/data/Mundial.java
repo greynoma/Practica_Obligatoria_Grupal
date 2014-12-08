@@ -675,13 +675,25 @@ public class Mundial {
         }
    }
    public void comenzarMundial(){   
-       ArrayList <Circuito> participantes= new ArrayList <Circuito>();
-       
-       for (int i=0; i < participantes.size(); i++){
-               participantes.
-   
+       Scanner escaner= new Scanner (System.in);
+       ArrayList <Circuito> integrantes= new ArrayList <Circuito>();
+       ArrayList <Escuderia> participantes= new ArrayList <Escuderia>();
+       System.out.println("Solo podrán correr en el circuito los pilotos oficiales que posean escuderia. Dichos pilotos son:");
+       for (int i=0; i< participantes.size();i++){
+           System.out.println("Piloto ["+i+"]: "+participantes.get(i).getPilotoOficial());
        }
-   }
+       System.out.print("Introduzca el piloto que desea que corra el circuito:");
+       String nombrePil= escaner.next();
+       for (int i=0; i< participantes.size();i++){
+           if (nombrePil.equals(participantes.get(i).getPilotoOficial())){
+               for (int o=0; o<5; o++){
+                   integrantes.get(o).
+               }
+           }
+       }
+               
+       }
+   
    public void darSalida(){
    }
     }
