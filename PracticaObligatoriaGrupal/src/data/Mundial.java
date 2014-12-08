@@ -675,26 +675,57 @@ public class Mundial {
         }
    }
    public void comenzarMundial(){   
+       boolean comienzo=false;
        Scanner escaner= new Scanner (System.in);
        ArrayList <Circuito> integrantes= new ArrayList <Circuito>();
        ArrayList <Escuderia> participantes= new ArrayList <Escuderia>();
        System.out.println("Solo podrán correr en el circuito los pilotos oficiales que posean escuderia. Dichos pilotos son:");
        for (int i=0; i< participantes.size();i++){
-           System.out.println("Piloto ["+i+"]: "+participantes.get(i).getPilotoOficial());
+           if (participantes.get(i).getPilotoOficial()!=null){
+               System.out.println("Piloto ["+i+"]: "+participantes.get(i).getPilotoOficial());
+           } 
        }
-       System.out.print("Introduzca el piloto que desea que corra el circuito:");
-       String nombrePil= escaner.next();
-       for (int i=0; i< participantes.size();i++){
-           if (nombrePil.equals(participantes.get(i).getPilotoOficial())){
-               for (int o=0; o<5; o++){
-                   integrantes.get(o).
-               }
-           }
-       }
+       while (comienzo=false){
+            System.out.print("Introduzca el piloto que desea que corra el circuito:");
+            String nombrePil= escaner.next();    System.out.println("");
+            for (int i=0; i< participantes.size();i++){
+                if (nombrePil.equals(participantes.get(i).getPilotoOficial())){
+                    for (int o=0; o<5; o++){
+                        if (participantes.get(i).getPilotoOficial()!=null){
+                             integrantes.get(o).setParticipante(participantes.get(i).getPilotoOficial()); //Victor, aqui me tira un error porque el metodo setParticipante de la clase circuito recibe un arrayList en vez de un array normal.
+                                                                                                          //La solucion es poner que reciba un array normal. Por ejemplo: (Piloto[] p).
+                                                                                                          // Ahora bien, mira a ver si este cambio no influye en algun fragmento de tu codigo.
+                                                                                                          // No te dará error, pero puede que el funcionamiento que habias pensado haya cambiado.
+                                                                                                          // Si es asi, comentalo por Skype y buscaremos una solucion.
+                        }
+                    }
+                }
+                else {
+                    System.out.println("El piloto que ha introducido no es piloto Oficial");
+                }   
+                }
+            System.out.println("Desea que corran mas pilotos? S/N");
+            String respuesta= escaner.next();    System.out.println("");
+            if (respuesta.equals("S") | respuesta.equals("s")){
+                comienzo=false;
+            }
+            else{
+                comienzo=true;
+            }
+            }
+       
                
        }
    
    public void darSalida(){
+       ArrayList <Circuito> carrera= new ArrayList <Circuito>();
+       ArrayList <Escuderia> escuderias= new ArrayList <Escuderia>();
+       for (int i=0; i<5; i++){
+            carrera.get(i).tiempos(); //En mi opinion en la clase circuito, metodo tiempos, deberia haber un system.print que diga que piloto es el ganador.
+            carrera.get(i).puntos(); // Lo mismo que arriba
+            carrera.get(i).pagar();
+       }
+   
    }
     }
        
