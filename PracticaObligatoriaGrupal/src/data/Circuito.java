@@ -109,6 +109,7 @@ public class Circuito {
      }
      
      
+     
     ////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
 
@@ -171,6 +172,12 @@ public class Circuito {
 
     public void setParticipante(ArrayList<Piloto> participante) {
         this.participante = participante;
+    }
+    
+    public void setParticipante(Piloto[] participante) {
+        for (int i = 0; i < participante.length; i++) {
+         this.participante.add(participante[i]);  
+        }
     }
 
     
