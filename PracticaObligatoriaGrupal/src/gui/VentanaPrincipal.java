@@ -38,8 +38,18 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(600, 450));
 
         jButton1.setText("Operaciones con datos");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Iniciar mundial");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Operaciones internas");
 
@@ -87,6 +97,23 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        VentanaOperacionesDatosMenu ventanaOperacionesDatosMenu = new VentanaOperacionesDatosMenu();
+        ventanaOperacionesDatosMenu.setLocationRelativeTo(null); //centro la ventana
+        ventanaOperacionesDatosMenu.setVisible(true); //la hago visible
+        this.dispose();//cierro esta
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        VentanaIniciarMundialResultado ventanaB = new VentanaIniciarMundialResultado();
+        ventanaB.setLocationRelativeTo(null); //centro la ventana
+        ventanaB.setContentPane(new PanelIniciarMundialResultadoPiloto());
+        ventanaB.setVisible(true); //la hago visible
+        this.dispose();//cierro esta
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -117,7 +144,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaPrincipal().setVisible(true);
+                VentanaPrincipal ventana = new VentanaPrincipal();
+                ventana.setVisible(true);
+                ventana.setLocationRelativeTo(null);
             }
         });
     }

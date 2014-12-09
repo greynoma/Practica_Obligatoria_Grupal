@@ -48,6 +48,11 @@ public class VentanaOperacionesDatosMenu extends javax.swing.JFrame {
         jButton1.setText("Circuito");
 
         jButton4.setText("Atras");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Dar alta");
 
@@ -155,6 +160,14 @@ public class VentanaOperacionesDatosMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        VentanaPrincipal ventanaB = new VentanaPrincipal();
+        ventanaB.setLocationRelativeTo(null); //centro la ventana
+        ventanaB.setVisible(true); //la hago visible
+        this.dispose();//cierro esta
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -187,6 +200,7 @@ public class VentanaOperacionesDatosMenu extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new VentanaOperacionesDatosMenu().setVisible(true);
+                
             }
         });
     }

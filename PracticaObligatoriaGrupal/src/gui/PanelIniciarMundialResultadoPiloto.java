@@ -5,6 +5,9 @@
  */
 package gui;
 
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author Phoenix
@@ -50,6 +53,11 @@ public class PanelIniciarMundialResultadoPiloto extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Siguiente");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -76,6 +84,16 @@ public class PanelIniciarMundialResultadoPiloto extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        VentanaIniciarMundialResultado ventanaB = new VentanaIniciarMundialResultado();
+        ventanaB.setLocationRelativeTo(null); //centro la ventana
+        ventanaB.setContentPane(new PanelIniciarMundialResultadoEscuderia());
+        ventanaB.setVisible(true); //la hago visible
+        JFrame estaVentana = (JFrame) SwingUtilities.getWindowAncestor(this);
+        estaVentana.dispose();//cierro esta
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
