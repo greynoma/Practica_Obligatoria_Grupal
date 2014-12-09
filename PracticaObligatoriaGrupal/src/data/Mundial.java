@@ -133,7 +133,14 @@ public class Mundial {
    
    public void modificar(String archivo, String nombrePiloto, String apellidoPiloto){  
        ArrayList<Piloto> pilotos = new ArrayList();
+       ArrayList<Escuderia> escuderias= new ArrayList();
+       ArrayList <String> directivos= new ArrayList();
+       Scanner mundial= new Scanner (System.in);
         File comprobarFichero = new File(archivo);
+        String dueno,nomescu,pais,nomdirectivos,nombreesc;
+        int fundacion, pmun,numdirectivos;
+        double presupuesto;
+        
 
         
         //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
@@ -181,9 +188,35 @@ public class Mundial {
                                 valor= escaner.nextInt();   System.out.println("");
                                 pilotos.get(i).setEdad(valor);
                                 break;
-                        case 4: System.out.println("Introduzca la nueva escuderia: ");
-                                ///////////////////////////////////////////////////
-                                ///////////////////////////////////////////////////
+                        case 4: 
+                                for (int j = 0; j < escuderias.size(); j++) {
+                                   if (escuderias.get(j).getNombre()==pilotos.get(i).getEscuderia().getNombre()){
+                                       escuderias.get(j).descartarPiloto(archivo);
+                                   }
+                                }
+                                System.out.print("Introduzca el nombre de la nueva escuderia:"); nombreesc=mundial.next(); System.out.println("");
+                                for (int j = 0; j < escuderias.size(); j++) {
+                                    if (nombreesc.equals(escuderias.get(j).getNombre())){
+                                        escuderias.get(i).ficharPiloto(archivo, nombrePiloto, apellidoPiloto);
+                                    }
+                                    else {
+                                        System.out.print("Escoja el dueno de la escuderia "+ i+": ");     dueno=mundial.next();    System.out.println("");
+                                        System.out.print("Escoja el nombre de la escuderia "+ i+": ");     nomescu=mundial.next();   System.out.println("");
+                                        System.out.print("Escoja la nacionalidad de la escuderia "+ i+": ");     pais=mundial.next();   System.out.println("");
+                                        System.out.print("Escoja la fecha de fundacion de la escuderia "+ i+": ");     fundacion=mundial.nextInt();   System.out.println("");
+                                        System.out.print("Escoja la cantidad de puntos del mundial que posee la escuderia "+ i+": ");     pmun=mundial.nextInt();     System.out.println("");
+                                        System.out.print("Escoja el presupuesto de la escuderia"+ i+": ");     presupuesto=mundial.nextDouble();       System.out.println("");
+                                        System.out.print("Cuantos directivos tiene la escuderia?:");    numdirectivos=mundial.nextInt();    System.out.println("");
+                                        for (int u=0; u< numdirectivos; u++){
+                                            System.out.print("Nombre del directivo "+u+" :");   nomdirectivos=mundial.next();   System.out.println("");
+                                            directivos.add(nomdirectivos); 
+                                        }
+                                        Escuderia aux = new Escuderia(dueno,nomescu,pais,fundacion,pmun,presupuesto,directivos);
+                                        aux.ficharPiloto(archivo, nombrePiloto, apellidoPiloto);
+                                        this.darAlta("datosEscuderia.dat", aux );
+                                    }
+                                }
+                                break;
                         case 5: System.out.println("Introduzca la nueva altura: ");
                                 valornuevo=escaner.nextDouble();    System.out.println("");
                                 pilotos.get(i).setAltura(valornuevo);
@@ -275,12 +308,13 @@ public class Mundial {
                 }
 
         
+   
         }else{
             System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
         }
    
-   }
    
+   }
    public void darAlta(String archivo, Escuderia p){
         ArrayList<Escuderia> escuderias = new ArrayList();
         File comprobarFichero = new File(archivo);
@@ -682,24 +716,32 @@ public class Mundial {
        System.out.println("Solo podrán correr en el circuito los pilotos oficiales que posean escuderia. Dichos pilotos son:");
        for (int i=0; i< participantes.size();i++){
            if (participantes.get(i).getPilotoOficial()!=null){
-               System.out.println("Piloto ["+i+"]: "+participantes.get(i).getPilotoOficial());
+               Piloto[] pilotos = participantes.get(i).getPilotoOficial();
+                for (int j = 0; j < pilotos.length; j++) {
+                   if (pilotos[j].getNombre()!=null){
+                    System.out.println("Piloto ["+i+"]: "+pilotos[j].getNombre());
+                    }
+                }
+               
+           }
            } 
-       }
+       
        while (comienzo=false){
             System.out.print("Introduzca el piloto que desea que corra el circuito:");
             String nombrePil= escaner.next();    System.out.println("");
             for (int i=0; i< participantes.size();i++){
-                if (nombrePil.equals(participantes.get(i).getPilotoOficial())){
-                    for (int o=0; o<5; o++){
-                        if (participantes.get(i).getPilotoOficial()!=null){
-                             integrantes.get(o).setParticipante(participantes.get(i).getPilotoOficial()); //Victor, aqui me tira un error porque el metodo setParticipante de la clase circuito recibe un arrayList en vez de un array normal.
-                                                                                                          //La solucion es poner que reciba un array normal. Por ejemplo: (Piloto[] p).
-                                                                                                          // Ahora bien, mira a ver si este cambio no influye en algun fragmento de tu codigo.
-                                                                                                          // No te dará error, pero puede que el funcionamiento que habias pensado haya cambiado.
-                                                                                                          // Si es asi, comentalo por Skype y buscaremos una solucion.
+                if (participantes.get(i).getPilotoOficial()!=null){
+                    Piloto[] pilotos = participantes.get(i).getPilotoOficial();
+                     for (int j = 0; j < pilotos.length; j++) {
+                        if (pilotos[j].getNombre()!=null){
+                            if (nombrePil.equals(pilotos[j].getNombre()) && pilotos[j].getCoche()!=null){
+                                integrantes.get(i).setParticipante(pilotos);
+                            }
                         }
-                    }
-                }
+                
+            
+            
+            
                 else {
                     System.out.println("El piloto que ha introducido no es piloto Oficial");
                 }   
@@ -716,16 +758,20 @@ public class Mundial {
        
                
        }
-   
+       }
+   }
    public void darSalida(){
-       ArrayList <Circuito> carrera= new ArrayList <Circuito>();
-       ArrayList <Escuderia> escuderias= new ArrayList <Escuderia>();
-       for (int i=0; i<5; i++){
+       ArrayList <Circuito> carrera= new ArrayList();
+       ArrayList <Piloto> pilotos= new ArrayList();
+       ArrayList <Escuderia> escuderias= new ArrayList();
+       for (int i=0; i<carrera.size(); i++){
             carrera.get(i).tiempos(); //En mi opinion en la clase circuito, metodo tiempos, deberia haber un system.print que diga que piloto es el ganador.
             carrera.get(i).puntos(); // Lo mismo que arriba
             carrera.get(i).pagar();
        }
-   
+       for (int i = 0; i < escuderias.size(); i++) {
+           escuderias.get(i).reset();
+       }
    }
     }
        

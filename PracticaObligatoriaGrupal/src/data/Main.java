@@ -19,7 +19,6 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args){
-        Escuderia escuderia= new Escuderia();
         Scanner mundial= new Scanner(System.in);
         String nomcir,patro;
         int rectas,curvas;
@@ -83,7 +82,7 @@ public class Main {
             System.out.print("Escoja el aforo del circuito "+ i+": ");     aforo=mundial.nextInt();       System.out.println("");
 
             
-            f1.darAlta("datosCircuito.dat", new Circuito (nomcir,patro,rectas,curvas,precio,aforo));
+            f1.darAlta("/datosCircuito.dat", new Circuito (nomcir,patro,rectas,curvas,precio,aforo));
         }
         System.out.println("Ahora debe de inscribir el numero de escuderias que desea. Dicho numero es...");    numescu= mundial.nextInt();
         for (int i=0; i<numescu; i++){
@@ -164,15 +163,16 @@ public class Main {
                                 f1.darAlta("/datosEscuderia.dat", new Escuderia(dueno,nomescu,pais,fundacion,pmun,presupuesto,directivos));
                             }
                     case 2:     System.out.print("Introduzca el nombre de la escuderia que desea borrar: "); nomescu=mundial.next();    System.out.println("");
-                                f1.darBaja("/datosEscuderia.dat", null)
+                                f1.darBaja("/datosEscuderia.dat", null);
                 }
             }
         }
-        //Escuderia mercedes= new Escuderia("Tom Morello", "Mercedes", "Tegucigalpa", 1985, 0, 10000.5, null);
-        //mercedes.crearCoche("M-100", 3, 2, 1);
-        //mercedes.crearCoche("M-105", 3, 2, 1);
-        //mercedes.crearCoche("M-205", 3, 2, 1);
-        //System.out.println(mercedes.comprobarDinero(100000.92));
+        /*Escuderia mercedes= new Escuderia("Tom Morello", "Mercedes", "Tegucigalpa", 1985, 0, 10000.5, null);
+        mercedes.crearCoche("M-100", 3, 2, 1);
+        mercedes.crearCoche("M-105", 3, 2, 1);
+        mercedes.crearCoche("M-205", 3, 2, 1);
+        mercedes.asignarVehiculos();
+        System.out.println(mercedes.comprobarDinero(100000.92));*/
     }
     
 }
