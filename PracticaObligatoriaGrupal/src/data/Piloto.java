@@ -105,7 +105,9 @@ public class Piloto implements Serializable {   //victor, he puesto que sea seri
       this.setSueldo(x); //modifica el sueldo
       return this.getSueldo();
    }   
-   
+   public void reset (){
+       this.setPuntos(0);
+   }
    
    
    ////////////////////////////////////////////////////////////////////////////////////////////////////
