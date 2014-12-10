@@ -445,7 +445,7 @@ public class Escuderia implements Serializable{
             } 
         }
         if(!insertado){ //si despues de comprobar el array no se ha insertado, es que estaba lleno
-            System.out.println("Se ha alcanzado el numero maximo de coches para esta escuderia: "+this.coches.length+", vehiculo no insertado");
+            System.out.println("Se ha alcanzado el numero maximo de coches para esta escuderia: "+(this.coches.length+1)+", vehiculo no insertado");
         }
     }
     
@@ -467,6 +467,7 @@ public class Escuderia implements Serializable{
             System.out.println("Se ha alcanzado el numero maximo de coches para esta escuderia: "+this.coches.length+", vehiculo no insertado");
         }
     }
+    
     /**
      *Reinicia a 0 los puntos mundial de la escuderia y los puntos mundial de los pilotos oficiales 
      */
