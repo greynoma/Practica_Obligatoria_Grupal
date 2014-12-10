@@ -109,6 +109,15 @@ public class Piloto implements Serializable {   //victor, he puesto que sea seri
        this.setPuntos(0);
    }
    
+   public void estadisticas(){
+       System.out.println("agresividad"+this.getAgresividad());
+       System.out.println("paciencia"+this.getPaciencia());
+       System.out.println("reflejos"+this.getReflejos());
+       System.out.println("valentia"+this.getValentia());
+       System.out.println("valor total"+this.getValor());
+       
+   }
+           
    
    ////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////

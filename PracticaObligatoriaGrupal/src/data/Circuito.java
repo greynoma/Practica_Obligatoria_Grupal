@@ -33,7 +33,6 @@ public class Circuito {
         this.añadirCurvas();
         this.añadirRectas();
         this.setAforo(aforo);
-        
     }
     /**
      * metes el valor de cada curva individual por orden
@@ -41,8 +40,10 @@ public class Circuito {
     public void añadirCurvas(){
     int c=this.curvas;
     int l;//tengo q poner un scan  para iniciar la l por teclado
-    l=teclado.nextInt();
-     for (int i=0; i <= c ;i++){
+    
+     for (int i=0; i < c ;i++){
+     System.out.println("introducir logitud de la curva" +(i+1));
+     l=teclado.nextInt();
       listaCurvas.add(new Curva(l));   
      }
     }
@@ -52,9 +53,11 @@ public class Circuito {
      public void añadirRectas(){
     int r=this.rectas;
     int l;//tengo q poner un scan  para iniciar la l por teclado
-    l=teclado.nextInt();
-     for (int i=0; i <= r ;i++){
-      listaRectas.add(new Recta(l));   
+     //esto es el scan
+     for (int i=0; i < r ;i++){
+     System.out.println("introducir logitud de la recta" +(i+1));
+     l=teclado.nextInt();
+      listaRectas.add(new Recta(l));  
      }
     }
      /**
@@ -70,7 +73,7 @@ public class Circuito {
          posicion.get(4).getEscuderia().setPresupuesto(posicion.get(4).getEscuderia().getPresupuesto()+15000);
          posicion.get(5).getEscuderia().setPresupuesto(posicion.get(5).getEscuderia().getPresupuesto()+10000);
          for (int i = 0; i <6 ; i++) {
-             System.out.println("posicion"+ i + posicion.get(i));
+             System.out.println("posicion"+ i + posicion.get(i)+posicion.get(i).getEscuderia().getPresupuesto()+posicion.get(i).getEscuderia().getPresupuesto());
          }
      }
      /**
@@ -149,7 +152,7 @@ public class Circuito {
         return aforo;
     }
 
-    public void setAforo(int nombre) {
+    public void setAforo(int aforo) {
         this.aforo = aforo;
     }
     
