@@ -452,7 +452,7 @@ public class Escuderia implements Serializable{
     /**
     *Crea un coche a partir de otro coche existente y lo introduce en el array de coches de la escuderia
     * 
-     * @param c: coche a clonar dentro de la escuderia
+    * @param c: coche a clonar dentro de la escuderia
     */
     public void crearCoche(Coche c){
         boolean insertado=false;
@@ -467,7 +467,17 @@ public class Escuderia implements Serializable{
             System.out.println("Se ha alcanzado el numero maximo de coches para esta escuderia: "+this.coches.length+", vehiculo no insertado");
         }
     }
-
+    /**
+     *Reinicia a 0 los puntos mundial de la escuderia y los puntos mundial de los pilotos oficiales 
+     */
+    void reset() {
+        this.puntosMundial=0;
+        for (int i = 0; i < this.pilotoProbador.length; i++) {
+            if (this.pilotoProbador[i]!=null) {
+                this.pilotoProbador[i].setPuntos(0);
+            }
+        }
+    }
     /////////////SETERS Y GETERS/////////////////////////////////////////
     public String getDueño() {
         return dueño;
