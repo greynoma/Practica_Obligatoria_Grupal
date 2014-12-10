@@ -223,14 +223,14 @@ public class Escuderia implements Serializable{
                     System.out.println("0 - ninguno");
                     seleccion=Integer.parseInt(new Scanner(System.in).toString());
                 }
-                    switch (seleccion) {
-                        case 0:  this.pilotoOficial[i].setCoche(null);
-                                 break;
-                        case 1:  this.pilotoOficial[i].setCoche(this.coches[0]);
-                                 break;
-                        case 2:  this.pilotoOficial[i].setCoche(this.coches[1]);
-                                 break;
-                    }
+                switch (seleccion) {
+                    case 0:  this.pilotoOficial[i].setCoche(null);
+                             break;
+                    case 1:  this.pilotoOficial[i].setCoche(this.coches[0]);
+                             break;
+                    case 2:  this.pilotoOficial[i].setCoche(this.coches[1]);
+                             break;
+                }
                 System.out.println("Coche asignado con exito");
             }
         }
@@ -271,149 +271,149 @@ public class Escuderia implements Serializable{
             seleccion=Integer.parseInt(new Scanner(System.in).toString());
         }
         if (seleccion==1) {     
-                //compruebo que solo haya uno
-                for (int j = 0; j < this.pilotoOficial.length; j++) {
-                    if (this.pilotoOficial[j]==null) {//si falta uno...
-                        lleno=false;//el array no esta lleno
-                    }
-                    else if(this.pilotoOficial[j]!=null){//si este no esta vacio
-                        seleccion=j+1;//le selecciono
-                    }
+            //compruebo que solo haya uno
+            for (int j = 0; j < this.pilotoOficial.length; j++) {
+                if (this.pilotoOficial[j]==null) {//si falta uno...
+                    lleno=false;//el array no esta lleno
                 }
-                if (!lleno & seleccion==-1) {//no hay ningun piloto en el array
-                    System.out.println("No hay pilotos de este tipo en la escuderia");
+                else if(this.pilotoOficial[j]!=null){//si este no esta vacio
+                    seleccion=j+1;//le selecciono
                 }
-                else if(!lleno & seleccion>-1){//hay un solo piloto en el array
-                    System.out.println("Solo se ha detectado un piloto de este tipo en la escuderia");
+            }
+            if (!lleno & seleccion==-1) {//no hay ningun piloto en el array
+                System.out.println("No hay pilotos de este tipo en la escuderia");
+            }
+            else if(!lleno & seleccion>-1){//hay un solo piloto en el array
+                System.out.println("Solo se ha detectado un piloto de este tipo en la escuderia");
+            }
+            else if (lleno) {//si hay mas de uno...
+                System.out.println("Indique que piloto oficial quiere dar de baja");
+                while (seleccion<1 | seleccion>2) {
+                    for (int j = 0; j < this.pilotoOficial.length; j++) {   //muestro los que hay en el array
+                            System.out.println((j+1)+" - "+this.pilotoOficial[j].getNombre()+" "+this.pilotoOficial[j].getApellido());
+                        }
+                    seleccion=Integer.parseInt(new Scanner(System.in).toString());
                 }
-                else if (lleno) {//si hay mas de uno...
-                    System.out.println("Indique que piloto oficial quiere dar de baja");
-                    while (seleccion<1 | seleccion>2) {
-                        for (int j = 0; j < this.pilotoOficial.length; j++) {   //muestro los que hay en el array
-                                System.out.println((j+1)+" - "+this.pilotoOficial[j].getNombre()+" "+this.pilotoOficial[j].getApellido());
-                            }
-                        seleccion=Integer.parseInt(new Scanner(System.in).toString());
-                    }
-                }
-                
-                //accedo al archivo, guardo al piloto en pilotos libres...
-                if (comprobarFichero.exists()) {
-                    try{
-                        FileInputStream fileIn = new FileInputStream(archivo);
-                        ObjectInputStream in = new ObjectInputStream(fileIn);
+            }
 
-                        //2º Obtener el arrayList
-                        pilotos = (ArrayList<Piloto>) in.readObject();
+            //accedo al archivo, guardo al piloto en pilotos libres...
+            if (comprobarFichero.exists()) {
+                try{
+                    FileInputStream fileIn = new FileInputStream(archivo);
+                    ObjectInputStream in = new ObjectInputStream(fileIn);
 
-                        //por alguna extraña razon no me deja cerrar los Stream en el finally
-                        in.close();
-                        fileIn.close();
-                    }
-                    catch(IOException i){
-                        System.out.println("Se ha detectado un error: ");
-                        i.printStackTrace();
-                    }
-                    catch(ClassNotFoundException c){
-                        System.out.println("No se ha encontrado lo que buscaba");
-                        c.printStackTrace();
-                    }
-                    finally{//aqui deberia cerrar los Stream pero no me deja
-                    }
-                    
-                    this.pilotoOficial[seleccion-1].despido(); //le despido
-                    this.pilotoOficial[seleccion-1].setCoche(null); //le quito su coche
-                    pilotos.add(this.pilotoOficial[seleccion-1]); //le guardo en el array
-                    this.pilotoOficial[seleccion-1]=null;// y lo borro de la escuderia
-                    
-                    //por ultimo guardo en el archivo el array actualizado
-                    try{
-                        FileOutputStream fileOut = new FileOutputStream(archivo);
-                        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-                        out.writeObject(pilotos);
-                        out.close();
-                        fileOut.close();
-                        System.out.printf("El array de pilotos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
-                    }
-                    catch(IOException i){
-                        System.out.println("Se ha detectado un error: ");
-                        i.printStackTrace();
-                    }
+                    //2º Obtener el arrayList
+                    pilotos = (ArrayList<Piloto>) in.readObject();
+
+                    //por alguna extraña razon no me deja cerrar los Stream en el finally
+                    in.close();
+                    fileIn.close();
                 }
-                else{
-                    System.out.println("no se ha encontrado el archivo");
+                catch(IOException i){
+                    System.out.println("Se ha detectado un error: ");
+                    i.printStackTrace();
                 }
+                catch(ClassNotFoundException c){
+                    System.out.println("No se ha encontrado lo que buscaba");
+                    c.printStackTrace();
+                }
+                finally{//aqui deberia cerrar los Stream pero no me deja
+                }
+
+                this.pilotoOficial[seleccion-1].despido(); //le despido
+                this.pilotoOficial[seleccion-1].setCoche(null); //le quito su coche
+                pilotos.add(this.pilotoOficial[seleccion-1]); //le guardo en el array
+                this.pilotoOficial[seleccion-1]=null;// y lo borro de la escuderia
+
+                //por ultimo guardo en el archivo el array actualizado
+                try{
+                    FileOutputStream fileOut = new FileOutputStream(archivo);
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    out.writeObject(pilotos);
+                    out.close();
+                    fileOut.close();
+                    System.out.printf("El array de pilotos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
+                }
+                catch(IOException i){
+                    System.out.println("Se ha detectado un error: ");
+                    i.printStackTrace();
+                }
+            }
+            else{
+                System.out.println("no se ha encontrado el archivo");
+            }
         }
         else if(seleccion==2){
-             //compruebo que solo haya uno
-                for (int j = 0; j < this.pilotoProbador.length; j++) {
-                    if (this.pilotoProbador[j]==null) {//si falta uno...
-                        lleno=false;//el array no esta lleno
-                    }
-                    else if(this.pilotoProbador[j]!=null){//si este no esta vacio
-                        seleccion=j+1;//le selecciono
-                    }
+            //compruebo que solo haya uno
+            for (int j = 0; j < this.pilotoProbador.length; j++) {
+                if (this.pilotoProbador[j]==null) {//si falta uno...
+                    lleno=false;//el array no esta lleno
                 }
-                if (!lleno & seleccion==-1) {//no hay ningun piloto en el array
-                    System.out.println("No hay pilotos de este tipo en la escuderia");
+                else if(this.pilotoProbador[j]!=null){//si este no esta vacio
+                    seleccion=j+1;//le selecciono
                 }
-                else if(!lleno & seleccion>-1){//hay un solo piloto en el array
-                    System.out.println("Solo se ha detectado un piloto de este tipo en la escuderia");
+            }
+            if (!lleno & seleccion==-1) {//no hay ningun piloto en el array
+                System.out.println("No hay pilotos de este tipo en la escuderia");
+            }
+            else if(!lleno & seleccion>-1){//hay un solo piloto en el array
+                System.out.println("Solo se ha detectado un piloto de este tipo en la escuderia");
+            }
+            else if (lleno) {//si hay mas de uno...
+                System.out.println("Indique que piloto probador quiere dar de baja");
+                while (seleccion<1 | seleccion>2) {
+                    for (int j = 0; j < this.pilotoProbador.length; j++) {   //muestro los que hay en el array
+                            System.out.println((j+1)+" - "+this.pilotoProbador[j].getNombre()+" "+this.pilotoProbador[j].getApellido());
+                        }
+                    seleccion=Integer.parseInt(new Scanner(System.in).toString());
                 }
-                else if (lleno) {//si hay mas de uno...
-                    System.out.println("Indique que piloto probador quiere dar de baja");
-                    while (seleccion<1 | seleccion>2) {
-                        for (int j = 0; j < this.pilotoProbador.length; j++) {   //muestro los que hay en el array
-                                System.out.println((j+1)+" - "+this.pilotoProbador[j].getNombre()+" "+this.pilotoProbador[j].getApellido());
-                            }
-                        seleccion=Integer.parseInt(new Scanner(System.in).toString());
-                    }
-                }
-                
-                //accedo al archivo, guardo al piloto en pilotos libres...
-                if (comprobarFichero.exists()) {
-                    try{
-                        FileInputStream fileIn = new FileInputStream(archivo);
-                        ObjectInputStream in = new ObjectInputStream(fileIn);
+            }
 
-                        //2º Obtener el arrayList
-                        pilotos = (ArrayList<Piloto>) in.readObject();
+            //accedo al archivo, guardo al piloto en pilotos libres...
+            if (comprobarFichero.exists()) {
+                try{
+                    FileInputStream fileIn = new FileInputStream(archivo);
+                    ObjectInputStream in = new ObjectInputStream(fileIn);
 
-                        //por alguna extraña razon no me deja cerrar los Stream en el finally
-                        in.close();
-                        fileIn.close();
-                    }
-                    catch(IOException i){
-                        System.out.println("Se ha detectado un error: ");
-                        i.printStackTrace();
-                    }
-                    catch(ClassNotFoundException c){
-                        System.out.println("No se ha encontrado lo que buscaba");
-                        c.printStackTrace();
-                    }
-                    finally{//aqui deberia cerrar los Stream pero no me deja
-                    }
-                    
-                    this.pilotoProbador[seleccion-1].despido(); //le despido
-                    pilotos.add(this.pilotoProbador[seleccion-1]); //le guardo en el array
-                    this.pilotoProbador[seleccion-1]=null;// y lo borro de la escuderia
-                    
-                    //por ultimo guardo en el archivo el array actualizado
-                    try{
-                        FileOutputStream fileOut = new FileOutputStream(archivo);
-                        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-                        out.writeObject(pilotos);
-                        out.close();
-                        fileOut.close();
-                        System.out.printf("El array de pilotos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
-                    }
-                    catch(IOException i){
-                        System.out.println("Se ha detectado un error: ");
-                        i.printStackTrace();
-                    }
+                    //2º Obtener el arrayList
+                    pilotos = (ArrayList<Piloto>) in.readObject();
+
+                    //por alguna extraña razon no me deja cerrar los Stream en el finally
+                    in.close();
+                    fileIn.close();
                 }
-                else{
-                    System.out.println("no se ha encontrado el archivo");
+                catch(IOException i){
+                    System.out.println("Se ha detectado un error: ");
+                    i.printStackTrace();
                 }
+                catch(ClassNotFoundException c){
+                    System.out.println("No se ha encontrado lo que buscaba");
+                    c.printStackTrace();
+                }
+                finally{//aqui deberia cerrar los Stream pero no me deja
+                }
+
+                this.pilotoProbador[seleccion-1].despido(); //le despido
+                pilotos.add(this.pilotoProbador[seleccion-1]); //le guardo en el array
+                this.pilotoProbador[seleccion-1]=null;// y lo borro de la escuderia
+
+                //por ultimo guardo en el archivo el array actualizado
+                try{
+                    FileOutputStream fileOut = new FileOutputStream(archivo);
+                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                    out.writeObject(pilotos);
+                    out.close();
+                    fileOut.close();
+                    System.out.printf("El array de pilotos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
+                }
+                catch(IOException i){
+                    System.out.println("Se ha detectado un error: ");
+                    i.printStackTrace();
+                }
+            }
+            else{
+                System.out.println("no se ha encontrado el archivo");
+            }
         }
 
     }
