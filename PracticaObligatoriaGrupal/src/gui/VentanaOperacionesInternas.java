@@ -9,12 +9,12 @@ package gui;
  *
  * @author Phoenix
  */
-public class VentanaPrincipal extends javax.swing.JFrame {
+public class VentanaOperacionesInternas extends javax.swing.JFrame {
 
     /**
      * Creates new form VentanaPrincipal
      */
-    public VentanaPrincipal() {
+    public VentanaOperacionesInternas() {
         initComponents();
     }
 
@@ -79,7 +79,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
                         .addComponent(jButton4)
-                        .addGap(0, 10, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
@@ -102,8 +102,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(11, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,9 +118,9 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        VentanaOperacionesDatosMenu ventanaOperacionesDatosMenu = new VentanaOperacionesDatosMenu();
-        ventanaOperacionesDatosMenu.setLocationRelativeTo(null); //centro la ventana
-        ventanaOperacionesDatosMenu.setVisible(true); //la hago visible
+        VentanaOperacionesInternasEscuderia ventanaOperacionesInternasEscuderia = new VentanaOperacionesInternasEscuderia();
+        ventanaOperacionesInternasEscuderia.setLocationRelativeTo(null); //centro la ventana
+        ventanaOperacionesInternasEscuderia.setVisible(true); //la hago visible
         this.dispose();//cierro esta
     }//GEN-LAST:event_jButton1ActionPerformed
 

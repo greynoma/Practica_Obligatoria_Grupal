@@ -234,11 +234,11 @@ public class PanelModificarPiloto extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void NombreParaBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NombreParaBuscarActionPerformed
-    nombre necesario para buscar el piloto a modificar    // TODO add your handling code here:
+   // nombre necesario para buscar el piloto a modificar    // TODO add your handling code here:
     }//GEN-LAST:event_NombreParaBuscarActionPerformed
 
     private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
-    apellido necesario para buscar el pitlot a modificar    // TODO add your handling code here:
+   // apellido necesario para buscar el pitlot a modificar    // TODO add your handling code here:
     }//GEN-LAST:event_jTextField9ActionPerformed
 
     private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed

@@ -36,7 +36,6 @@ public class VentanaOperacionesInternasEscuderiaCrearCoche extends javax.swing.J
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,10 +62,18 @@ public class VentanaOperacionesInternasEscuderiaCrearCoche extends javax.swing.J
         jLabel4.setText("modelo");
 
         jButton1.setText("Aceptar");
-
-        jButton2.setText("Asignar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Cancelar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,9 +97,7 @@ public class VentanaOperacionesInternasEscuderiaCrearCoche extends javax.swing.J
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(85, 85, 85)
                         .addComponent(jButton3)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -118,7 +123,6 @@ public class VentanaOperacionesInternasEscuderiaCrearCoche extends javax.swing.J
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)
                     .addComponent(jButton3))
                 .addContainerGap())
         );
@@ -129,6 +133,20 @@ public class VentanaOperacionesInternasEscuderiaCrearCoche extends javax.swing.J
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+VentanaOperacionesInternasEscuderiaCrearCocheAsignar ventanaOperacionesInternasEscuderiaCrearCocheAsignar = new VentanaOperacionesInternasEscuderiaCrearCocheAsignar();
+        ventanaOperacionesInternasEscuderiaCrearCocheAsignar.setLocationRelativeTo(null); //centro la ventana
+        ventanaOperacionesInternasEscuderiaCrearCocheAsignar.setVisible(true); //la hago visible
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+      VentanaOperacionesInternasEscuderiaCrearCoche ventanaOperacionesInternasEscuderiaCrearCoche = new VentanaOperacionesInternasEscuderiaCrearCoche();
+        ventanaOperacionesInternasEscuderiaCrearCoche.setLocationRelativeTo(null); //centro la ventana
+        ventanaOperacionesInternasEscuderiaCrearCoche.setVisible(true); //la hago visible
+        this.dispose();  // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,7 +185,6 @@ public class VentanaOperacionesInternasEscuderiaCrearCoche extends javax.swing.J
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

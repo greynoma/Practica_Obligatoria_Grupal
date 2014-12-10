@@ -38,6 +38,11 @@ public class VentanaOperacionesInternasEscuderiaCrearCocheAsignar extends javax.
         jButton2.setText("Piloto 2");
 
         jButton3.setText("Cancelar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -70,6 +75,13 @@ public class VentanaOperacionesInternasEscuderiaCrearCocheAsignar extends javax.
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        VentanaOperacionesInternasEscuderiaCrearCoche ventanaOperacionesInternasEscuderiaCrearCoche = new VentanaOperacionesInternasEscuderiaCrearCoche();
+        ventanaOperacionesInternasEscuderiaCrearCoche.setLocationRelativeTo(null); //centro la ventana
+        ventanaOperacionesInternasEscuderiaCrearCoche.setVisible(true); //la hago visible
+        this.dispose();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -9,12 +9,12 @@ package gui;
  *
  * @author victor
  */
-public class VentanaOperacionsInternasEscuderia extends javax.swing.JFrame {
+public class VentanaOperacionesInternasEscuderia extends javax.swing.JFrame {
 
     /**
      * Creates new form OperacionsInternasEscuderia
      */
-    public VentanaOperacionsInternasEscuderia() {
+    public VentanaOperacionesInternasEscuderia() {
         initComponents();
     }
 
@@ -34,6 +34,11 @@ public class VentanaOperacionsInternasEscuderia extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setText("Crear Coche");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Iniciar Entrenamiento");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -75,6 +80,13 @@ public class VentanaOperacionsInternasEscuderia extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        VentanaOperacionesInternasEscuderiaCrearCoche ventanaOperacionesInternasEscuderiaCrearCoche = new VentanaOperacionesInternasEscuderiaCrearCoche();
+        ventanaOperacionesInternasEscuderiaCrearCoche.setLocationRelativeTo(null); //centro la ventana
+        ventanaOperacionesInternasEscuderiaCrearCoche.setVisible(true); //la hago visible
+        this.dispose();//cierro esta        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -92,21 +104,23 @@ public class VentanaOperacionsInternasEscuderia extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaOperacionsInternasEscuderia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaOperacionesInternasEscuderia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaOperacionsInternasEscuderia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaOperacionesInternasEscuderia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaOperacionsInternasEscuderia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaOperacionesInternasEscuderia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VentanaOperacionsInternasEscuderia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaOperacionesInternasEscuderia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaOperacionsInternasEscuderia().setVisible(true);
+                new VentanaOperacionesInternasEscuderia().setVisible(true);
             }
         });
     }
