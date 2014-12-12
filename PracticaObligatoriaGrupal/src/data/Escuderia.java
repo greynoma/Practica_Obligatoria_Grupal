@@ -20,6 +20,7 @@ import java.util.Scanner;
  * @author David Sánchez Dueñas
  */
 public class Escuderia implements Serializable{
+
     private String dueño, nombre, pais;
     private int añoFundacion, puntosMundial;
     private double presupuesto;

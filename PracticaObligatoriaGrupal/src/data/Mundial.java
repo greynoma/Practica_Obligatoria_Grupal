@@ -121,7 +121,7 @@ public class Mundial {
             }
             if (pilotos.size()>0) {
                 for (int i=0; i<pilotos.size(); i++){
-                    if (nombrePiloto==pilotos.get(i).getNombre() && apellidoPiloto==pilotos.get(i).getApellido()){
+                    if (nombrePiloto.equals(pilotos.get(i).getNombre()) && apellidoPiloto.equals(pilotos.get(i).getApellido())){
                         pilotos.remove(pilotos.get(i));
                     }    
                     }
