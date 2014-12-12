@@ -324,6 +324,7 @@ public class Main {
                     else{
                         System.out.println("Primero debe de insertar datos.");
                     }
+                    break;
             case 3: if (menuavanzar==true && menuavanzar2==true){
                         System.out.println("El mundial va a comenzar:");
                         f1.darSalida();
@@ -331,6 +332,7 @@ public class Main {
                     else{
                         System.out.println("Primero debe de insertar datos, y despues realizar las operaciones internas( Iniciar entrenamiento no tiene que ejecutarse obligatoriamente )");
                     }
+                    break;
         }
     }
 }

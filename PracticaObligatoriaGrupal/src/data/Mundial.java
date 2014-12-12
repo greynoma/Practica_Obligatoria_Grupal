@@ -566,7 +566,7 @@ public class Mundial {
 
         }
         else{
-            System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
+            System.out.println("Archivo con nombre ("+comprobarFichero.getAbsolutePath()+") no encontrado");
         }
    }
    
