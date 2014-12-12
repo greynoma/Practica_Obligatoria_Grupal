@@ -5,6 +5,7 @@
  */
 package data;
 
+import java.io.Serializable;
  import java.util.ArrayList;
 import java.util.Scanner;
    
@@ -12,14 +13,15 @@ import java.util.Scanner;
  *
  * @author victor
  */
-public class Circuito {
+public class Circuito implements Serializable {
     private String nombre,patrocinador;
     private double precio,tiempoCoche,tiempoPiloto;
-    private int rectas,curvas,aforo,lCurva,lRecta;
-    private ArrayList <Curva> listaCurvas; //si lo pones ArrayList <int> ¿funcionara?
-    private ArrayList <Recta> listaRectas;
+    private int rectas,curvas,aforo;
+    private double lCurva,lRecta;
+    private ArrayList <Double> listaCurvas; //si lo pones ArrayList <int> ¿funcionara?
+    private ArrayList <Double> listaRectas;
     private ArrayList <Piloto> participante;
-    Scanner teclado = new Scanner(System.in);
+    
     private ArrayList <Piloto> posicion;
     
     
@@ -38,26 +40,30 @@ public class Circuito {
      * metes el valor de cada curva individual por orden
      */
     public void añadirCurvas(){
+    Scanner teclado = new Scanner(System.in);
     int c=this.curvas;
-    int l;//tengo q poner un scan  para iniciar la l por teclado
+    double l;//tengo q poner un scan  para iniciar la l por teclado
     
      for (int i=0; i < c ;i++){
      System.out.println("introducir logitud de la curva" +(i+1));
-     l=teclado.nextInt();
-      listaCurvas.add(new Curva(l));   
+     l=teclado.nextDouble();
+     if (listaCurvas!=null) 
+     listaCurvas.add(l);   
      }
     }
     /**
      * metes el valor de cada recta individual por orden
      */
      public void añadirRectas(){
+    Scanner teclado = new Scanner(System.in);
     int r=this.rectas;
-    int l;//tengo q poner un scan  para iniciar la l por teclado
+    double l;//tengo q poner un scan  para iniciar la l por teclado
      //esto es el scan
      for (int i=0; i < r ;i++){
      System.out.println("introducir logitud de la recta" +(i+1));
-     l=teclado.nextInt();
-      listaRectas.add(new Recta(l));  
+     l=teclado.nextDouble();
+     if (listaRectas!=null)
+     listaRectas.add(l); 
      }
     }
      /**
@@ -109,10 +115,10 @@ public class Circuito {
      }
      public void tiempos(){  //coge el tiempo de participante para saber las posiciones
          for (int i=0; i < this.curvas ;i++){
-             lCurva=+listaCurvas.get(i).getL(); //arry list tienes que usar .get(i) para cojer el objeto
+             lCurva=+listaCurvas.get(i); //arry list tienes que usar .get(i) para cojer el objeto
          }
          for (int i=0; i < this.curvas ;i++){
-             lRecta=+listaRectas.get(i).getL(); //arry list tienes que usar .get(i) para cojer el objeto
+             lRecta=+listaRectas.get(i); //arry list tienes que usar .get(i) para cojer el objeto
          }
          for (int i=0;i<participante.size(); i++){
              participante.get(i).setTiempo(((lRecta/participante.get(i).getCoche().getVelMaxRecta())+(lCurva/participante.get(i).getCoche().getVelMaxCurva()))-( participante.get(i).getValor()*0.1));

@@ -4,14 +4,18 @@
  * and open the template in the editor.
  */
 package data;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -27,7 +31,8 @@ public class Mundial {
    
 
    
-   public void darAlta(String archivo, Piloto p){  
+   public void darAlta(String archivo, Piloto p){
+       if (archivo.charAt(0)=='/') {           archivo=new File("").getAbsolutePath()+archivo;       }
        ArrayList<Piloto> pilotos = new ArrayList();
         File comprobarFichero = new File(archivo);
 
@@ -46,8 +51,8 @@ public class Mundial {
                 fileIn.close();
             }
             catch(IOException i){
-                System.out.println("Se ha detectado un error: ");
-                i.printStackTrace();
+                //System.out.println("Se ha detectado un error: ");
+                //i.printStackTrace();
             }
             catch(ClassNotFoundException c){
                 System.out.println("No se ha encontrado lo que buscaba");
@@ -63,7 +68,7 @@ public class Mundial {
                     out.writeObject(pilotos);
                     out.close();
                     fileOut.close();
-                    System.out.printf("El array de pilotos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
+                    System.out.println("El array de pilotos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
                 }
                 catch(IOException i){
                     System.out.println("Se ha detectado un error: ");
@@ -72,11 +77,21 @@ public class Mundial {
 
         }
         else{
-            System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
+               try {
+                   System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado, creando archivo...");
+                   
+                   FileOutputStream out = new FileOutputStream(archivo);
+                   out.write(0);
+                   out.close();
+                   this.darAlta(archivo, p);
+               } catch (IOException ex) {
+                   Logger.getLogger(Mundial.class.getName()).log(Level.SEVERE, null, ex);
+               }
         }
    }
    
    public void darBaja(String archivo, String nombrePiloto, String apellidoPiloto){  
+        if (archivo.charAt(0)=='/') {           archivo=new File("").getAbsolutePath()+archivo;       }
         ArrayList<Piloto> pilotos = new ArrayList();
         File comprobarFichero = new File(archivo);
 
@@ -104,34 +119,35 @@ public class Mundial {
             }
             finally{//aqui deberia cerrar los Stream pero no me deja
             }
-            
-            for (int i=0; i<pilotos.size(); i++){
-                if (nombrePiloto==pilotos.get(i).getNombre() && apellidoPiloto==pilotos.get(i).getApellido()){
-                    pilotos.remove(pilotos.get(i));
-                }    
-                }
-            
-            
-            try{
-                    FileOutputStream fileOut = new FileOutputStream(archivo);
-                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
-                    out.writeObject(pilotos);
-                    out.close();
-                    fileOut.close();
-                    System.out.printf("El array de pilotos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
-                }
-                catch(IOException i){
-                    System.out.println("Se ha detectado un error: ");
-                    i.printStackTrace();
-                }
+            if (pilotos.size()>0) {
+                for (int i=0; i<pilotos.size(); i++){
+                    if (nombrePiloto==pilotos.get(i).getNombre() && apellidoPiloto==pilotos.get(i).getApellido()){
+                        pilotos.remove(pilotos.get(i));
+                    }    
+                    }
 
+
+                try{
+                        FileOutputStream fileOut = new FileOutputStream(archivo);
+                        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                        out.writeObject(pilotos);
+                        out.close();
+                        fileOut.close();
+                        System.out.println("El array de pilotos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
+                    }
+                    catch(IOException i){
+                        System.out.println("Se ha detectado un error: ");
+                        i.printStackTrace();
+                    }
+            }
         }
         else{
             System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
         }
    }
    
-   public void modificar(String archivo, String nombrePiloto, String apellidoPiloto){  
+   public void modificar(String archivo, String nombrePiloto, String apellidoPiloto){
+       if (archivo.charAt(0)=='/') {           archivo=new File("").getAbsolutePath()+archivo;       }
        ArrayList<Piloto> pilotos = new ArrayList();
        ArrayList<Escuderia> escuderias= new ArrayList();
        ArrayList <String> directivos= new ArrayList();
@@ -166,86 +182,12 @@ public class Mundial {
             }
             finally{//aqui deberia cerrar los Stream pero no me deja
             }
-            for (int i=0; i<pilotos.size(); i++){
-                if (nombrePiloto==pilotos.get(i).getNombre() && apellidoPiloto==pilotos.get(i).getApellido()){
-                    if ( pilotos.get(i).getEscuderia()!=null){
-                    System.out.println("¿Que desea modificar?");
-                    System.out.println("1.-Nombre/2.-Apellido/3.-Edad/4.-Escuderia/5.-Altura/6.-Peso/7.-Reflejos/8.-Agresividad/9.-Paciencia/10.-Valentia");
-                    int respuesta = escaner.nextInt();
-                    String nuevovalor;
-                    int valor;
-                    double valornuevo;
-                    switch ( respuesta){
-                        case 1: System.out.print("Introduzca el nuevo nombre: ");
-                                nuevovalor= escaner.next(); System.out.println("");
-                                pilotos.get(i).setNombre(nuevovalor);
-                                break;
-                        case 2: System.out.println("Introduzca el nuevo apellido: ");
-                                nuevovalor= escaner.next(); System.out.println("");
-                                pilotos.get(i).setApellido(nuevovalor);
-                                break;
-                        case 3: System.out.println("Introduzca la nueva edad: ");
-                                valor= escaner.nextInt();   System.out.println("");
-                                pilotos.get(i).setEdad(valor);
-                                break;
-                        case 4: 
-                                for (int j = 0; j < escuderias.size(); j++) {
-                                   if (escuderias.get(j).getNombre()==pilotos.get(i).getEscuderia().getNombre()){
-                                       escuderias.get(j).descartarPiloto(archivo);
-                                   }
-                                }
-                                System.out.print("Introduzca el nombre de la nueva escuderia:"); nombreesc=mundial.next(); System.out.println("");
-                                for (int j = 0; j < escuderias.size(); j++) {
-                                    if (nombreesc.equals(escuderias.get(j).getNombre())){
-                                        escuderias.get(i).ficharPiloto(archivo, nombrePiloto, apellidoPiloto);
-                                    }
-                                    else {
-                                        System.out.print("Escoja el dueno de la escuderia "+ i+": ");     dueno=mundial.next();    System.out.println("");
-                                        System.out.print("Escoja el nombre de la escuderia "+ i+": ");     nomescu=mundial.next();   System.out.println("");
-                                        System.out.print("Escoja la nacionalidad de la escuderia "+ i+": ");     pais=mundial.next();   System.out.println("");
-                                        System.out.print("Escoja la fecha de fundacion de la escuderia "+ i+": ");     fundacion=mundial.nextInt();   System.out.println("");
-                                        System.out.print("Escoja la cantidad de puntos del mundial que posee la escuderia "+ i+": ");     pmun=mundial.nextInt();     System.out.println("");
-                                        System.out.print("Escoja el presupuesto de la escuderia"+ i+": ");     presupuesto=mundial.nextDouble();       System.out.println("");
-                                        System.out.print("Cuantos directivos tiene la escuderia?:");    numdirectivos=mundial.nextInt();    System.out.println("");
-                                        for (int u=0; u< numdirectivos; u++){
-                                            System.out.print("Nombre del directivo "+u+" :");   nomdirectivos=mundial.next();   System.out.println("");
-                                            directivos.add(nomdirectivos); 
-                                        }
-                                        Escuderia aux = new Escuderia(dueno,nomescu,pais,fundacion,pmun,presupuesto,directivos);
-                                        aux.ficharPiloto(archivo, nombrePiloto, apellidoPiloto);
-                                        this.darAlta("datosEscuderia.dat", aux );
-                                    }
-                                }
-                                break;
-                        case 5: System.out.println("Introduzca la nueva altura: ");
-                                valornuevo=escaner.nextDouble();    System.out.println("");
-                                pilotos.get(i).setAltura(valornuevo);
-                                break;
-                        case 6: System.out.println("Introduzca el nuevo peso: ");
-                                valornuevo=escaner.nextDouble();    System.out.println("");
-                                pilotos.get(i).setPeso(valornuevo);
-                                break;
-                        case 7: System.out.println("Introduzca los nuevos reflejos: ");
-                                valornuevo=escaner.nextDouble();    System.out.println("");
-                                pilotos.get(i).setReflejos(valornuevo);
-                                break;
-                        case 8: System.out.println("Introduzca la nueva agresividad: ");
-                                valornuevo=escaner.nextDouble();    System.out.println("");
-                                pilotos.get(i).setAgresividad(valornuevo);
-                                break;
-                        case 9: System.out.println("Introduzca la nueva paciencia: ");
-                                valornuevo=escaner.nextDouble();    System.out.println("");
-                                pilotos.get(i).setPaciencia(valornuevo);
-                                break;
-                        case 10:    System.out.println("Introduzca la nueva valentía: ");
-                                    valornuevo=escaner.nextDouble();    System.out.println("");
-                                    pilotos.get(i).setValentia(valornuevo);
-                                    break;
-                    }
-                    }
-                    else {
+            if (pilotos.size()>0) {
+                for (int i=0; i<pilotos.size(); i++){
+                    if (nombrePiloto==pilotos.get(i).getNombre() && apellidoPiloto==pilotos.get(i).getApellido()){
+                        if ( pilotos.get(i).getEscuderia()!=null){
                         System.out.println("¿Que desea modificar?");
-                        System.out.println("1.-Nombre/2.-Apellido/3.-Edad/4.-Altura/5.-Peso/6.-Reflejos/7.-Agresividad/8.-Paciencia/9.-Valentia");
+                        System.out.println("1.-Nombre/2.-Apellido/3.-Edad/4.-Escuderia/5.-Altura/6.-Peso/7.-Reflejos/8.-Agresividad/9.-Paciencia/10.-Valentia");
                         int respuesta = escaner.nextInt();
                         String nuevovalor;
                         int valor;
@@ -263,35 +205,110 @@ public class Mundial {
                                     valor= escaner.nextInt();   System.out.println("");
                                     pilotos.get(i).setEdad(valor);
                                     break;
-                            case 4: System.out.println("Introduzca la nueva altura: ");
+                            case 4: 
+                                    for (int j = 0; j < escuderias.size(); j++) {
+                                       if (escuderias.get(j).getNombre()==pilotos.get(i).getEscuderia().getNombre()){
+                                           escuderias.get(j).descartarPiloto(archivo);
+                                       }
+                                    }
+                                    System.out.print("Introduzca el nombre de la nueva escuderia:"); nombreesc=mundial.next(); System.out.println("");
+                                    for (int j = 0; j < escuderias.size(); j++) {
+                                        if (nombreesc.equals(escuderias.get(j).getNombre())){
+                                            escuderias.get(i).ficharPiloto(archivo, nombrePiloto, apellidoPiloto);
+                                        }
+                                        else {
+                                            System.out.print("Escoja el dueno de la escuderia "+ i+": ");     dueno=mundial.next();    System.out.println("");
+                                            System.out.print("Escoja el nombre de la escuderia "+ i+": ");     nomescu=mundial.next();   System.out.println("");
+                                            System.out.print("Escoja la nacionalidad de la escuderia "+ i+": ");     pais=mundial.next();   System.out.println("");
+                                            System.out.print("Escoja la fecha de fundacion de la escuderia "+ i+": ");     fundacion=mundial.nextInt();   System.out.println("");
+                                            System.out.print("Escoja la cantidad de puntos del mundial que posee la escuderia "+ i+": ");     pmun=mundial.nextInt();     System.out.println("");
+                                            System.out.print("Escoja el presupuesto de la escuderia"+ i+": ");     presupuesto=mundial.nextDouble();       System.out.println("");
+                                            System.out.print("Cuantos directivos tiene la escuderia?:");    numdirectivos=mundial.nextInt();    System.out.println("");
+                                            for (int u=0; u< numdirectivos; u++){
+                                                System.out.print("Nombre del directivo "+u+" :");   nomdirectivos=mundial.next();   System.out.println("");
+                                                directivos.add(nomdirectivos); 
+                                            }
+                                            Escuderia aux = new Escuderia(dueno,nomescu,pais,fundacion,pmun,presupuesto,directivos);
+                                            aux.ficharPiloto(archivo, nombrePiloto, apellidoPiloto);
+                                            this.darAlta("datosEscuderia.dat", aux );
+                                        }
+                                    }
+                                    break;
+                            case 5: System.out.println("Introduzca la nueva altura: ");
                                     valornuevo=escaner.nextDouble();    System.out.println("");
                                     pilotos.get(i).setAltura(valornuevo);
                                     break;
-                            case 5: System.out.println("Introduzca el nuevo peso: ");
+                            case 6: System.out.println("Introduzca el nuevo peso: ");
                                     valornuevo=escaner.nextDouble();    System.out.println("");
                                     pilotos.get(i).setPeso(valornuevo);
                                     break;
-                            case 6: System.out.println("Introduzca los nuevos reflejos: ");
+                            case 7: System.out.println("Introduzca los nuevos reflejos: ");
                                     valornuevo=escaner.nextDouble();    System.out.println("");
                                     pilotos.get(i).setReflejos(valornuevo);
                                     break;
-                            case 7: System.out.println("Introduzca la nueva agresividad: ");
+                            case 8: System.out.println("Introduzca la nueva agresividad: ");
                                     valornuevo=escaner.nextDouble();    System.out.println("");
                                     pilotos.get(i).setAgresividad(valornuevo);
                                     break;
-                            case 8: System.out.println("Introduzca la nueva paciencia: ");
+                            case 9: System.out.println("Introduzca la nueva paciencia: ");
                                     valornuevo=escaner.nextDouble();    System.out.println("");
                                     pilotos.get(i).setPaciencia(valornuevo);
                                     break;
-                            case 9:    System.out.println("Introduzca la nueva valentía: ");
+                            case 10:    System.out.println("Introduzca la nueva valentía: ");
                                         valornuevo=escaner.nextDouble();    System.out.println("");
                                         pilotos.get(i).setValentia(valornuevo);
                                         break;
+                        }
+                        }
+                        else {
+                            System.out.println("¿Que desea modificar?");
+                            System.out.println("1.-Nombre/2.-Apellido/3.-Edad/4.-Altura/5.-Peso/6.-Reflejos/7.-Agresividad/8.-Paciencia/9.-Valentia");
+                            int respuesta = escaner.nextInt();
+                            String nuevovalor;
+                            int valor;
+                            double valornuevo;
+                            switch ( respuesta){
+                                case 1: System.out.print("Introduzca el nuevo nombre: ");
+                                        nuevovalor= escaner.next(); System.out.println("");
+                                        pilotos.get(i).setNombre(nuevovalor);
+                                        break;
+                                case 2: System.out.println("Introduzca el nuevo apellido: ");
+                                        nuevovalor= escaner.next(); System.out.println("");
+                                        pilotos.get(i).setApellido(nuevovalor);
+                                        break;
+                                case 3: System.out.println("Introduzca la nueva edad: ");
+                                        valor= escaner.nextInt();   System.out.println("");
+                                        pilotos.get(i).setEdad(valor);
+                                        break;
+                                case 4: System.out.println("Introduzca la nueva altura: ");
+                                        valornuevo=escaner.nextDouble();    System.out.println("");
+                                        pilotos.get(i).setAltura(valornuevo);
+                                        break;
+                                case 5: System.out.println("Introduzca el nuevo peso: ");
+                                        valornuevo=escaner.nextDouble();    System.out.println("");
+                                        pilotos.get(i).setPeso(valornuevo);
+                                        break;
+                                case 6: System.out.println("Introduzca los nuevos reflejos: ");
+                                        valornuevo=escaner.nextDouble();    System.out.println("");
+                                        pilotos.get(i).setReflejos(valornuevo);
+                                        break;
+                                case 7: System.out.println("Introduzca la nueva agresividad: ");
+                                        valornuevo=escaner.nextDouble();    System.out.println("");
+                                        pilotos.get(i).setAgresividad(valornuevo);
+                                        break;
+                                case 8: System.out.println("Introduzca la nueva paciencia: ");
+                                        valornuevo=escaner.nextDouble();    System.out.println("");
+                                        pilotos.get(i).setPaciencia(valornuevo);
+                                        break;
+                                case 9:    System.out.println("Introduzca la nueva valentía: ");
+                                            valornuevo=escaner.nextDouble();    System.out.println("");
+                                            pilotos.get(i).setValentia(valornuevo);
+                                            break;
+                        }
+                        }
+                    }    
                     }
-                    }
-                }    
-                }
-            
+            }
             
             
             try{
@@ -300,7 +317,7 @@ public class Mundial {
                     out.writeObject(pilotos);
                     out.close();
                     fileOut.close();
-                    System.out.printf("El array de pilotos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
+                    System.out.println("El array de pilotos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
                 }
                 catch(IOException i){
                     System.out.println("Se ha detectado un error: ");
@@ -316,6 +333,7 @@ public class Mundial {
    
    }
    public void darAlta(String archivo, Escuderia p){
+        if (archivo.charAt(0)=='/') {           archivo=new File("").getAbsolutePath()+archivo;       }
         ArrayList<Escuderia> escuderias = new ArrayList();
         File comprobarFichero = new File(archivo);
 
@@ -334,8 +352,8 @@ public class Mundial {
                 fileIn.close();
             }
             catch(IOException i){
-                System.out.println("Se ha detectado un error: ");
-                i.printStackTrace();
+                //System.out.println("Se ha detectado un error: ");
+                //i.printStackTrace();
             }
             catch(ClassNotFoundException c){
                 System.out.println("No se ha encontrado lo que buscaba");
@@ -351,7 +369,7 @@ public class Mundial {
                     out.writeObject(escuderias);
                     out.close();
                     fileOut.close();
-                    System.out.printf("El array de escuderias ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
+                    System.out.println("El array de escuderias ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
                 }
                 catch(IOException i){
                     System.out.println("Se ha detectado un error: ");
@@ -360,11 +378,21 @@ public class Mundial {
 
         }
         else{
-            System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
+               try {
+                   System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado, creando archivo...");
+                   
+                   FileOutputStream out = new FileOutputStream(archivo);
+                   out.write(0);
+                   out.close();
+                   this.darAlta(archivo, p);
+               } catch (IOException ex) {
+                   Logger.getLogger(Mundial.class.getName()).log(Level.SEVERE, null, ex);
+               }
         }
    }
    
    public void darBaja(String archivo, String nombreEscuderia){
+        if (archivo.charAt(0)=='/') {           archivo=new File("").getAbsolutePath()+archivo;       }
         ArrayList<Escuderia> escuderias = new ArrayList();
         File comprobarFichero = new File(archivo);
 
@@ -392,27 +420,27 @@ public class Mundial {
             }
             finally{//aqui deberia cerrar los Stream pero no me deja
             }
-            
-            for (int i=0; i<escuderias.size(); i++){
-                if (nombreEscuderia==escuderias.get(i).getNombre()){
-                    escuderias.remove(escuderias.get(i));
-                }    
-                }
-            
+            if (escuderias.size()>0) {
+                for (int i=0; i<escuderias.size(); i++){
+                    if (nombreEscuderia==escuderias.get(i).getNombre()){
+                        escuderias.remove(escuderias.get(i));
+                    }    
+                    }
 
-            try{
-                    FileOutputStream fileOut = new FileOutputStream(archivo);
-                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
-                    out.writeObject(escuderias);
-                    out.close();
-                    fileOut.close();
-                    System.out.printf("El array de escuderias ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
-                }
-                catch(IOException i){
-                    System.out.println("Se ha detectado un error: ");
-                    i.printStackTrace();
-                }
 
+                try{
+                        FileOutputStream fileOut = new FileOutputStream(archivo);
+                        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                        out.writeObject(escuderias);
+                        out.close();
+                        fileOut.close();
+                        System.out.println("El array de escuderias ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
+                    }
+                    catch(IOException i){
+                        System.out.println("Se ha detectado un error: ");
+                        i.printStackTrace();
+                    }
+            }
         }
         else{
             System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
@@ -420,6 +448,7 @@ public class Mundial {
    }
    
    public void modificar(String archivo, String nombreEscuderia){ //case para recorrer piltoos
+       if (archivo.charAt(0)=='/') {           archivo=new File("").getAbsolutePath()+archivo;       }
        ArrayList<Escuderia> escuderias = new ArrayList();
         File comprobarFichero = new File(archivo);
         
@@ -446,75 +475,76 @@ public class Mundial {
             }
             finally{//aqui deberia cerrar los Stream pero no me deja
             }
-            
-            System.out.println("Que desea modificar?");
-            System.out.println("1.-Dueño/2.-Nombre/3.-País/4.-AñoFundacion/5.-PuntosMundial/6.-Presupuesto/7.-Directivos");
-            int respuesta;
-            respuesta=escaner.nextInt();
-            String nuevovalor;
-            int valor;
-            double valornuevo;
-            ArrayList <String> nuevoDirectivo= new ArrayList <String>();
-            for (int i=0; i<escuderias.size(); i++){
-                if (nombreEscuderia==escuderias.get(i).getNombre()){
-                    switch (respuesta){ 
-                        case 1: System.out.print("Cómo quieres que se llame el dueño de la esuderia?");
-                                nuevovalor= escaner.next();
-                                escuderias.get(i).setDueño(nuevovalor);
-                                break;
-                        case 2: System.out.print("Cómo quieres que se llame la escuderia?");
-                                nuevovalor= escaner.next();
-                                escuderias.get(i).setNombre(nuevovalor);
-                                break;
-                        case 3: System.out.print("Qué nacionalidad tiene la escuderia?");
-                                nuevovalor= escaner.next();
-                                escuderias.get(i).setPais(nuevovalor);
-                                break;
-                        case 4: System.out.print("En qué año se fundó la escudería?");
-                                valor= escaner.nextInt();
-                                escuderias.get(i).setAñoFundacion(valor);
-                                break;
-                        case 5: System.out.print("Cuántas puntos tiene la escuderia?");
-                                valor= escaner.nextInt();
-                                escuderias.get(i).setPuntosMundial(valor);
-                                break;
-                        case 6: System.out.print("Cuánto presupuesto tiene la escuderia?");
-                                valornuevo= escaner.nextDouble();
-                                escuderias.get(i).setPresupuesto(valornuevo);
-                                break;
-                        case 7: System.out.print("Actualmente la escuderia tiene estos directivos?");
-                                for (int o=0; o < escuderias.get(i).getDirectivos().size(); o++){
-                                    System.out.println("Directivo ["+o+"]: "+escuderias.get(o).getDirectivos());
-                                }
-                                System.out.println("");
-                                System.out.print("¿Qué directivo desea modificar?");
-                                respuesta= escaner.nextInt();   System.out.println("");
-                                for (int o=0; o < escuderias.get(i).getDirectivos().size(); o++)
-                                    if (respuesta<= escuderias.get(o).getDirectivos().size()){
-                                        System.out.print("Introduzca el nombre que desea: ");
-                                        nuevovalor= escaner.next(); System.out.println("");
-                                        nuevoDirectivo.add(nuevovalor);
-                                        escuderias.get(i).setDirectivos(nuevoDirectivo);
-                                }
+            if (escuderias.size()>0) {
+                System.out.println("Que desea modificar?");
+                System.out.println("1.-Dueño/2.-Nombre/3.-País/4.-AñoFundacion/5.-PuntosMundial/6.-Presupuesto/7.-Directivos");
+                int respuesta;
+                respuesta=escaner.nextInt();
+                String nuevovalor;
+                int valor;
+                double valornuevo;
+                ArrayList <String> nuevoDirectivo= new ArrayList <String>();
+                for (int i=0; i<escuderias.size(); i++){
+                    if (nombreEscuderia==escuderias.get(i).getNombre()){
+                        switch (respuesta){ 
+                            case 1: System.out.print("Cómo quieres que se llame el dueño de la esuderia?");
+                                    nuevovalor= escaner.next();
+                                    escuderias.get(i).setDueño(nuevovalor);
+                                    break;
+                            case 2: System.out.print("Cómo quieres que se llame la escuderia?");
+                                    nuevovalor= escaner.next();
+                                    escuderias.get(i).setNombre(nuevovalor);
+                                    break;
+                            case 3: System.out.print("Qué nacionalidad tiene la escuderia?");
+                                    nuevovalor= escaner.next();
+                                    escuderias.get(i).setPais(nuevovalor);
+                                    break;
+                            case 4: System.out.print("En qué año se fundó la escudería?");
+                                    valor= escaner.nextInt();
+                                    escuderias.get(i).setAñoFundacion(valor);
+                                    break;
+                            case 5: System.out.print("Cuántas puntos tiene la escuderia?");
+                                    valor= escaner.nextInt();
+                                    escuderias.get(i).setPuntosMundial(valor);
+                                    break;
+                            case 6: System.out.print("Cuánto presupuesto tiene la escuderia?");
+                                    valornuevo= escaner.nextDouble();
+                                    escuderias.get(i).setPresupuesto(valornuevo);
+                                    break;
+                            case 7: System.out.print("Actualmente la escuderia tiene estos directivos?");
+                                    for (int o=0; o < escuderias.get(i).getDirectivos().size(); o++){
+                                        System.out.println("Directivo ["+o+"]: "+escuderias.get(o).getDirectivos());
+                                    }
+                                    System.out.println("");
+                                    System.out.print("¿Qué directivo desea modificar?");
+                                    respuesta= escaner.nextInt();   System.out.println("");
+                                    for (int o=0; o < escuderias.get(i).getDirectivos().size(); o++)
+                                        if (respuesta<= escuderias.get(o).getDirectivos().size()){
+                                            System.out.print("Introduzca el nombre que desea: ");
+                                            nuevovalor= escaner.next(); System.out.println("");
+                                            nuevoDirectivo.add(nuevovalor);
+                                            escuderias.get(i).setDirectivos(nuevoDirectivo);
+                                    }
 
-                                break;
+                                    break;
+                        }
+
+                    }    
                     }
-                    
-                }    
-                }
-            try{
-                    FileOutputStream fileOut = new FileOutputStream(archivo);
-                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
-                    out.writeObject(escuderias);
-                    out.close();
-                    fileOut.close();
-                    System.out.printf("El array de escuderias ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
-                }
-                catch(IOException i){
-                    System.out.println("Se ha detectado un error: ");
-                    i.printStackTrace();
-                }
+                try{
+                        FileOutputStream fileOut = new FileOutputStream(archivo);
+                        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                        out.writeObject(escuderias);
+                        out.close();
+                        fileOut.close();
+                        System.out.println("El array de escuderias ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
+                    }
+                    catch(IOException i){
+                        System.out.println("Se ha detectado un error: ");
+                        i.printStackTrace();
+                    }
 
+            }
         }
         else{
             System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
@@ -523,24 +553,22 @@ public class Mundial {
    }
    
    public void darAlta(String archivo, Circuito p){
-        ArrayList <Circuito> circuitos= new ArrayList<Circuito>();
+           if (archivo.charAt(0)=='/') {           archivo=new File("").getAbsolutePath()+archivo;       }
+        
+        ArrayList <Circuito> circuitos= new ArrayList();
         File comprobarFichero = new File(archivo);
         
         //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
         if (comprobarFichero.exists()) {
             try{
-                FileInputStream fileIn = new FileInputStream(archivo);
-                ObjectInputStream in = new ObjectInputStream(fileIn);
-                
-                circuitos = (ArrayList<Circuito>) in.readObject();
-
-
-                in.close();
-                fileIn.close();
+                    FileInputStream fileIn = new FileInputStream(archivo); 
+                    ObjectInputStream in = new ObjectInputStream(fileIn);
+                    
+                    circuitos = (ArrayList<Circuito>) in.readObject();
             }
             catch(IOException i){
-                System.out.println("Se ha detectado un error: ");
-                i.printStackTrace();
+                //System.out.println("Se ha detectado un error: ");
+                //i.printStackTrace();
             }
             catch(ClassNotFoundException c){
                 System.out.println("No se ha encontrado lo que buscaba");
@@ -557,7 +585,7 @@ public class Mundial {
                     out.writeObject(circuitos);
                     out.close();
                     fileOut.close();
-                    System.out.printf("El array de circuitos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getAbsolutePath()+")");
+                    System.out.println("El array de circuitos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getAbsolutePath()+")");
                 }
                 catch(IOException i){
                     System.out.println("Se ha detectado un error: ");
@@ -566,11 +594,21 @@ public class Mundial {
 
         }
         else{
-            System.out.println("Archivo con nombre ("+comprobarFichero.getAbsolutePath()+") no encontrado");
+               try {
+                   System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado, creando archivo...");
+                   
+                   FileOutputStream out = new FileOutputStream(archivo);
+                   out.write(0);
+                   out.close();
+                   this.darAlta(archivo, p);
+               } catch (IOException ex) {
+                   Logger.getLogger(Mundial.class.getName()).log(Level.SEVERE, null, ex);
+               }
         }
    }
    
    public void darBajaCir(String archivo, String nombreCircuito){
+        if (archivo.charAt(0)=='/') {           archivo=new File("").getAbsolutePath()+archivo;       }
         ArrayList <Circuito> circuitos= new ArrayList<Circuito>();
         File comprobarFichero = new File(archivo);
         
@@ -596,26 +634,26 @@ public class Mundial {
             }
             finally{//aqui deberia cerrar los Stream pero no me deja
             }
-            
-            for (int i=0; i<circuitos.size(); i++){
-                if (nombreCircuito==circuitos.get(i).getNombre()){
-                    circuitos.remove(circuitos.get(i));
-                }    
-                }
-            
-            try{
-                    FileOutputStream fileOut = new FileOutputStream(archivo);
-                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
-                    out.writeObject(circuitos);
-                    out.close();
-                    fileOut.close();
-                    System.out.printf("El array de circuitos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getAbsolutePath()+")");
-                }
-                catch(IOException i){
-                    System.out.println("Se ha detectado un error: ");
-                    i.printStackTrace();
-                }
+            if (circuitos.size()>5) {
+                for (int i=0; i<circuitos.size(); i++){
+                    if (nombreCircuito==circuitos.get(i).getNombre()){
+                        circuitos.remove(circuitos.get(i));
+                    }    
+                    }
 
+                try{
+                        FileOutputStream fileOut = new FileOutputStream(archivo);
+                        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                        out.writeObject(circuitos);
+                        out.close();
+                        fileOut.close();
+                        System.out.println("El array de circuitos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getAbsolutePath()+")");
+                    }
+                    catch(IOException i){
+                        System.out.println("Se ha detectado un error: ");
+                        i.printStackTrace();
+                    }
+            }
         }
         else{
             System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
@@ -624,6 +662,7 @@ public class Mundial {
    
 
     public void modificarCir(String archivo, String nombreCircuito){ // case para modifiicar
+        if (archivo.charAt(0)=='/') {           archivo=new File("").getAbsolutePath()+archivo;       }
         ArrayList <Circuito> circuitos= new ArrayList<Circuito>();
         File comprobarFichero = new File(archivo);
 
@@ -651,58 +690,59 @@ public class Mundial {
             finally{//aqui deberia cerrar los Stream pero no me deja
             }
             
+            if (circuitos.size()>0) {
+                System.out.println("Que desea modificar?");
+                System.out.println("1.-Nombre/2.-Patrocinador/3.-Precio/4.-Rectas/5.-Curvas/6.-Aforo");
+                int respuesta;
+                respuesta= escaner.nextInt();
+                String nuevovalor;
+                int valor;
 
-            System.out.println("Que desea modificar?");
-            System.out.println("1.-Nombre/2.-Patrocinador/3.-Precio/4.-Rectas/5.-Curvas/6.-Aforo");
-            int respuesta;
-            respuesta= escaner.nextInt();
-            String nuevovalor;
-            int valor;
-            
-            for (int i=0; i<circuitos.size(); i++){
-                if (nombreCircuito==circuitos.get(i).getNombre()){
-                    switch (respuesta){ 
-                        case 1: System.out.print("Cómo quieres que se llame el circuito?");
-                                nuevovalor= escaner.next();
-                                circuitos.get(i).setNombre(nuevovalor);
-                                break;
-                        case 2: System.out.print("Cómo quieres que se llame el patrocinador?");
-                                nuevovalor= escaner.next();
-                                circuitos.get(i).setPatrocinador(nuevovalor);
-                                break;
-                        case 3: System.out.print("Cuánto quieres que cueste el circuito?");
-                                valor= escaner.nextInt();
-                                circuitos.get(i).setPrecio(valor);
-                                break;
-                        case 4: System.out.print("Cuántas rectas quieres que tenga el circuito?");
-                                valor= escaner.nextInt();
-                                circuitos.get(i).setRectas(valor);
-                                break;
-                        case 5: System.out.print("Cuántas curvas quieres que tenga el circuito?");
-                                valor= escaner.nextInt();
-                                circuitos.get(i).setCurvas(valor);
-                                break;
-                        case 6: System.out.print("Cuánto aforo quieres que tenga el circuito?");
-                                valor= escaner.nextInt();
-                                circuitos.get(i).setAforo(valor);
-                                break;
+                for (int i=0; i<circuitos.size(); i++){
+                    if (nombreCircuito==circuitos.get(i).getNombre()){
+                        switch (respuesta){ 
+                            case 1: System.out.print("Cómo quieres que se llame el circuito?");
+                                    nuevovalor= escaner.next();
+                                    circuitos.get(i).setNombre(nuevovalor);
+                                    break;
+                            case 2: System.out.print("Cómo quieres que se llame el patrocinador?");
+                                    nuevovalor= escaner.next();
+                                    circuitos.get(i).setPatrocinador(nuevovalor);
+                                    break;
+                            case 3: System.out.print("Cuánto quieres que cueste el circuito?");
+                                    valor= escaner.nextInt();
+                                    circuitos.get(i).setPrecio(valor);
+                                    break;
+                            case 4: System.out.print("Cuántas rectas quieres que tenga el circuito?");
+                                    valor= escaner.nextInt();
+                                    circuitos.get(i).setRectas(valor);
+                                    break;
+                            case 5: System.out.print("Cuántas curvas quieres que tenga el circuito?");
+                                    valor= escaner.nextInt();
+                                    circuitos.get(i).setCurvas(valor);
+                                    break;
+                            case 6: System.out.print("Cuánto aforo quieres que tenga el circuito?");
+                                    valor= escaner.nextInt();
+                                    circuitos.get(i).setAforo(valor);
+                                    break;
+                        }
                     }
-                }
-            }       
-            
-            try{
-                    FileOutputStream fileOut = new FileOutputStream(archivo);
-                    ObjectOutputStream out = new ObjectOutputStream(fileOut);
-                    out.writeObject(circuitos);
-                    out.close();
-                    fileOut.close();
-                    System.out.printf("El array de circuitos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getAbsolutePath()+")");
-                }
-                catch(IOException i){
-                    System.out.println("Se ha detectado un error: ");
-                    i.printStackTrace();
-                }
+                }       
 
+                try{
+                        FileOutputStream fileOut = new FileOutputStream(archivo);
+                        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                        out.writeObject(circuitos);
+                        out.close();
+                        fileOut.close();
+                        System.out.println("El array de circuitos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getAbsolutePath()+")");
+                    }
+                    catch(IOException i){
+                        System.out.println("Se ha detectado un error: ");
+                        i.printStackTrace();
+                    }
+
+            }
         }
         else{
             System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
