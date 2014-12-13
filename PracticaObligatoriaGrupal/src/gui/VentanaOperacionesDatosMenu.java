@@ -61,6 +61,11 @@ public class VentanaOperacionesDatosMenu extends javax.swing.JFrame {
         jLabel3.setText("Dar baja");
 
         jButton5.setText("Piloto");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton8.setText("Escuderia");
 
@@ -167,6 +172,15 @@ public class VentanaOperacionesDatosMenu extends javax.swing.JFrame {
         ventanaB.setVisible(true); //la hago visible
         this.dispose();//cierro esta
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        VentanaOperacionesDatosDarAlta  ventanaB = new VentanaOperacionesDatosDarAlta();
+        PanelDarAltaPiloto panel = new PanelDarAltaPiloto();
+        ventanaB.setLocationRelativeTo(null); //centro la ventana
+        ventanaB.setContentPane(panel);
+        ventanaB.setVisible(true); //la hago visible
+        this.dispose();//cierro esta
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments

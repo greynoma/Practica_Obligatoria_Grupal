@@ -79,9 +79,10 @@ public class Escuderia implements Serializable{
      * @param apellidoPiloto: Apellido del piloto a fichar
     */
     public void ficharPiloto(String archivo, String nombrePiloto, String apellidoPiloto){
+        if (archivo.charAt(0)=='/') {           archivo=new File("").getAbsolutePath()+archivo; }
         ArrayList<Piloto> pilotos = new ArrayList();
         File comprobarFichero = new File(archivo);
-        int seleccion=0;
+        int seleccion;
         Scanner escaner = new Scanner (System.in);
         
         //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
@@ -109,10 +110,12 @@ public class Escuderia implements Serializable{
             }
             
             //3º Buscar al piloto y comprueba si se quiere guardar como probador u oficial,
+            
             for (int i = 0; i < pilotos.size(); i++) {
                 if (pilotos.get(i).getNombre().equals(nombrePiloto) && pilotos.get(i).getApellido().equals(apellidoPiloto)) {
                     System.out.print("Seleccione una opcion, el piloto "+nombrePiloto+" "+apellidoPiloto+" sera:");
-                    while(seleccion!=1 | seleccion!=2){
+                    seleccion= escaner.nextInt();
+                    while(seleccion!=1){
                         System.out.println(" probador(1), oficial(2)");
                         seleccion = escaner.nextInt();
                         System.out.println("");
@@ -188,7 +191,7 @@ public class Escuderia implements Serializable{
             }
         }
         else{
-            System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
+            System.out.println("Archivo con nombre ("+comprobarFichero.getAbsolutePath()+") no encontrado");
         }
     }
 
@@ -259,6 +262,7 @@ public class Escuderia implements Serializable{
      * @param archivo: archivo donde se almacenan los pilotos libres
      */
     public void descartarPiloto(String archivo){
+        if (archivo.charAt(0)=='/') {           archivo=new File("").getAbsolutePath()+archivo; }
         ArrayList<Piloto> pilotos = new ArrayList();
         File comprobarFichero = new File(archivo);
         int seleccion=-1;

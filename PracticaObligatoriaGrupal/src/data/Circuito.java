@@ -45,7 +45,7 @@ public class Circuito implements Serializable {
     double l;//tengo q poner un scan  para iniciar la l por teclado
     
      for (int i=0; i < c ;i++){
-     System.out.println("introducir logitud de la curva" +(i+1));
+     System.out.println("Introducir logitud de la curva " +(i+1)+": ");
      l=teclado.nextDouble();
      if (listaCurvas!=null) 
      listaCurvas.add(l);   
@@ -60,7 +60,7 @@ public class Circuito implements Serializable {
     double l;//tengo q poner un scan  para iniciar la l por teclado
      //esto es el scan
      for (int i=0; i < r ;i++){
-     System.out.println("introducir logitud de la recta" +(i+1));
+     System.out.println("Introducir logitud de la recta" +(i+1)+": ");
      l=teclado.nextDouble();
      if (listaRectas!=null)
      listaRectas.add(l); 

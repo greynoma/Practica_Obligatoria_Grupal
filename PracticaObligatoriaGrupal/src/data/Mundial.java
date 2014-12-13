@@ -20,11 +20,11 @@ import java.util.logging.Logger;
 
 
 public class Mundial {
-   private ArrayList<Piloto> npilotos =new ArrayList <Piloto> (); 
-   private ArrayList<Escuderia> nescuderias =new ArrayList <Escuderia> ();
+   private ArrayList<Piloto> npilotos =new ArrayList <> (); 
+   private ArrayList<Escuderia> nescuderias =new ArrayList <> ();
    private boolean comienzo;
    private DatosCircuito[] dcir= new DatosCircuito[5];
-   private ArrayList<DatosCircuito> datcir =new ArrayList <DatosCircuito> ();
+   private ArrayList<DatosCircuito> datcir =new ArrayList <> ();
    private Scanner escaner= new Scanner (System.in);
    
    
@@ -184,7 +184,7 @@ public class Mundial {
             }
             if (pilotos.size()>0) {
                 for (int i=0; i<pilotos.size(); i++){
-                    if (nombrePiloto==pilotos.get(i).getNombre() && apellidoPiloto==pilotos.get(i).getApellido()){
+                    if (nombrePiloto.equals(pilotos.get(i).getNombre()) && apellidoPiloto.equals(pilotos.get(i).getApellido())){
                         if ( pilotos.get(i).getEscuderia()!=null){
                         System.out.println("¿Que desea modificar?");
                         System.out.println("1.-Nombre/2.-Apellido/3.-Edad/4.-Escuderia/5.-Altura/6.-Peso/7.-Reflejos/8.-Agresividad/9.-Paciencia/10.-Valentia");
@@ -207,7 +207,7 @@ public class Mundial {
                                     break;
                             case 4: 
                                     for (int j = 0; j < escuderias.size(); j++) {
-                                       if (escuderias.get(j).getNombre()==pilotos.get(i).getEscuderia().getNombre()){
+                                       if (escuderias.get(j).getNombre().equals(pilotos.get(i).getEscuderia().getNombre())){
                                            escuderias.get(j).descartarPiloto(archivo);
                                        }
                                     }
@@ -422,7 +422,7 @@ public class Mundial {
             }
             if (escuderias.size()>0) {
                 for (int i=0; i<escuderias.size(); i++){
-                    if (nombreEscuderia==escuderias.get(i).getNombre()){
+                    if (nombreEscuderia.equals(escuderias.get(i).getNombre())){
                         escuderias.remove(escuderias.get(i));
                     }    
                     }
@@ -483,9 +483,9 @@ public class Mundial {
                 String nuevovalor;
                 int valor;
                 double valornuevo;
-                ArrayList <String> nuevoDirectivo= new ArrayList <String>();
+                ArrayList <String> nuevoDirectivo= new ArrayList <>();
                 for (int i=0; i<escuderias.size(); i++){
-                    if (nombreEscuderia==escuderias.get(i).getNombre()){
+                    if (nombreEscuderia.equals(escuderias.get(i).getNombre())){
                         switch (respuesta){ 
                             case 1: System.out.print("Cómo quieres que se llame el dueño de la esuderia?");
                                     nuevovalor= escaner.next();
@@ -636,7 +636,7 @@ public class Mundial {
             }
             if (circuitos.size()>5) {
                 for (int i=0; i<circuitos.size(); i++){
-                    if (nombreCircuito==circuitos.get(i).getNombre()){
+                    if (nombreCircuito.equals(circuitos.get(i).getNombre())){
                         circuitos.remove(circuitos.get(i));
                     }    
                     }
@@ -663,7 +663,7 @@ public class Mundial {
 
     public void modificarCir(String archivo, String nombreCircuito){ // case para modifiicar
         if (archivo.charAt(0)=='/') {           archivo=new File("").getAbsolutePath()+archivo;       }
-        ArrayList <Circuito> circuitos= new ArrayList<Circuito>();
+        ArrayList <Circuito> circuitos= new ArrayList<>();
         File comprobarFichero = new File(archivo);
 
         
@@ -699,7 +699,7 @@ public class Mundial {
                 int valor;
 
                 for (int i=0; i<circuitos.size(); i++){
-                    if (nombreCircuito==circuitos.get(i).getNombre()){
+                    if (nombreCircuito.equals(circuitos.get(i).getNombre())){
                         switch (respuesta){ 
                             case 1: System.out.print("Cómo quieres que se llame el circuito?");
                                     nuevovalor= escaner.next();
@@ -750,9 +750,8 @@ public class Mundial {
    }
    public void comenzarMundial(){   
        boolean comienzo=false;
-       Scanner escaner= new Scanner (System.in);
-       ArrayList <Circuito> integrantes= new ArrayList <Circuito>();
-       ArrayList <Escuderia> participantes= new ArrayList <Escuderia>();
+       ArrayList <Circuito> integrantes= new ArrayList <>();
+       ArrayList <Escuderia> participantes= new ArrayList <>();
        System.out.println("Solo podrán correr en el circuito los pilotos oficiales que posean escuderia. Dichos pilotos son:");
        for (int i=0; i< participantes.size();i++){
            if (participantes.get(i).getPilotoOficial()!=null){
@@ -805,6 +804,7 @@ public class Mundial {
        ArrayList <Piloto> pilotos= new ArrayList();
        ArrayList <Escuderia> escuderias= new ArrayList();
        for (int i=0; i<carrera.size(); i++){
+            comenzarMundial();
             carrera.get(i).tiempos(); //En mi opinion en la clase circuito, metodo tiempos, deberia haber un system.print que diga que piloto es el ganador.
             carrera.get(i).puntos(); // Lo mismo que arriba
             carrera.get(i).pagar();
