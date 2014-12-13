@@ -115,7 +115,7 @@ public class Escuderia implements Serializable{
                 if (pilotos.get(i).getNombre().equals(nombrePiloto) && pilotos.get(i).getApellido().equals(apellidoPiloto)) {
                     System.out.print("Seleccione una opcion, el piloto "+nombrePiloto+" "+apellidoPiloto+" sera:");
                     seleccion= escaner.nextInt();
-                    while(seleccion!=1){
+                    while(seleccion!=1 | seleccion!=2){
                         System.out.println(" probador(1), oficial(2)");
                         seleccion = escaner.nextInt();
                         System.out.println("");
