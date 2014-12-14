@@ -845,11 +845,8 @@ public class Mundial {
             }
    comenzar2=true;
    }
-   public void darSalida(){
-       ArrayList <Circuito> carrera= new ArrayList();
-       ArrayList <Piloto> pilotos= new ArrayList();
-       ArrayList <Escuderia> escuderias= new ArrayList();
-       
+   public void darSalida(ArrayList<Circuito> carrera, ArrayList<Piloto> pilotos, ArrayList<Escuderia> escuderias){
+
             comenzarMundial();
             if (comenzar2=true){
             for (int i=0; i<carrera.size(); i++){
@@ -866,6 +863,7 @@ public class Mundial {
             }
             }
    }
+
     }
        
 
