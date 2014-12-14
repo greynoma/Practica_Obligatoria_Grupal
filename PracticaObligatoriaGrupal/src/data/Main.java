@@ -587,7 +587,7 @@ Scanner mundial= new Scanner(System.in);
                 case 3: if (circuitos.size()==5 && escuderias.size()>0){
                             System.out.println("El mundial va a comenzar:");
                             this.actualizarDatos();
-                            f1.darSalida();
+                            f1.darSalida(this.circuitos,this.pilotos,this.escuderias);
                         }
                         else{
                             System.out.println("Primero debe de insertar datos, y despues realizar las operaciones internas( Iniciar entrenamiento no tiene que ejecutarse obligatoriamente )");

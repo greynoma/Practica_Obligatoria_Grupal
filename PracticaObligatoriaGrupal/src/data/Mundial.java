@@ -751,53 +751,10 @@ public class Mundial {
             System.out.println("Archivo con nombre ("+comprobarFichero.getPath()+") no encontrado");
         }
    }
-   public void comenzarMundial(){   
+   public void comenzarMundial(ArrayList<Circuito> integrantes, ArrayList<Escuderia> participantes){   
        boolean comenzar=false;  
        boolean comprobacion=false;
-       ArrayList <Circuito> integrantes= new ArrayList <>();
-       ArrayList <Escuderia> participantes= new ArrayList <>();
-       
-       try{
-                FileInputStream fileIn = new FileInputStream(new File("").getAbsolutePath()+"/datosCircuito.dat");
-                ObjectInputStream in = new ObjectInputStream(fileIn);
-                
-                //2º Obtener el arrayList
-                integrantes = (ArrayList<Circuito>) in.readObject();
 
-                //por alguna extraña razon no me deja cerrar los Stream en el finally
-                in.close();
-                fileIn.close();
-            }
-            catch(IOException i){
-
-            }
-            catch(ClassNotFoundException c){
-                System.out.println("No se ha encontrado lo que buscaba");
-                c.printStackTrace();
-            }
-            finally{//aqui deberia cerrar los Stream pero no me deja
-            }
-        
-            try{
-                FileInputStream fileIn = new FileInputStream(new File("").getAbsolutePath()+"/datosEscuderia.dat");
-                ObjectInputStream in = new ObjectInputStream(fileIn);
-                
-                //2º Obtener el arrayList
-                participantes = (ArrayList<Escuderia>) in.readObject();
-
-                //por alguna extraña razon no me deja cerrar los Stream en el finally
-                in.close();
-                fileIn.close();
-            }
-            catch(IOException i){
-
-            }
-            catch(ClassNotFoundException c){
-                System.out.println("No se ha encontrado lo que buscaba");
-                c.printStackTrace();
-            }
-            finally{//aqui deberia cerrar los Stream pero no me deja
-            }
        
             System.out.println("Solo podrán correr en el circuito los pilotos oficiales que posean escuderia. Dichos pilotos son:");
             for (int i=0; i< participantes.size();i++){
@@ -847,7 +804,7 @@ public class Mundial {
    }
    public void darSalida(ArrayList<Circuito> carrera, ArrayList<Piloto> pilotos, ArrayList<Escuderia> escuderias){
 
-            comenzarMundial();
+            comenzarMundial(carrera,escuderias);
             if (comenzar2=true){
             for (int i=0; i<carrera.size(); i++){
                 if (carrera.get(i)!=null){
@@ -863,7 +820,6 @@ public class Mundial {
             }
             }
    }
-
     }
        
 
