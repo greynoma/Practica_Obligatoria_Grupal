@@ -22,7 +22,6 @@ import java.util.logging.Logger;
 public class Mundial {
    private ArrayList<Piloto> npilotos =new ArrayList <> (); 
    private ArrayList<Escuderia> nescuderias =new ArrayList <> ();
-   private boolean comienzo;
    private DatosCircuito[] dcir= new DatosCircuito[5];
    private ArrayList<DatosCircuito> datcir =new ArrayList <> ();
    private Scanner escaner= new Scanner (System.in);
@@ -640,7 +639,7 @@ public class Mundial {
                         circuitos.remove(circuitos.get(i));
                     }    
                     }
-
+                
                 try{
                         FileOutputStream fileOut = new FileOutputStream(archivo);
                         ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -653,6 +652,9 @@ public class Mundial {
                         System.out.println("Se ha detectado un error: ");
                         i.printStackTrace();
                     }
+            }
+            else{
+                System.out.println("No puede dar de baja ningun circuito porque el Mundial requiere de 5 carreras.");
             }
         }
         else{
@@ -749,7 +751,8 @@ public class Mundial {
         }
    }
    public void comenzarMundial(){   
-       boolean comienzo,comprobacion=false;
+       boolean comenzar=false;  
+       boolean comprobacion=false;
        ArrayList <Circuito> integrantes= new ArrayList <>();
        ArrayList <Escuderia> participantes= new ArrayList <>();
        
@@ -801,7 +804,7 @@ public class Mundial {
                     Piloto[] pilotos = participantes.get(i).getPilotoOficial();
                     for (int j = 0; j < pilotos.length; j++) {
                         if (pilotos[j]!=null){
-                         System.out.println("Piloto ["+i+"]: "+pilotos[j].getNombre());
+                         System.out.println("Piloto ["+j+1+"]: "+pilotos[j].getNombre());
                          comprobacion=true;
                         }
                     }   
@@ -810,15 +813,15 @@ public class Mundial {
             if (!comprobacion){
                         System.out.println("No hay pilotos oficiales en la escuderias");
             }
-            while (comienzo=false){
-                System.out.print("Introduzca el piloto que desea que corra el circuito:");
-                String nombrePil= escaner.next();    System.out.println("");
+            while (comenzar==false){
+                System.out.print("Introduzca el nombre del piloto que desea que corra el circuito:");  String nombrePil= escaner.next();    System.out.println("");
+                System.out.print("Introduzca el apellido del piloto que desea que corra el circuito:");  String apellidoPil= escaner.next();    System.out.println("");
                 for (int i=0; i< participantes.size();i++){
                     if (participantes.get(i).getPilotoOficial()!=null){
                         Piloto[] pilotos = participantes.get(i).getPilotoOficial();
                          for (int j = 0; j < pilotos.length; j++) {
-                           if (pilotos[j].getNombre()!=null){
-                                if (nombrePil.equals(pilotos[j].getNombre()) && pilotos[j].getCoche()!=null){
+                           if (pilotos[j]!=null){
+                                if (nombrePil.equals(pilotos[j].getNombre()) && apellidoPil.equals(pilotos[j].getApellido()) && pilotos[j].getCoche()!=null){
                                     integrantes.get(i).setParticipante(pilotos);
                                 }
                            }
@@ -826,15 +829,16 @@ public class Mundial {
                                System.out.println("El piloto que ha introducido no es piloto Oficial");
                            }   
                          }
-                    System.out.println("Desea que corran mas pilotos? S/N");
-                    String respuesta= escaner.next();    System.out.println("");
-                    if (respuesta.equals("S") | respuesta.equals("s")){
-                        comienzo=false;
+                    
                     }
-                    else{
-                        comienzo=true;
-                    }
-                    }
+                }
+                System.out.println("Desea que corran mas pilotos? S/N");
+                String respuesta= escaner.next();    System.out.println("");
+                if (respuesta.equals("S") | respuesta.equals("s")){
+                    comenzar=false;
+                }
+                else{
+                    comenzar=true;
                 }
             }
    }
@@ -843,80 +847,18 @@ public class Mundial {
        ArrayList <Piloto> pilotos= new ArrayList();
        ArrayList <Escuderia> escuderias= new ArrayList();
        
-       try{
-                FileInputStream fileIn = new FileInputStream(new File("").getAbsolutePath()+"/datosPiloto.dat");
-                ObjectInputStream in = new ObjectInputStream(fileIn);
-                
-                //2º Obtener el arrayList
-                pilotos = (ArrayList<Piloto>) in.readObject();
-
-                //por alguna extraña razon no me deja cerrar los Stream en el finally
-                in.close();
-                fileIn.close();
-            }
-            catch(IOException i){
-
-            }
-            catch(ClassNotFoundException c){
-                System.out.println("No se ha encontrado lo que buscaba");
-                c.printStackTrace();
-            }
-            finally{//aqui deberia cerrar los Stream pero no me deja
-            }
-        
-        try{
-                FileInputStream fileIn = new FileInputStream(new File("").getAbsolutePath()+"/datosCircuito.dat");
-                ObjectInputStream in = new ObjectInputStream(fileIn);
-                
-                //2º Obtener el arrayList
-                carrera = (ArrayList<Circuito>) in.readObject();
-
-                //por alguna extraña razon no me deja cerrar los Stream en el finally
-                in.close();
-                fileIn.close();
-            }
-            catch(IOException i){
-
-            }
-            catch(ClassNotFoundException c){
-                System.out.println("No se ha encontrado lo que buscaba");
-                c.printStackTrace();
-            }
-            finally{//aqui deberia cerrar los Stream pero no me deja
-            }
-        
-            try{
-                FileInputStream fileIn = new FileInputStream(new File("").getAbsolutePath()+"/datosEscuderia.dat");
-                ObjectInputStream in = new ObjectInputStream(fileIn);
-                
-                //2º Obtener el arrayList
-                escuderias = (ArrayList<Escuderia>) in.readObject();
-
-                //por alguna extraña razon no me deja cerrar los Stream en el finally
-                in.close();
-                fileIn.close();
-            }
-            catch(IOException i){
-
-            }
-            catch(ClassNotFoundException c){
-                System.out.println("No se ha encontrado lo que buscaba");
-                c.printStackTrace();
-            }
-            finally{//aqui deberia cerrar los Stream pero no me deja
-            }
             comenzarMundial();
-            if (carrera!=null){
-                for (int i=0; i<carrera.size(); i++){
+            for (int i=0; i<carrera.size(); i++){
+                if (carrera.get(i)!=null){
                     carrera.get(i).tiempos(); //En mi opinion en la clase circuito, metodo tiempos, deberia haber un system.print que diga que piloto es el ganador.
                     carrera.get(i).puntos(); // Lo mismo que arriba
                     carrera.get(i).pagar();
-               }
-            }
-            if (escuderias!=null){
-                for (int i = 0; i < escuderias.size(); i++) {
-                   escuderias.get(i).reset();
                 }
+            }
+            for (int i = 0; i < escuderias.size(); i++) {
+                if (escuderias.get(i)!=null){
+                       escuderias.get(i).reset();
+                    }
             }
    }
     }

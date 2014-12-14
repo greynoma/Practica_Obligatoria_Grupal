@@ -144,44 +144,9 @@ Scanner mundial= new Scanner(System.in);
                                     directivos.add(nomdirectivos);
                                 }
                                 f1.darAlta("/datosEscuderia.dat", new Escuderia(dueno,nombre,pais,fundacion,pmun,presupuesto,directivos));
-                                }
-                                System.out.print("Desea fichar algun piloto para la escuderia "+ (i+1)+": S/N"); respuesta=mundial.next();    System.out.println("");
-                                while (respuesta.equals("S") | respuesta.equals("s")){
-                                    System.out.print("Introduzca el nombre del piloto que quiere fichar la escuderia: "); nombre=mundial.next();  System.out.println("");
-                                    System.out.print("Introduzca el apellido del piloto que quiere fichar la escuderia: "); apellido=mundial.next();   System.out.println("");
-                                    for (int j = 0; j < pilotos.size(); j++) {
-                                        if (nombre.equals(pilotos.get(j).getNombre()) && apellido.equals(pilotos.get(j).getApellido())){
-                                            if (pilotos.get(j).getEscuderia()!=null){
-                                                pilotos.get(j).getEscuderia().descartarPiloto("/datosEscuderia.dat");
-                                                System.out.print("Introduca el nombre de la nueva escuderia del piloto: ");   nombreescuderia=mundial.next(); System.out.println("");
-                                                for (int l = 0; l < escuderias.size(); l++) {
-                                                    if (nombreescuderia.equals(escuderias.get(l).getNombre())){
-                                                        escuderias.get(l).ficharPiloto("/datosPiloto", nombre, apellido);
-                                                    }
-                                                    else{
-                                                        System.out.println("Esa escuderia no exite.");
-                                                    }
-                                                }
-                                                comprobacion4=true;
-                                            }
-                                            else{
-                                                System.out.print("Introduca el nombre de la nueva escuderia del piloto: ");   nombreescuderia=mundial.next(); System.out.println("");
-                                                for (int l = 0; l < escuderias.size(); l++) {
-                                                    if (nombreescuderia.equals(escuderias.get(l).getNombre())){
-                                                        escuderias.get(l).ficharPiloto("/datosPiloto", nombre, apellido);
-                                                        comprobacion4=true;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        
-                                    }
-                                    if (!comprobacion4){
-                                        System.out.println("No existe ese piloto");
-                                    }
-                                    System.out.print("Desea fichar mas pilotos? S/N ");   respuesta=mundial.next();   System.out.println("");
-                                }
                                 this.actualizarDatos();
+                                }
+                                
                             }
                         }
                         else{
@@ -219,6 +184,7 @@ Scanner mundial= new Scanner(System.in);
                                 System.out.print("Escoja la valentia del piloto sin escuderia "+(i+1)+" (Recuerde: Los valores van de 1 a 5)");   valentia=mundial.nextDouble();      System.out.println("");
                                 
                                 f1.darAlta("/datosPiloto.dat", new Piloto(nombre,apellido,edad,altura,peso,reflejos,agresividad,paciencia,valentia));
+                                this.actualizarDatos();
                                 }
                             }
                             for ( int i=0; i<numpilce; i++){
@@ -239,40 +205,30 @@ Scanner mundial= new Scanner(System.in);
                                 System.out.print("Escoja la paciencia del piloto "+(i+1)+" (Recuerde: Los valores van de 1 a 5)");  paciencia=mundial.nextDouble();     System.out.println("");
                                 System.out.print("Escoja la valentia del piloto "+(i+1)+" (Recuerde: Los valores van de 1 a 5)");   valentia=mundial.nextDouble();      System.out.println("");
                                 f1.darAlta("/datosPiloto.dat", new Piloto(nombre,apellido,edad,altura,peso,reflejos,agresividad,paciencia,valentia));
+                                this.actualizarDatos();
                                 }
-                                System.out.print("Escoja el nombre de la escuderia a la que pertenece el piloto con escuderia "+ (i+1)+": ");     nombreescuderia=mundial.next();   System.out.println("");
+                                System.out.print("Escoja el nombre de la escuderia a la que va a pertenecer el piloto con escuderia "+ (i+1)+": ");     nombreescuderia=mundial.next();   System.out.println("");
                                 for (int u=0; u< escuderias.size(); u++){
                                     if (nombreescuderia.equals(escuderias.get(u).getNombre())){
                                         for (int j=0; j< pilotos.size();j++){
                                             if (nombre.equals(pilotos.get(j).getNombre()) && apellido.equals(pilotos.get(j).getApellido())){
                                                 if (pilotos.get(j).getEscuderia()!=null){
                                                     pilotos.get(j).getEscuderia().descartarPiloto("/datosEscuderia.dat");
-                                                    System.out.print("Introduca el nombre de la nueva escuderia del piloto: ");   nombreescuderia=mundial.next(); System.out.println("");
-                                                    for (int l = 0; l < escuderias.size(); l++) {
-                                                        if (nombreescuderia.equals(escuderias.get(l).getNombre())){
-                                                            escuderias.get(l).ficharPiloto("/datosPiloto", nombre, apellido);
-                                                        }
-                                                        else{
-                                                            System.out.println("Esa escuderia no exite.");
-                                                        }
-                                                    }
+                                                    escuderias.get(u).ficharPiloto("/datosPiloto.dat", nombre, apellido);
+                                                    this.actualizarDatos();
                                                     comprobacion4=true;
                                                 }
                                                 else{
-                                                    System.out.print("Introduca el nombre de la nueva escuderia del piloto: ");   nombreescuderia=mundial.next(); System.out.println("");
-                                                    for (int l = 0; l < escuderias.size(); l++) {
-                                                        if (nombreescuderia.equals(escuderias.get(l).getNombre())){
-                                                            escuderias.get(l).ficharPiloto("/datosPiloto", nombre, apellido);
-                                                            comprobacion4=true;
-                                                        }
-                                                    }
+                                                    escuderias.get(u).ficharPiloto("/datosPiloto.dat", nombre, apellido);
+                                                    this.actualizarDatos();
+                                                    comprobacion4=true; 
                                                 }
                                             }
                                         
                                         }
                                     comprobacion2=true;
                                     }
-
+                                    
                                 }
                                 if (!comprobacion2){
                                     System.out.println("No existe esa escuderia.");
@@ -293,20 +249,22 @@ Scanner mundial= new Scanner(System.in);
                                     }
                                     Escuderia aux= new Escuderia(dueno,nombreescuderia,pais,fundacion,pmun,presupuesto,directivos);
                                     f1.darAlta("/datosEscuderia.dat", aux);
+                                    this.actualizarDatos();
                                     
                                     for (int j=0; j< pilotos.size();j++){
                                             if (nombre.equals(pilotos.get(j).getNombre()) && apellido.equals(pilotos.get(j).getApellido())){
                                                 if (pilotos.get(j).getEscuderia()!=null){
                                                     pilotos.get(j).getEscuderia().descartarPiloto("/datosEscuderia.dat");
-                                                    aux.ficharPiloto("/datosPiloto", nombre, apellido);
+                                                    aux.ficharPiloto("/datosPiloto.dat", nombre, apellido);
+                                                    this.actualizarDatos();
                                                 }
                                                 else{
-                                                    aux.ficharPiloto("/datosPiloto", nombre, apellido);
+                                                    aux.ficharPiloto("/datosPiloto.dat", nombre, apellido);
+                                                    this.actualizarDatos();
                                                 }
                                             }
                                         
                                         }
-                                    this.actualizarDatos();
                                 }
 
                                 }
@@ -410,18 +368,19 @@ Scanner mundial= new Scanner(System.in);
                                                             System.out.print("Escoja la agresividad del piloto  (Recuerde: Los valores van de 1 a 5) ");    agresividad=mundial.nextDouble();   System.out.println("");
                                                             System.out.print("Escoja la paciencia del piloto  (Recuerde: Los valores van de 1 a 5) ");  paciencia=mundial.nextDouble();     System.out.println("");
                                                             System.out.print("Escoja la valentia del piloto  (Recuerde: Los valores van de 1 a 5) ");   valentia=mundial.nextDouble();      System.out.println("");
+                                                            f1.darAlta("/datosPiloto.dat", new Piloto(nombre,apellido,edad,altura,peso,reflejos,agresividad,paciencia,valentia));
                                                             }
                                                             System.out.println("Desea asignar una escuderia al piloto?: S/N "); respuesta=mundial.next();   System.out.println("");
                                                             while (respuesta.equals("S") || respuesta.equals("s")){}
                                                                 System.out.print("Escoja el nombre de la escuderia a la que va a pertenecer el piloto: ");     nombreescuderia=mundial.next();   System.out.println("");
                                                                 for (int i = 0; i < escuderias.size(); i++) {
                                                                     if( nombreescuderia.equals(escuderias.get(i).getNombre())){
-                                                                        System.out.println("Ya existe otra escuderia con ese nombre. No se dará de alta.");
+                                                                        System.out.println("Ya existe otra escuderia con ese nombre. No se dará de alta, pero se podrá asignar pilotos.");
                                                                         comprobacion2=true;
                                                                     }
                                                                 }
                                                                 if (!comprobacion2){
-                                                                System.out.print("Escoja el dueno de la escuderia a la que pertenece el piloto: ");     dueno=mundial.next();    System.out.println("");
+                                                                System.out.print("Escoja el dueño de la escuderia a la que pertenece el piloto: ");     dueno=mundial.next();    System.out.println("");
                                                                 System.out.print("Escoja la nacionalidad de la escuderia a la que pertenece el piloto: ");     pais=mundial.next();   System.out.println("");
                                                                 System.out.print("Escoja la fecha de fundacion de la escuderia a la que pertenece el piloto: ");     fundacion=mundial.nextInt();   System.out.println("");
                                                                 System.out.print("Escoja la cantidad de puntos del mundial que posee la escuderia del piloto: ");     pmun=mundial.nextInt();     System.out.println("");
@@ -443,25 +402,14 @@ Scanner mundial= new Scanner(System.in);
                                                                             if (nombre.equals(pilotos.get(j).getNombre()) && apellido.equals(pilotos.get(j).getApellido())){
                                                                                 if (pilotos.get(j).getEscuderia()!=null){
                                                                                     pilotos.get(j).getEscuderia().descartarPiloto("/datosEscuderia.dat");
-                                                                                    System.out.print("Introduca el nombre de la nueva escuderia del piloto: ");   nombreescuderia=mundial.next(); System.out.println("");
-                                                                                    for (int l = 0; l < escuderias.size(); l++) {
-                                                                                        if (nombreescuderia.equals(escuderias.get(l).getNombre())){
-                                                                                            escuderias.get(l).ficharPiloto("/datosPiloto", nombre, apellido);
-                                                                                        }
-                                                                                        else{
-                                                                                            System.out.println("Esa escuderia no exite.");
-                                                                                        }
-                                                                                    }
+                                                                                    escuderias.get(i).ficharPiloto("/datosPiloto", nombre, apellido);
+                                                                                    this.actualizarDatos();
                                                                                     comprobacion4=true;
                                                                                 }
                                                                                 else{
-                                                                                    System.out.print("Introduca el nombre de la nueva escuderia del piloto: ");   nombreescuderia=mundial.next(); System.out.println("");
-                                                                                    for (int l = 0; l < escuderias.size(); l++) {
-                                                                                        if (nombreescuderia.equals(escuderias.get(l).getNombre())){
-                                                                                            escuderias.get(l).ficharPiloto("/datosPiloto", nombre, apellido);
-                                                                                            comprobacion4=true;
-                                                                                        }
-                                                                                    }
+                                                                                    escuderias.get(i).ficharPiloto("/datosPiloto", nombre, apellido);
+                                                                                    this.actualizarDatos();
+                                                                                    comprobacion4=true;   
                                                                                 }
                                                                             }
                                                                             
@@ -471,12 +419,6 @@ Scanner mundial= new Scanner(System.in);
                                                                 }
                                                                 if (!comprobacion3){
                                                                     System.out.println("No existe esa escuderia.");
-                                                                }
-                                                                if (!comprobacion4){
-                                                                    Escuderia aux= new Escuderia(dueno,nombreescuderia,pais,fundacion,pmun,presupuesto,directivos);
-                                                                    f1.darAlta("/datosEscuderia.dat", aux);
-                                                                    aux.ficharPiloto("/datosPiloto.dat", nombre, apellido);
-                                                                    this.actualizarDatos();
                                                                 }
                                                             }
                                                         opcionMun=4;    
@@ -539,7 +481,7 @@ Scanner mundial= new Scanner(System.in);
                             
                             break;    
 
-                case 2:     if (escuderias.size()>0){
+                case 2:     if (escuderias.size()>0 && pilotos.size()>0 && circuitos.size()>0){
                             System.out.println("Ahora deberá crear coches para las escuderias que desee y asignar vehículos.");
                             System.out.println("Introduzca el nombre de la escuderia en la que desee crear el coche: ");    nombre=mundial.next();  System.out.println("");
                             for (int i=0; i< escuderias.size(); i++){
@@ -558,7 +500,7 @@ Scanner mundial= new Scanner(System.in);
                                     System.out.println("Esa escuderia no existe.");
                             }
                             
-
+                            this.actualizarDatos();
                             System.out.print("Tambien le damos la opcion de inciar un entrenamiento. Para ello debe de coger un piloto, un coche y un circuito.Desea iniciar el entrenamiento?: ");   respuesta=mundial.next();   System.out.println("");
                             while (respuesta.equals("s") | respuesta.equals("S")){
                                 System.out.print("Que piloto va iniciar el entrenamiento?: ");
@@ -573,22 +515,32 @@ Scanner mundial= new Scanner(System.in);
                                                 for (int k = 0; k < circuitos.size(); k++) {
                                                     if (nombrecircuito.equals(circuitos.get(k).getNombre())){
                                                         escuderias.get(j).iniciarEntrenamiento(pilotos.get(i), coches.get(j), circuitos.get(k));
+                                                        System.out.println("El piloto "+pilotos.get(i).getNombre()+" "+pilotos.get(i).getApellido()+" ha realizado el entrenamiento");
+                                                        comprobacion3=true;
                                                     }
                                                     else{
                                                         System.out.println("No existe ese circuito.");
                                                     }
                                                 }
+                                                comprobacion2=true;
                                             }
                                             else{
                                                 System.out.println("No existe ese coche.");
                                             }
 
                                         }
+                                        comprobacion=true;
                                     }
-                                    else {
-                                        System.out.println("No existe ese piloto.");
-                                    }
-                                }  
+                                }
+                                if(!comprobacion){
+                                    System.out.println("No existe ese piloto.");
+                                }
+                                if(!comprobacion2){
+                                    System.out.println("No existe ese coche.");
+                                }
+                                if(!comprobacion3){
+                                    System.out.println("No existe ese circuito.");
+                                }
                                 System.out.print("Desea que entrene otro piloto? S/N "); respuesta=mundial.next();   System.out.println(""); 
                             }
                 }
@@ -598,6 +550,7 @@ Scanner mundial= new Scanner(System.in);
                         break;
                 case 3: if (circuitos.size()==5 && escuderias.size()>0){
                             System.out.println("El mundial va a comenzar:");
+                            this.actualizarDatos();
                             f1.darSalida();
                         }
                         else{

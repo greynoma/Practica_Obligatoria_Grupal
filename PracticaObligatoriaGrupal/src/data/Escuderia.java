@@ -112,11 +112,10 @@ public class Escuderia implements Serializable{
             //3º Buscar al piloto y comprueba si se quiere guardar como probador u oficial,
             
             for (int i = 0; i < pilotos.size(); i++) {
-                if (pilotos.get(i).getNombre().equals(nombrePiloto) && pilotos.get(i).getApellido().equals(apellidoPiloto)) {
-                    System.out.print("Seleccione una opcion, el piloto "+nombrePiloto+" "+apellidoPiloto+" sera:");
-                    seleccion= escaner.nextInt();
-                    while(seleccion!=1 | seleccion!=2){
-                        System.out.println(" probador(1), oficial(2)");
+                if (nombrePiloto.equals(pilotos.get(i).getNombre()) & apellidoPiloto.equals(pilotos.get(i).getApellido())) {
+                    System.out.print("Seleccione una opcion, el piloto "+nombrePiloto+" "+apellidoPiloto+" sera: 1.-Probador / 2.-Oficial ");   seleccion= escaner.nextInt();   System.out.println("");
+                    while (seleccion<1 | seleccion>2){
+                        System.out.println("probador(1), oficial(2)");
                         seleccion = escaner.nextInt();
                         System.out.println("");
                     }
@@ -130,7 +129,7 @@ public class Escuderia implements Serializable{
                                 this.pilotoOficial[x].setTipo(true);//le haces piloto oficial
                                 if (this.realizarPago(this.pilotoOficial[x].calcularsueldo())) {//compruebo que puedo pagarle
                                     this.pilotoOficial[x].setEscuderia(this);//le ligas a esta escuderia
-                                    System.out.println("Hay actualmente "+(x+1)+" piloto/s oficial/es en la escuderia");
+                                    System.out.println("Hay actualmente "+(x+1)+" piloto/s oficial/es en la escuderia y se llama "+this.pilotoOficial[x].getNombre()+" "+this.pilotoOficial[x].getApellido());
                                     insertado=true;
 
                                     //4º Eliminar piloto del ArrayList
@@ -153,7 +152,7 @@ public class Escuderia implements Serializable{
                                 this.pilotoProbador[x].setTipo(false);//le haces piloto probador
                                 if (this.realizarPago(this.pilotoProbador[x].calcularsueldo())) {//compruebo que puedo pagarle y le pago
                                     this.pilotoProbador[x].setEscuderia(this);//le ligas a esta escuderia
-                                    System.out.println("Hay actualmente "+(x+1)+" piloto/s probador/es en la escuderia");
+                                    System.out.println("Hay actualmente "+(x+1)+" piloto/s probador/es en la escuderia y se llama "+this.pilotoProbador[x].getNombre()+" "+this.pilotoProbador[x].getApellido());
                                     insertado=true;
 
                                     //4º Eliminar piloto del ArrayList
@@ -183,7 +182,7 @@ public class Escuderia implements Serializable{
                 out.writeObject(pilotos);
                 out.close();
                 fileOut.close();
-                System.out.printf("El array de pilotos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
+                System.out.println("El array de pilotos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
             }
             catch(IOException i){
                 System.out.println("Se ha detectado un error: ");
@@ -337,7 +336,7 @@ public class Escuderia implements Serializable{
                     out.writeObject(pilotos);
                     out.close();
                     fileOut.close();
-                    System.out.printf("El array de pilotos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
+                    System.out.println("El array de pilotos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
                 }
                 catch(IOException i){
                     System.out.println("Se ha detectado un error: ");
@@ -409,7 +408,7 @@ public class Escuderia implements Serializable{
                     out.writeObject(pilotos);
                     out.close();
                     fileOut.close();
-                    System.out.printf("El array de pilotos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
+                    System.out.println("El array de pilotos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
                 }
                 catch(IOException i){
                     System.out.println("Se ha detectado un error: ");
