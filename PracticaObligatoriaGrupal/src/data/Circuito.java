@@ -221,8 +221,9 @@ public class Circuito implements Serializable {
     
     public void setParticipante(Piloto[] participante) {
         for (int i = 0; i < participante.length; i++) {
-         this.participante.add(participante[i]);  
-        }
+         if(participante[i]!=null){
+            this.participante.add(participante[i]);  
+        }}
     }
 
     

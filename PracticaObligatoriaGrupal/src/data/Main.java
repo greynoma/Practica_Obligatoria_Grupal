@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Phoenix
+ * @author Sergio Lázaro Matesanz
  */
 public class Main {
 Scanner mundial= new Scanner(System.in);
@@ -509,15 +509,17 @@ Scanner mundial= new Scanner(System.in);
                                 System.out.print("Que coche se va a utilizar?: ");  nombrecoche=mundial.next(); System.out.println("");
                                 System.out.println("En que circuito se va a realizar el entrenamiento?: "); nombrecircuito=mundial.next();
                                 for (int i=0; i< escuderias.size(); i++){
+                                    for (int l=0; l< escuderias.get(i).getPilotoOficial().length; l++){
                                     Piloto[] pilotoOficial= escuderias.get(i).getPilotoOficial();
                                     Piloto[] pilotoProbador= escuderias.get(i).getPilotoProbador();
-                                    if ((nombre.equals(pilotoOficial[i].getNombre()) && apellido.equals(pilotoOficial[i].getApellido())) || (nombre.equals(pilotoProbador[i].getNombre()) && apellido.equals(pilotoProbador[i].getApellido()))){
+                                    if (pilotoOficial[l]!=null && pilotoProbador[l]!=null){
+                                    if ((nombre.equals(pilotoOficial[l].getNombre()) && apellido.equals(pilotoOficial[l].getApellido())) || (nombre.equals(pilotoProbador[l].getNombre()) && apellido.equals(pilotoProbador[l].getApellido()))){
                                         Coche[] coche= escuderias.get(i).getCoches();
                                         for (int j = 0; j < coche.length; j++) {
                                             if (nombrecoche.equals(coche[j].getModelo())){
                                                 for (int k = 0; k < circuitos.size(); k++) {
                                                     if (nombrecircuito.equals(circuitos.get(k).getNombre())){
-                                                        if (nombre.equals(pilotoOficial[i].getNombre()) && apellido.equals(pilotoOficial[i].getApellido())){
+                                                        if (nombre.equals(pilotoOficial[l].getNombre()) && apellido.equals(pilotoOficial[l].getApellido())){
                                                             escuderias.get(i).iniciarEntrenamiento(pilotoOficial[i], coche[j], circuitos.get(k));
                                                             System.out.println("El piloto ha realizado el entrenamiento satisfactoriamente.");
                                                             comprobacion4=true;
@@ -535,8 +537,9 @@ Scanner mundial= new Scanner(System.in);
                                         
                                         }
                                     comprobacion=true;
-                                    }
+                                    }}
                                 
+                                }
                                 }
                                 
                                 

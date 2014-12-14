@@ -17,7 +17,10 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+/**
+ *
+ * @author Sergio Lazaro Matesanz
+ */
 
 public class Mundial {
    private ArrayList<Piloto> npilotos =new ArrayList <> (); 
@@ -821,6 +824,7 @@ public class Mundial {
                            if (pilotos[j]!=null){
                                 if (nombrePil.equals(pilotos[j].getNombre()) && apellidoPil.equals(pilotos[j].getApellido()) && pilotos[j].getCoche()!=null){
                                     integrantes.get(i).setParticipante(pilotos);
+                                    
                                 }
                            }
                            else {
