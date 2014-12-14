@@ -25,7 +25,7 @@ public class Mundial {
    private DatosCircuito[] dcir= new DatosCircuito[5];
    private ArrayList<DatosCircuito> datcir =new ArrayList <> ();
    private Scanner escaner= new Scanner (System.in);
-   
+   private boolean comenzar2= false;
    
    
 
@@ -841,6 +841,7 @@ public class Mundial {
                     comenzar=true;
                 }
             }
+   comenzar2=true;
    }
    public void darSalida(){
        ArrayList <Circuito> carrera= new ArrayList();
@@ -848,6 +849,7 @@ public class Mundial {
        ArrayList <Escuderia> escuderias= new ArrayList();
        
             comenzarMundial();
+            if (comenzar2=true){
             for (int i=0; i<carrera.size(); i++){
                 if (carrera.get(i)!=null){
                     carrera.get(i).tiempos(); //En mi opinion en la clase circuito, metodo tiempos, deberia haber un system.print que diga que piloto es el ganador.
@@ -859,6 +861,7 @@ public class Mundial {
                 if (escuderias.get(i)!=null){
                        escuderias.get(i).reset();
                     }
+            }
             }
    }
     }
