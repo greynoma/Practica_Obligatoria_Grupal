@@ -175,7 +175,7 @@ public class Escuderia implements Serializable{
                 }
             }
                 
-            //5º Sobreescribir archivo guardando el nuevo ArrayList sin piloto
+            //5º Sobreescribir archivo guardando el nuevo ArrayList sin piloto y guardar la escuderia actualizada
             try{
                 FileOutputStream fileOut = new FileOutputStream(archivo);
                 ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -183,6 +183,8 @@ public class Escuderia implements Serializable{
                 out.close();
                 fileOut.close();
                 System.out.println("El array de pilotos ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
+                
+                this.guardarEscuderia();
             }
             catch(IOException i){
                 System.out.println("Se ha detectado un error: ");
@@ -201,6 +203,7 @@ public class Escuderia implements Serializable{
     private boolean realizarPago(double pago) {
         if (this.comprobarDinero(pago)) {
             this.presupuesto-=pago;
+            this.guardarEscuderia();
             return true;
         }
         else{
@@ -237,6 +240,7 @@ public class Escuderia implements Serializable{
                 System.out.println("Coche asignado con exito");
             }
         }
+        this.guardarEscuderia();
     }
     
     /**
@@ -252,6 +256,7 @@ public class Escuderia implements Serializable{
             piloto.mejorar();
             coche.mejorar();
         }
+        this.guardarEscuderia();
     }
     
     /**
@@ -419,7 +424,7 @@ public class Escuderia implements Serializable{
                 System.out.println("no se ha encontrado el archivo");
             }
         }
-
+        this.guardarEscuderia();
     }
     
     /**
@@ -451,6 +456,7 @@ public class Escuderia implements Serializable{
         if(!insertado){ //si despues de comprobar el array no se ha insertado, es que estaba lleno
             System.out.println("Se ha alcanzado el numero maximo de coches para esta escuderia: "+(this.coches.length+1)+", vehiculo no insertado");
         }
+        this.guardarEscuderia();
     }
     
     /**
@@ -470,6 +476,7 @@ public class Escuderia implements Serializable{
         if(!insertado){
             System.out.println("Se ha alcanzado el numero maximo de coches para esta escuderia: "+this.coches.length+", vehiculo no insertado");
         }
+        this.guardarEscuderia();
     }
     
     /**
@@ -482,6 +489,7 @@ public class Escuderia implements Serializable{
                 this.pilotoProbador[i].setPuntos(0);
             }
         }
+        this.guardarEscuderia();
     }
     /////////////SETERS Y GETERS/////////////////////////////////////////
     public String getDueño() {
@@ -562,5 +570,56 @@ public class Escuderia implements Serializable{
 
     public void setCoches(Coche[] coches) {
         this.coches = coches;
+    }
+
+    private void guardarEscuderia() {
+        String archivo = new File("").getAbsolutePath()+"/datosEscuderia.dat";
+        ArrayList<Escuderia> escuderias = new ArrayList();
+        File comprobarFichero = new File(archivo);
+        
+        //1º Acceder al archivo y crear flujo de lectura (comprobar que existe el archivo)
+        if (comprobarFichero.exists()) {
+            try{
+                FileInputStream fileIn = new FileInputStream(archivo);
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                
+                //2º Obtener el arrayList
+                escuderias = (ArrayList<Escuderia>) in.readObject();
+
+                //por alguna extraña razon no me deja cerrar los Stream en el finally
+                in.close();
+                fileIn.close();
+            }
+            catch(IOException i){
+                System.out.println("Se ha detectado un error: ");
+                i.printStackTrace();
+            }
+            catch(ClassNotFoundException c){
+                System.out.println("No se ha encontrado lo que buscaba");
+                c.printStackTrace();
+            }
+            finally{//aqui deberia cerrar los Stream pero no me deja
+            }
+            for (int i = 0; i < escuderias.size(); i++) {
+                if (this.nombre.equals(escuderias.get(i).getNombre())) {
+                    escuderias.remove(i);
+                    escuderias.add(this);
+                    System.out.println("escuderia actualizada");
+                }
+            }
+            
+            try{
+                FileOutputStream fileOut = new FileOutputStream(archivo);
+                ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                out.writeObject(escuderias);
+                out.close();
+                fileOut.close();
+                System.out.println("El array de escuderias ha sido guardado de nuevo en el archivo ("+comprobarFichero.getPath()+")");
+            }
+            catch(IOException i){
+                System.out.println("Se ha detectado un error: ");
+                i.printStackTrace();
+            }  
+        }
     }
 }
