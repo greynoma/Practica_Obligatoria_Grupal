@@ -508,7 +508,39 @@ Scanner mundial= new Scanner(System.in);
                                 System.out.println("Introduzca el apellido: "); apellido=mundial.next();   System.out.println("");
                                 System.out.print("Que coche se va a utilizar?: ");  nombrecoche=mundial.next(); System.out.println("");
                                 System.out.println("En que circuito se va a realizar el entrenamiento?: "); nombrecircuito=mundial.next();
-                                for (int i=0; i< pilotos.size(); i++){
+                                for (int i=0; i< escuderias.size(); i++){
+                                    Piloto[] pilotoOficial= escuderias.get(i).getPilotoOficial();
+                                    Piloto[] pilotoProbador= escuderias.get(i).getPilotoProbador();
+                                    if ((nombre.equals(pilotoOficial[i].getNombre()) && apellido.equals(pilotoOficial[i].getApellido())) || (nombre.equals(pilotoProbador[i].getNombre()) && apellido.equals(pilotoProbador[i].getApellido()))){
+                                        Coche[] coche= escuderias.get(i).getCoches();
+                                        for (int j = 0; j < coche.length; j++) {
+                                            if (nombrecoche.equals(coche[j].getModelo())){
+                                                for (int k = 0; k < circuitos.size(); k++) {
+                                                    if (nombrecircuito.equals(circuitos.get(k).getNombre())){
+                                                        if (nombre.equals(pilotoOficial[i].getNombre()) && apellido.equals(pilotoOficial[i].getApellido())){
+                                                            escuderias.get(i).iniciarEntrenamiento(pilotoOficial[i], coche[j], circuitos.get(k));
+                                                            System.out.println("El piloto ha realizado el entrenamiento satisfactoriamente.");
+                                                            comprobacion4=true;
+                                                        }
+                                                        else{
+                                                            escuderias.get(i).iniciarEntrenamiento(pilotoProbador[i], coche[j], circuitos.get(k));
+                                                            System.out.println("El piloto ha realizado el entrenamiento satisfactoriamente.");
+                                                            comprobacion4=true;
+                                                    }
+                                                    comprobacion3=true;
+                                                    }
+                                                }
+                                            comprobacion2=true;
+                                            }
+                                        
+                                        }
+                                    comprobacion=true;
+                                    }
+                                
+                                }
+                                
+                                
+                                /*for (int i=0; i< pilotos.size(); i++){
                                     if ( nombre.equals(pilotos.get(i).getNombre()) && apellido.equals(pilotos.get(i).getApellido())){
                                         for (int j = 0; j < coches.size(); j++) {
                                             if (nombrecoche.equals(coches.get(j).getModelo())){
@@ -532,6 +564,7 @@ Scanner mundial= new Scanner(System.in);
                                         comprobacion=true;
                                     }
                                 }
+                                */
                                 if(!comprobacion){
                                     System.out.println("No existe ese piloto.");
                                 }

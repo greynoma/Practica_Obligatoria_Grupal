@@ -218,23 +218,28 @@ public class Escuderia implements Serializable{
      */
     public void asignarVehiculos(){
         int seleccion=-1;
+        Scanner asignar= new Scanner (System.in);
 
         for (int i = 0; i < this.pilotoOficial.length; i++) {
             if (this.pilotoOficial[i]!=null) {
                 System.out.println("Que coche desea asignar al piloto: "+this.pilotoOficial[i].getNombre()+" "+this.pilotoOficial[i].getApellido()+"?");
                 while (seleccion<0 | seleccion>2) {
                     for (int j = 0; j < this.coches.length; j++) {
+                        if (this.coches!=null){
                         System.out.println((j+1)+" - "+this.coches[j].getModelo());
-                    }
+                    }}
                     System.out.println("0 - ninguno");
-                    seleccion=Integer.parseInt(new Scanner(System.in).toString());
+                    seleccion=asignar.nextInt();
                 }
                 switch (seleccion) {
                     case 0:  this.pilotoOficial[i].setCoche(null);
+                             seleccion=-1;
                              break;
                     case 1:  this.pilotoOficial[i].setCoche(this.coches[0]);
+                             seleccion=-1;
                              break;
                     case 2:  this.pilotoOficial[i].setCoche(this.coches[1]);
+                             seleccion=-1;
                              break;
                 }
                 System.out.println("Coche asignado con exito");

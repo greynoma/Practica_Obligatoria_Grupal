@@ -22,8 +22,6 @@ import java.util.logging.Logger;
 public class Mundial {
    private ArrayList<Piloto> npilotos =new ArrayList <> (); 
    private ArrayList<Escuderia> nescuderias =new ArrayList <> ();
-   private DatosCircuito[] dcir= new DatosCircuito[5];
-   private ArrayList<DatosCircuito> datcir =new ArrayList <> ();
    private Scanner escaner= new Scanner (System.in);
    private boolean comenzar2= false;
    
